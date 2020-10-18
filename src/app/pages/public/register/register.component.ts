@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { RegisterService } from 'src/app/shared/services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -11,38 +12,63 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  userForm = new FormGroup({
-    email: new FormControl('pabhoz@gmail.com', Validators.required),
-    username: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
-    lname: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    favNumber: new FormControl(''),
-  });
+    ngForm = new FormGroup({
+    email: new FormControl(),
+    username: new FormControl(),
+    password: new FormControl(),
+    name: new FormControl(),
+    lname: new FormControl(),    
+    });
+     
+    
 
-  constructor(private router:Router, private authService:AuthService) { }
+  constructor(private router:Router, private authService:AuthService, private registerService: RegisterService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.registerService.getRegister();
+    this.resetForm();
   }
 
-  doRegister(e) {
-    e.preventDefault();
+  createForm() {
+    this.ngForm = this.formBuilder.group({
+      email: '',
+      username: '',
+      name: '',
+      lname: '',
+      password: '',
+    });
+}
 
-    const user: UserI = {
-      email: "pabhoz@usbcali.edu.co",
-      username: "pabhoz",
-      favNumber: 4,
-      lname: "Bejarano",
-      password: "suanfanzon",
-      name: "Pablo",
-    };
-
-    console.log(this.userForm);
-
-    //this.authService.login(user);
-
-    //this.router.navigate(['/']);
+  onSubmit(){
+    console.log(this.ngForm.value);
+    this.registerService.insertRegister(this.ngForm.value);
+    
+    // this.resetForm(this.ngForm);
   }
+
+  resetForm(registerForm?: NgForm){
+    if (registerForm != null) {
+       registerForm.reset(); 
+    }
+  }
+
+  // doRegister(e) {
+  //   e.preventDefault();
+
+  //   const user: UserI = {
+  //     email: "pabhoz@usbcali.edu.co",
+  //     username: "pabhoz",
+  //     lname: "Bejarano",
+  //     password: "suanfanzon",
+  //     name: "Pablo",
+  //   };
+
+  //   console.log(this.userForm);
+
+  //   //this.authService.login(user);
+
+  //   //this.router.navigate(['/']);
+  // }
 
   goToLogin() {
     this.router.navigate(['/login']);

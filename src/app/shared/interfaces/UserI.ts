@@ -4,5 +4,4 @@ export interface UserI {
     name: string;
     lname: string;
     password?: string;
-    favNumber?: number;
 }
