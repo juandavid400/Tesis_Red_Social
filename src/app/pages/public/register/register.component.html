@@ -40,7 +40,7 @@
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" formControlName="telefono" type="text"
-                name="username"  placeholder="Telefono" required>
+                name="username"  placeholder="Phone Number" required>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -62,7 +62,16 @@
             
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="password"  placeholder="Password" required>
+                <input class="input" type="password" formControlName="password"  placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="password" formControlName="confirmPassword"  placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -77,6 +86,14 @@
                  <button type="submit"class="button is-info" (click)="onSubmit()">Register</button> 
                 <button class="button is-success" (click)="goToLogin()">Back to Login</button>
               </div>
+            </div>
+
+            <div id="message">
+              <h3>Password must contain the following:</h3>
+              <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+              <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+              <p id="number" class="invalid">A <b>number</b></p>
+              <p id="length" class="invalid">Minimum <b>8 characters</b></p>
             </div>
           </form>
 

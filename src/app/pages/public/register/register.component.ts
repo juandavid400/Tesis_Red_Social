@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
     lname: new FormControl(),
     telefono: new FormControl(),
     email: new FormControl(),    
-    password: new FormControl(),    
+    password: new FormControl(),
+    confirmPassword: new FormControl(),      
   });
 
   constructor(
@@ -38,10 +39,11 @@ export class RegisterComponent implements OnInit {
   createForm() {
     this.ngForm = this.formBuilder.group({
       email: "",
-      username: "",
+      telefono: "",
       name: "",
       lname: "",
       password: "",
+      confirmPassword: "",
     });
   }
 
@@ -50,15 +52,21 @@ export class RegisterComponent implements OnInit {
     this.registerService.insertRegister(this.ngForm.value);
     const Email = this.ngForm.controls.email.value;
     const Password = this.ngForm.controls.password.value;
+    const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
 
+    if (ConfirmPassword != Password) {
+        console.log("No son iguales manito")
+    } else {
+      this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      });
+      // this.resetForm(this.ngForm);
+    }    
     
-    this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
-    // this.resetForm(this.ngForm);
+    
   }
 
   resetForm(registerForm?: NgForm) {
