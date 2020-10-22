@@ -25,7 +25,7 @@ import { AuthService } from './shared/services/auth.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent,    
   ],
   imports: [
     BrowserModule,

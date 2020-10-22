@@ -11,6 +11,19 @@ $titleFont: sfProTextMedium;
     src: url(/assets/fonts/SFProTextMedium.ttf);
 }
 
+.material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+ }
+
+ .is-invalid {
+    border-left: solid 6px red;
+  }
+
+  .success {
+    border-left: solid 6px green !important;
+  }
+
 * {
     padding: 0;
     margin: 0;
@@ -19,7 +32,7 @@ $titleFont: sfProTextMedium;
 
 .appContainer {
     width: 100vw;
-    height: 100vh;
+    height: 120vh;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
@@ -53,7 +66,9 @@ $titleFont: sfProTextMedium;
         }
     }
     .box {
+        margin-top: 5%;
         width: 65%;
+        height: auto;
         position: absolute;
         padding: 70px;
         .media {

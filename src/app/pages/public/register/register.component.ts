@@ -5,6 +5,8 @@ import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { CustomValidators } from 'src/app/custom-validators';
+
 
 @Component({
   selector: "app-register",
@@ -13,6 +15,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class RegisterComponent implements OnInit {
 
+  
   ngForm = new FormGroup({
     name: new FormControl(),
     lname: new FormControl(),
@@ -29,13 +32,61 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private firebaseDB: AngularFireDatabase,
     private firebaseAuth: AngularFireAuth
-  ) {}
+  ) {
+
+    this.ngForm = this.createSignupForm();
+  }
+
+  createSignupForm(): FormGroup {
+    return this.formBuilder.group(
+      { 
+        telefono: "",
+        name: "",
+        lname: "",
+        email: [
+          null,
+          Validators.compose([Validators.email, Validators.required])
+        ],
+        password: [
+          null,
+          Validators.compose([
+            Validators.required,
+            // check whether the entered password has a number
+            // CustomValidators.patternValidator(/\d/, {
+            //   hasNumber: true
+            // }),
+            // // check whether the entered password has upper case letter
+            // CustomValidators.patternValidator(/[A-Z]/, {
+            //   hasCapitalCase: true
+            // }),
+            // // check whether the entered password has a lower case letter
+            // CustomValidators.patternValidator(/[a-z]/, {
+            //   hasSmallCase: true
+            // }),
+            // check whether the entered password has a special character
+            // CustomValidators.patternValidator(
+            //   /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            //   {
+            //     hasSpecialCharacters: true
+            //   }
+            // ),
+            Validators.minLength(6)
+          ])
+        ],
+        confirmPassword: [null, Validators.compose([Validators.required])]
+      },
+      {
+        // check whether our password and confirm password match
+        validator: CustomValidators.passwordMatchValidator
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.registerService.getRegister();
     this.resetForm();
   }
-
+  
   createForm() {
     this.ngForm = this.formBuilder.group({
       email: "",
@@ -55,7 +106,7 @@ export class RegisterComponent implements OnInit {
     const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
 
     if (ConfirmPassword != Password) {
-        console.log("No son iguales manito")
+       
     } else {
       this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
         // Handle Errors here.

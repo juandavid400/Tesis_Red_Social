@@ -29,7 +29,10 @@
             ],
             "styles": [
               "node_modules/bulma/css/bulma.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap-grid.scss",
+              "node_modules/bootstrap/scss/bootstrap-reboot.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss"
             ],
             "scripts": []
           },
