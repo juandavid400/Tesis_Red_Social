@@ -98,7 +98,7 @@
               Must contain at least 1 Letter in Small Case!
             </label> -->
 
-            <label for="confirmPassword" style="padding-top: 10px;" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirm Password</label>
+            <label for="confirmPassword" style="padding-top: 5px;" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirm Password</label>
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" type="password" formControlName="confirmPassword"  placeholder="Confirm Password" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'is-invalid' : 'success'" required>
