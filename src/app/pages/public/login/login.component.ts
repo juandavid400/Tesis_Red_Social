@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
+import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { Router } from '@angular/router';
-
+import { RegisterService } from "src/app/shared/services/register.service";
 
 @Component({
   selector: 'app-login',
@@ -9,10 +11,15 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  title: string = "Hola Mundo";
-  color: string = "red"
+  signupForm = new FormGroup({
+    signupEmail: new FormControl(),
+    signupPassword: new FormControl(),
+  });
 
-  constructor(private router:Router) { }
+  
+  
+  constructor(private router:Router, private firebase: AngularFireDatabase) { }
+
 
   ngOnInit(): void {
   }
@@ -22,7 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    console.log("logeado apá");
+    
+    const Email = this.signupForm.controls.signupEmail.value;
+    const Password = this.signupForm.controls.signupPassword.value;
+
+    console.log(Email,Password);
   }
 
 }

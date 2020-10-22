@@ -20,7 +20,7 @@ export class RegisterService {
 
     this.RegisterList.push({
       email: register.email,
-      username: register.username,
+      telefono: register.telefono,
       password: register.password,
       name: register.name,
       lname: register.lname,      

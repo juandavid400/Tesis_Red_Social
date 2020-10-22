@@ -1,28 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserI } from 'src/app/shared/interfaces/UserI';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { RegisterService } from 'src/app/shared/services/register.service';
+import { Component, OnInit } from "@angular/core";
+import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/shared/services/auth.service";
+import { RegisterService } from "src/app/shared/services/register.service";
+import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
 
-    ngForm = new FormGroup({
-    email: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl(),
+  ngForm = new FormGroup({
     name: new FormControl(),
-    lname: new FormControl(),    
-    });
-     
-    
+    lname: new FormControl(),
+    telefono: new FormControl(),
+    email: new FormControl(),    
+    password: new FormControl(),    
+  });
 
-  constructor(private router:Router, private authService:AuthService, private registerService: RegisterService, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private registerService: RegisterService,
+    private formBuilder: FormBuilder,
+    private firebaseDB: AngularFireDatabase,
+    private firebaseAuth: AngularFireAuth
+  ) {}
 
   ngOnInit(): void {
     this.registerService.getRegister();
@@ -31,47 +37,37 @@ export class RegisterComponent implements OnInit {
 
   createForm() {
     this.ngForm = this.formBuilder.group({
-      email: '',
-      username: '',
-      name: '',
-      lname: '',
-      password: '',
+      email: "",
+      username: "",
+      name: "",
+      lname: "",
+      password: "",
     });
-}
+  }
 
-  onSubmit(){
-    console.log(this.ngForm.value);
-    this.registerService.insertRegister(this.ngForm.value);
+  onSubmit() {
     
+    this.registerService.insertRegister(this.ngForm.value);
+    const Email = this.ngForm.controls.email.value;
+    const Password = this.ngForm.controls.password.value;
+
+    
+    this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
     // this.resetForm(this.ngForm);
   }
 
-  resetForm(registerForm?: NgForm){
+  resetForm(registerForm?: NgForm) {
     if (registerForm != null) {
-       registerForm.reset(); 
+      registerForm.reset();
     }
   }
 
-  // doRegister(e) {
-  //   e.preventDefault();
-
-  //   const user: UserI = {
-  //     email: "pabhoz@usbcali.edu.co",
-  //     username: "pabhoz",
-  //     lname: "Bejarano",
-  //     password: "suanfanzon",
-  //     name: "Pablo",
-  //   };
-
-  //   console.log(this.userForm);
-
-  //   //this.authService.login(user);
-
-  //   //this.router.navigate(['/']);
-  // }
-
   goToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
-
 }

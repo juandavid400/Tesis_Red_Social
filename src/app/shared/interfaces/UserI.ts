@@ -1,6 +1,6 @@
 export interface UserI {
     email: string;
-    username: string;
+    telefono: number;
     name: string;
     lname: string;
     password?: string;
