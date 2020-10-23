@@ -19,8 +19,9 @@ import { environment } from '../environments/environment';
 //Servicios
 import { RegisterService} from '../app/shared/services/register.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { from } from 'rxjs';
+import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
+
 
 
 @NgModule({
@@ -38,7 +39,12 @@ import { AuthService } from './shared/services/auth.service';
     NgxIntlTelInputModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    })
   ],
   providers: [
     RegisterService,

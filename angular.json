@@ -35,7 +35,7 @@
               "node_modules/bootstrap/scss/bootstrap-grid.scss",
               "node_modules/bootstrap/scss/bootstrap-reboot.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "./node_modules/intl-tel-input/build/css/intlTelInput.css"
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css"              
             ],
             "scripts": []
           },
@@ -99,6 +99,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.scss"

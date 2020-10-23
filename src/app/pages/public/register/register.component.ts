@@ -7,6 +7,7 @@ import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -46,7 +47,8 @@ export class RegisterComponent implements OnInit {
     private registerService: RegisterService,
     private formBuilder: FormBuilder,
     private firebaseDB: AngularFireDatabase,
-    private firebaseAuth: AngularFireAuth
+    private firebaseAuth: AngularFireAuth,
+    private toastr: ToastrService
   ) {
 
     this.ngForm = this.createSignupForm();
@@ -98,8 +100,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.registerService.getRegister();
-    this.resetForm();
+    this.registerService.getRegister();    
   }
   
   createForm() {
@@ -114,34 +115,41 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    
+    this.toastr.success('Sucessful Operation', 'Account Registered', {
+      positionClass: 'toast-top-center'
+    });
     this.registerService.insertRegister(this.ngForm.value);
     const Email = this.ngForm.controls.email.value;
     const Password = this.ngForm.controls.password.value;
     const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
+    
 
     if (ConfirmPassword != Password) {
        
     } else {
+      
       this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
       });
-      // this.resetForm(this.ngForm);
+      // this.resetForm();
+      this.ngForm.reset({
+        email : '',
+        telefono: '',
+        name: '',
+        lname: '',
+        password: '',
+        confirmPassword: '',
+      });
+
+      this.router.navigate(["/login"]);
     }    
     
     
   }
 
-  
-
-  resetForm(registerForm?: NgForm) {
-    if (registerForm != null) {
-      registerForm.reset();
-    }
-  }
 
   goToLogin() {
     this.router.navigate(["/login"]);

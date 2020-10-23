@@ -1,3 +1,4 @@
+
 $bodyFont: sfProTextRegular;
 $titleFont: sfProTextMedium;
 
@@ -15,6 +16,10 @@ $titleFont: sfProTextMedium;
     display: inline-flex;
     vertical-align: middle;
  }
+
+ .toast-success {
+    background-color: #51A351 !important;
+  }
 
  .is-invalid {
     border-left: solid 6px red;
