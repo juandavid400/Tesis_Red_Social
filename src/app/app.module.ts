@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,8 +35,10 @@ import { AuthService } from './shared/services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireDatabaseModule,
+    NgxIntlTelInputModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    BrowserAnimationsModule
   ],
   providers: [
     RegisterService,

@@ -19,6 +19,7 @@
       <div class="media-content">
         <div class="content">
 
+          
           <form [formGroup]="ngForm" >
 
             <label for="name" [ngClass]="ngForm.controls['name'].invalid ? 'text-danger' : 'text-success'">Name</label>
@@ -41,10 +42,28 @@
               </p>
             </div>
 
+            
             <label for="telefono" [ngClass]="ngForm.controls['telefono'].invalid ? 'text-danger' : 'text-success'">Phone Number</label>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="telefono" type="text"  placeholder="Phone Number" [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'" required>
+                
+                
+                <!-- <input class="input" formControlName="telefono" type="text"  placeholder="Phone Number" [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'" required> -->
+                <ngx-intl-tel-input [cssClass]="'custom'"
+                  [enableAutoCountrySelect]="true"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                  [selectFirstCountry]="false"
+                  [selectedCountryISO]="CountryISO.India"
+                  [maxLength]="15"
+                  [tooltipField]="TooltipLabel.Name"
+                  [phoneValidation]="true"
+                  [separateDialCode]="true"
+                  formControlName="telefono"
+                  [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'">
+                </ngx-intl-tel-input>
+                
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>

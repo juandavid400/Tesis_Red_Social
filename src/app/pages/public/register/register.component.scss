@@ -76,6 +76,9 @@ $titleFont: sfProTextMedium;
                 .content {
                     .field {
                         margin-bottom: 5px;
+                        .iti--allow-dropdown input{
+                            padding-right: 0px;
+                        }
                         .buttons {
                             .is-info {
                                 width: 100px;
