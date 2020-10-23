@@ -125,6 +125,7 @@ export class RegisterComponent implements OnInit {
     
 
     if (ConfirmPassword != Password) {
+      
        
     } else {
       

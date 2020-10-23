@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { Router } from '@angular/router';
 import { RegisterService } from "src/app/shared/services/register.service";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   
   
   constructor(private router:Router, private firebase: AngularFireDatabase, 
-    private firebaseAuth: AngularFireAuth) { }
+    private firebaseAuth: AngularFireAuth, private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -35,9 +36,21 @@ export class LoginComponent implements OnInit {
     const Email = this.signupForm.controls.signupEmail.value;
     const Password = this.signupForm.controls.signupPassword.value;
 
+    
+
+   
+
     this.firebaseAuth.auth.signInWithEmailAndPassword(Email, Password).then(() => {
+            
       this.router.navigate(['/home']);
+      this.toastr.success('Entro gonorrea', 'En la buena', {
+        positionClass: 'toast-top-center'
+      });
+      
     }).catch(function(error) {
+      // this.toastr.error('Password Incorrect', 'Try Again', {
+      //   positionClass: 'toast-top-center'
+      // });
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
