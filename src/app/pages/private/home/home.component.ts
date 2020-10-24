@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat/chat.service';
 import { ChatI } from './interfaces/ChatI';
 import { MessageI } from './interfaces/MessageI';
+import { RegisterService } from "src/app/shared/services/register.service";
+import { UserI } from 'src/app/shared/interfaces/UserI';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home',
@@ -56,11 +59,69 @@ export class HomeComponent implements OnInit, OnDestroy {
     msgs: []
   };
 
-  constructor(public authService: AuthService, public chatService: ChatService) {}
+  constructor(public authService: AuthService, public chatService: ChatService, private firebaseAuth:AngularFireAuth, 
+    private registerService: RegisterService) {}
 
-  ngOnInit(): void {
-    this.initChat();
-  }
+    ngOnInit(): void {
+      this.initChat();
+      this.UserAcount();
+      this.registerService.getRegister();
+      // .snapshotChanges().subscribe(item => {
+      //   let data = item.payload.val();
+  
+      //   this.RegisterList = [];
+  
+      //   for (let k in data) {
+      //     let element = data [k];
+      //     element.key = k;
+      //     this.RegisterList.push(element);       
+      //   }
+      //   console.log("sdadasd");
+      //   console.log(this.RegisterList);
+      // });
+    }
+
+    UserAcount (){
+      // var user = this.firebaseAuth.auth.currentUser;
+  
+      this.firebaseAuth.auth.onAuthStateChanged(function(user) {
+        if (user) {
+  
+          // User is signed in.
+          var name, email, photoUrl, uid, emailVerified;
+          if (user != null) {
+            name = user.displayName;
+            email = user.email;
+            photoUrl = user.photoURL;
+            emailVerified = user.emailVerified;
+            uid = user.uid;
+            console.log("Nombre Usuario");
+            console.log(name);
+            console.log("Nombre email");
+            console.log(email);
+            console.log("Nombre foto");
+            console.log(photoUrl);
+            console.log("Nombre emailverificado");
+            console.log(emailVerified);
+            console.log("Nombre uid");
+            console.log(uid);
+          }
+  
+          if (user != null) {
+            user.providerData.forEach(function (profile) {
+              console.log("Sign-in provider: " + profile.providerId);
+              console.log("  Provider-specific UID: " + profile.uid);
+              console.log("  Name: " + profile.displayName);
+              console.log("  Email: " + profile.email);
+              console.log("  Phone Number: " + profile.photoURL);
+            });
+          }
+          console.log(user);
+        } else {
+          // No user is signed in.
+        }
+      });
+    }
 
   ngOnDestroy(): void {
     this.destroySubscriptionList();
@@ -104,6 +165,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
   
+  RegisterList: UserI[];
+    register= [];
+    itemRef: any;
   
 
 }

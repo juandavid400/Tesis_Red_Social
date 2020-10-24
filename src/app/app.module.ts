@@ -14,6 +14,8 @@ import { RegisterComponent } from './pages/public/register/register.component';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { environment } from '../environments/environment';
+import { AngularFirestoreModule, AngularFirestore }    from 'angularfire2/firestore';
+import { AngularFireStorageModule, AngularFireStorage }    from 'angularfire2/storage';
 
 
 //Servicios
@@ -40,6 +42,8 @@ import { AuthService } from './shared/services/auth.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     BrowserAnimationsModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
@@ -48,7 +52,8 @@ import { AuthService } from './shared/services/auth.service';
   ],
   providers: [
     RegisterService,
-    AuthService
+    AuthService,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })
