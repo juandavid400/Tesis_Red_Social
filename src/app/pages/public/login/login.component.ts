@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { Router } from '@angular/router';
-import { RegisterService } from "src/app/shared/services/register.service";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UserI } from 'src/app/shared/interfaces/UserI';
 import { ToastrService } from 'ngx-toastr';
+import { CustomValidators } from 'src/app/custom-validators'; 
+import { RegisterService } from "src/app/shared/services/register.service";
+
+
 
 @Component({
   selector: 'app-login',
@@ -21,10 +25,24 @@ export class LoginComponent implements OnInit {
   
   
   constructor(private router:Router, private firebase: AngularFireDatabase, 
-    private firebaseAuth: AngularFireAuth, private toastr: ToastrService) { }
+    private firebaseAuth: AngularFireAuth, private toastr: ToastrService, private registerService: RegisterService) { }
 
+    registerList: UserI[];
+    register= [];
+    itemRef: any;
 
   ngOnInit(): void {
+
+    this.registerService.getRegister()
+      .snapshotChanges().subscribe(item => {
+        this.registerList = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["$key"] = element.key;
+          this.registerList.push(x as UserI);
+        });
+      });
+    
   }
 
   goToRegister() {
@@ -33,37 +51,38 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
     
-    const Email = this.signupForm.controls.signupEmail.value;
-    const Password = this.signupForm.controls.signupPassword.value;
+    let email = this.signupForm.controls.signupEmail.value;
+    const password = this.signupForm.controls.signupPassword.value;
 
-    
+    let emailRegexp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
 
-   
+    let userExist;
+    if(email.match(emailRegexp)){
+      // Es correo
+      console.log("Es correo");
+      userExist = this.registerList.find( user => user.email == email);
+    } else {
+      console.log("Es teléfono");
+      // Es teléfono
+      userExist = this.registerList.find( user => user.telefono.e164Number == email && user);
+      email = userExist && userExist.email || undefined;
+    }
 
-    this.firebaseAuth.auth.signInWithEmailAndPassword(Email, Password).then(() => {
-            
-      this.router.navigate(['/home']);
-      this.toastr.success('Entro gonorrea', 'En la buena', {
-        positionClass: 'toast-top-center'
+    if(userExist){
+      this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
+        this.router.navigate(['/home']);
+        this.toastr.success('Entro gonorrea', 'En la buena', {
+          positionClass: 'toast-top-center'
+        });
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(`Error [${errorCode}]: ${errorMessage}`);
       });
-      
-    }).catch(function(error) {
-      // this.toastr.error('Password Incorrect', 'Try Again', {
-      //   positionClass: 'toast-top-center'
-      // });
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
-
-    // this.firebaseAuth.auth.signInWithEmailAndPassword(Email, Password).catch(function(error) {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   // ...
-    // });
-    // this.router.navigate(['/']);
-  }
-
+      } else {
+      alert("El usuario no existe");
+        }  
+    }
 }

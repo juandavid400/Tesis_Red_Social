@@ -7,18 +7,18 @@ import { UserI } from "../interfaces/UserI";
 })
 export class RegisterService {
 
-  RegisterList: AngularFireList<any>;
+  registerList: AngularFireList<any>;
   // selectedProduct: UserI = new UserI();
 
   constructor(private firebase: AngularFireDatabase) { }
 
   getRegister(){
-    return this.RegisterList = this.firebase.list('registers');
+    return this.registerList = this.firebase.list('registers');
   }
 
   insertRegister(register: UserI){
 
-    this.RegisterList.push({
+    this.registerList.push({
       email: register.email,
       telefono: register.telefono,
       password: register.password,
