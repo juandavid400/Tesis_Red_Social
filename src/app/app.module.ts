@@ -23,7 +23,7 @@ import { RegisterService} from '../app/shared/services/register.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
-
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 
 @NgModule({
@@ -53,7 +53,8 @@ import { AuthService } from './shared/services/auth.service';
   providers: [
     RegisterService,
     AuthService,
-    AngularFirestore
+    AngularFirestore,
+    AngularFireAuthGuard
   ],
   bootstrap: [AppComponent]
 })

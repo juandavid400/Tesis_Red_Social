@@ -8,6 +8,7 @@ import { RegisterService } from "src/app/shared/services/register.service";
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -62,10 +63,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(public authService: AuthService, public chatService: ChatService, private firebaseAuth:AngularFireAuth, 
     private registerService: RegisterService) {}
 
+    RegisterList: UserI[];
+    register= [];
+    itemRef: any;
+
     ngOnInit(): void {
       this.initChat();
       this.UserAcount();
-      this.registerService.getRegister();
+      this.registerService.getRegister()
       // .snapshotChanges().subscribe(item => {
       //   let data = item.payload.val();
   
@@ -79,6 +84,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       //   console.log("sdadasd");
       //   console.log(this.RegisterList);
       // });
+      .snapshotChanges().subscribe(item => {
+        this.RegisterList = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["$key"] = element.key;
+          this.RegisterList.push(x as UserI);
+        });
+      });
     }
 
     UserAcount (){
@@ -165,9 +178,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
   
-  RegisterList: UserI[];
-    register= [];
-    itemRef: any;
+  
   
 
 }
