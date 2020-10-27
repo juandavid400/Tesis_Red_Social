@@ -4,11 +4,12 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
 import { AngularFireDatabase} from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
-
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -129,7 +130,7 @@ export class RegisterComponent implements OnInit {
        
     } else {
       
-      this.firebaseAuth.auth.createUserWithEmailAndPassword(Email, Password).catch(function(error) {
+      firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;

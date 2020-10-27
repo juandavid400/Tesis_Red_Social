@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from 'src/app/custom-validators'; 
 import { RegisterService } from "src/app/shared/services/register.service";
+import * as firebase from 'firebase';
 
 
 
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   
   
-  constructor(private router:Router, private firebase: AngularFireDatabase, 
+  constructor(private router:Router, /*private firebase: AngularFireDatabase*/ 
     private firebaseAuth: AngularFireAuth, private toastr: ToastrService, private registerService: RegisterService) { }
 
     registerList: UserI[];
@@ -69,7 +71,8 @@ export class LoginComponent implements OnInit {
     }
 
     if(userExist){
-      this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
+      
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         this.router.navigate(['/home']);
         this.toastr.success('Entro gonorrea', 'En la buena', {
           positionClass: 'toast-top-center'

@@ -7,7 +7,7 @@ import { MessageI } from './interfaces/MessageI';
 import { RegisterService } from "src/app/shared/services/register.service";
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     UserAcount (){
       // var user = this.firebaseAuth.auth.currentUser;
   
-      this.firebaseAuth.auth.onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
   
           // User is signed in.

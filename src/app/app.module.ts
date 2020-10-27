@@ -16,14 +16,16 @@ import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule, AngularFirestore }    from 'angularfire2/firestore';
 import { AngularFireStorageModule, AngularFireStorage }    from 'angularfire2/storage';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 //Servicios
 import { RegisterService} from '../app/shared/services/register.service';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { from } from 'rxjs';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 
 @NgModule({

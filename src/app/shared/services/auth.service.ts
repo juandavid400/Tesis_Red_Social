@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
+import { from } from 'rxjs';
 import { UserI } from '../interfaces/UserI';
-import { Router } from  "@angular/router";
-import { RegisterComponent } from 'src/app/pages/public/register/register.component';
-
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  // user: UserI | undefined;
 
-  constructor() {  }
+  constructor(private firebaseAuth: AngularFireAuth) { }
 
- 
 
-  logout() {
-    window.localStorage.clear();
-    window.location.href = '';
+  async logout() {
+    await firebase.auth().signOut();
   }
 }
