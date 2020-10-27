@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     signupPassword: new FormControl(),
   });
 
-  
+  //
   
   constructor(private router:Router, /*private firebase: AngularFireDatabase*/ 
     private firebaseAuth: AngularFireAuth, private toastr: ToastrService, private registerService: RegisterService) { }
