@@ -12,4 +12,5 @@ export interface UserI {
     name: string
     lname: string
     password?: string
+    socketID: string
 }

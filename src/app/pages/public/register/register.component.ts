@@ -9,6 +9,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
+import { UserI } from 'src/app/shared/interfaces/UserI';
+import * as io from 'socket.io-client';
 import * as firebase from 'firebase';
 
 
@@ -100,8 +102,20 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+    registerList: UserI[];
+    register= [];
+    itemRef: any;
+
   ngOnInit(): void {
-    this.registerService.getRegister();    
+    this.registerService.getRegister()
+    .snapshotChanges().subscribe(item => {
+      this.registerList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x["$key"] = element.key;
+        this.registerList.push(x as UserI);
+      });
+    });    
   }
   
   createForm() {
@@ -112,25 +126,38 @@ export class RegisterComponent implements OnInit {
       lname: "",
       password: "",
       confirmPassword: "",
+      socketId: "",
     });
   }
 
   onSubmit() {
-    this.toastr.success('Sucessful Operation', 'Account Registered', {
-      positionClass: 'toast-top-center'
-    });
-    this.registerService.insertRegister(this.ngForm.value);
-    const Email = this.ngForm.controls.email.value;
-    const Password = this.ngForm.controls.password.value;
-    const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
     
+    const email = this.ngForm.controls.email.value;
+    const password = this.ngForm.controls.password.value;
+    const telefono = this.ngForm.controls.telefono.value;
+    const confirmPassword = this.ngForm.controls.confirmPassword.value;
+    
+    let emailRegexp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+    let emailExist = this.registerList.find( user => user.email == email);
+    let numberExist = this.registerList.find( user => user.telefono.e164Number == telefono);
+    
+    let socket = io();
+      let id : any; 
+      //on connect Event 
+      socket.on('connect', () => {
+          //get the id from socket
+          let id = socket.id;
+          console.log(id);
+         return id;
+      });
 
-    if (ConfirmPassword != Password) {
-      
-       
+    if (password != confirmPassword){
+
     } else {
-      
-      firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function(error) {
+      this.registerService.insertRegister(this.ngForm.value);
+      // this.registerService.insertRegister(id);
+
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -147,7 +174,52 @@ export class RegisterComponent implements OnInit {
       });
 
       this.router.navigate(["/login"]);
-    }    
+    }
+
+    // if (email.match(emailExist)) {
+
+    //   console.log(telefono.e164Number);
+    //     this.toastr.error('The email is already taken', 'Try another email', {
+    //       positionClass: 'toast-top-center'
+    //     });
+           
+      
+    // } else if (telefono.e164Number.match(numberExist)){
+
+    //   this.toastr.error('The phonenumber is already taken', 'Try another number', {
+    //     positionClass: 'toast-top-center'
+    //   });
+
+    // } else {
+    //   this.toastr.success('Sucessful Operation', 'Account Registered', {
+    //     positionClass: 'toast-top-center'
+    //   });
+
+      
+
+    //   this.registerService.insertRegister(this.ngForm.value);
+    //   // this.registerService.insertRegister(id);
+
+    //   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     // ...
+    //   });
+    //   // this.resetForm();
+    //   this.ngForm.reset({
+    //     email : '',
+    //     telefono: '',
+    //     name: '',
+    //     lname: '',
+    //     password: '',
+    //     confirmPassword: '',
+    //   });
+
+    //   this.router.navigate(["/login"]);
+      
+    // }   
+    
     
     
   }

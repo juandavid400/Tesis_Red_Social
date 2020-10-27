@@ -23,7 +23,8 @@ export class RegisterService {
       telefono: register.telefono,
       password: register.password,
       name: register.name,
-      lname: register.lname,      
+      lname: register.lname,
+      socketID: register.socketID,      
     });
   }
 }
