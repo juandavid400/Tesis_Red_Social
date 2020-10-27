@@ -153,6 +153,7 @@ export class RegisterComponent implements OnInit {
 
     if (password != confirmPassword){
 
+      
     } else {
       this.registerService.insertRegister(this.ngForm.value);
       // this.registerService.insertRegister(id);
