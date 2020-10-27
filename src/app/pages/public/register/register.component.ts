@@ -4,8 +4,8 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
 import { AngularFireDatabase} from 'angularfire2/database';
-// import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
@@ -157,7 +157,7 @@ export class RegisterComponent implements OnInit {
       this.registerService.insertRegister(this.ngForm.value);
       // this.registerService.insertRegister(id);
 
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
