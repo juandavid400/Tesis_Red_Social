@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
     if(userExist){
       
       firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-        // this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
         this.toastr.success('Login successful', 'Login acount', {
           positionClass: 'toast-top-center'
         });
