@@ -186,6 +186,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  
+
   count : number = 0;
 
   PerfilPhoto(){
