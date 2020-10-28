@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
 export const environment = {
   production: false,
   firebase: {
@@ -14,6 +16,7 @@ export const environment = {
       appId: "1:383867997942:web:653b31300e995a1193a6d7",
       measurementId: "G-1RR0H8FTLC"
   }
+  ,AngularFireAuthGuard
 };
 
 /*

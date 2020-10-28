@@ -1,7 +1,16 @@
 export interface UserI {
-    email: string;
-    telefono: number;
-    name: string;
-    lname: string;
-    password?: string;
+    $key: string
+    email: string
+    telefono?: {
+        countryCode: string
+        dialCode: string
+        e164Number: string
+        internationalNumber: string
+        nationalNumber: string
+        number: string
+    };
+    name: string
+    lname: string
+    password?: string
+    socketID: string
 }
