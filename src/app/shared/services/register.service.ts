@@ -24,7 +24,7 @@ export class RegisterService {
       password: register.password,
       name: register.name,
       lname: register.lname,
-      socketID: register.socketID,      
+      // socketID: register.socketID,      
     });
   }
 }

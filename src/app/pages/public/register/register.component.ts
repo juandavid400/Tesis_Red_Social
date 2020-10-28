@@ -133,15 +133,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     
-    const email = this.ngForm.controls.email.value;
-    const password = this.ngForm.controls.password.value;
+    const Email = this.ngForm.controls.email.value;
     const telefono = this.ngForm.controls.telefono.value;
-    const confirmPassword = this.ngForm.controls.confirmPassword.value;
-    
-    let emailRegexp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-    let confirmEmail = this.registerList.find( user => user.email = email);
-    console.log(confirmEmail);
-    let numberExist = this.registerList.find( user => user.telefono.e164Number == telefono);
+    const Password = this.ngForm.controls.password.value;
+    const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
+    let EmailExist = this.registerList.find(user => user.email == Email);
+    let PhoneExist = this.registerList.find(user => user.telefono.e164Number == telefono.e164Number);
     
     // let socket = io();
     //   let id : any; 
@@ -152,37 +149,28 @@ export class RegisterComponent implements OnInit {
     //       console.log(id);
     //      return id;
     //   });
-
-    if (confirmEmail && email.match(emailRegexp)) {
-
-      console.log(telefono.e164Number);
-        this.toastr.error('The email is already taken', 'Try another email', {
-          positionClass: 'toast-top-center'
-        });
-        // email = userExist && userExist.email || undefined;
-        // let emailExist = this.registerList.find( user => user.email == email);
-    } 
-    if (telefono.e164Number.match(numberExist)){
-
+  
+    if (EmailExist) {
+      console.log("Ya existe este email");
+      this.toastr.error('The email is already taken', 'Try another email', {
+        positionClass: 'toast-top-center'
+      });
+    } else if (PhoneExist) {
       this.toastr.error('The phonenumber is already taken', 'Try another number', {
         positionClass: 'toast-top-center'
       });
-
-    } 
-    if (confirmEmail && numberExist) {
-      this.toastr.success('Sucessful Operation', 'Account Registered', {
-        positionClass: 'toast-top-center'
-      });
-
+      console.log("Ya existe este número");
+    } else {
+      console.log("Registré");
       this.registerService.insertRegister(this.ngForm.value);
-      // this.registerService.insertRegister(id);
+      if (ConfirmPassword == Password) {
+        firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
 
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      });
+    
       // this.resetForm();
       this.ngForm.reset({
         email : '',
@@ -193,13 +181,12 @@ export class RegisterComponent implements OnInit {
         confirmPassword: '',
       });
 
-      this.router.navigate(["/login"]);
-      
-    }   
+      // this.router.navigate(["/login"]);
+
+        }  
     
-    
-    
-  }
+      }
+    }
 
 
   goToLogin() {
