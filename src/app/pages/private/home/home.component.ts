@@ -185,6 +185,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   count : number = 0;
+
+  PerfilPhoto(){
+    const query: string = '#app .PerfilPhoto';
+    const PerfilPhoto: any = document.querySelector(query);
+    
+    if (this.countPhoto == 0) {
+      this.countPhoto = 1;
+      PerfilPhoto.style.left = 0;
+    } else {
+      this.countPhoto = 0;
+      PerfilPhoto.style.left = "-100vh";
+    }
+  }
+
+  countPhoto : number = 0;
   
   async SendContact() {
     let Key;
