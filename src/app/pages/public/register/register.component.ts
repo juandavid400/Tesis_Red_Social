@@ -3,7 +3,8 @@ import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angul
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
-import { AngularFireDatabase} from 'angularfire2/database';
+//import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase}from '@angular/fire/database';
 // import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';

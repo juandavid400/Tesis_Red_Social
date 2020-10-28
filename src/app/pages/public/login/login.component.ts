@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
-import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+//import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { Router } from '@angular/router';
 // import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireAuth } from '@angular/fire/auth';

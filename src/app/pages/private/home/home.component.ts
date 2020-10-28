@@ -11,7 +11,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+//import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Component({
   selector: 'app-home',
