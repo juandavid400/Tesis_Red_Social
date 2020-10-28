@@ -13,8 +13,9 @@ export class ChatService {
   constructor() { }
 
   connect() {
+
     return new Observable(observer => {
-      this.socket = io('');
+      this.socket = io('https://87396bac2e73.ngrok.io');
       this.socket.on('connect', () => {
         observer.next();
       })
