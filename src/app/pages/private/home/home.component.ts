@@ -97,32 +97,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (user) {
   
           // User is signed in.
-          var name, email, photoUrl, uid, emailVerified;
-          if (user != null) {
-            name = user.displayName;
-            email = user.email;
-            photoUrl = user.photoURL;
-            emailVerified = user.emailVerified;
-            uid = user.uid;
-            console.log("Nombre Usuario");
-            console.log(name);
-            console.log("Nombre email");
-            console.log(email);
-            console.log("Nombre foto");
-            console.log(photoUrl);
-            console.log("Nombre emailverificado");
-            console.log(emailVerified);
-            console.log("Nombre uid");
-            console.log(uid);
-          }
-  
+          
           if (user != null) {
             user.providerData.forEach(function (profile) {
               console.log("Sign-in provider: " + profile.providerId);
-              console.log("  Provider-specific UID: " + profile.uid);
-              console.log("  Name: " + profile.displayName);
+              // console.log("  Provider-specific UID: " + profile.uid);
+              // console.log("  Name: " + profile.displayName);
               console.log("  Email: " + profile.email);
-              console.log("  Phone Number: " + profile.photoURL);
+              // console.log("  Phone Number: " + profile.photoURL);
             });
           }
           console.log(user);
@@ -202,6 +184,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   countPhoto : number = 0;
   
   async SendContact() {
+    
     let Key;
     const ContactName = this.FormAdd.controls.Namecontact.value;
     let ContactNumber = this.FormAdd.controls.Numbercontact.value;
@@ -223,7 +206,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (ContactNumber.match(emailRegexp)) {
       // Es correo
-      console.log("Es correo");
+      // console.log("Es correo");
       userExist = this.registerList.find(user => user.email == ContactNumber);
       ContactNumber = userExist && userExist.email || undefined;
       if (!userExist) {
@@ -236,7 +219,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-      console.log("Es teléfono");
+      // console.log("Es teléfono");
       // Es teléfono
       userExist = this.registerList.find(user => user.telefono.e164Number == ContactNumber && user);
       if (!userExist) {

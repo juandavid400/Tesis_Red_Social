@@ -161,7 +161,10 @@ export class RegisterComponent implements OnInit {
       });
       console.log("Ya existe este número");
     } else {
-      console.log("Registré");
+
+      this.toastr.success('Account registered', 'Login to your account', {
+        positionClass: 'toast-top-center'
+      });
       this.registerService.insertRegister(this.ngForm.value);
       if (ConfirmPassword == Password) {
         firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function (error) {
@@ -181,7 +184,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: '',
       });
 
-      // this.router.navigate(["/login"]);
+      this.router.navigate(["/login"]);
 
         }  
     
