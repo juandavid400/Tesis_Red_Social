@@ -43,3 +43,4 @@ export class ChatService {
 }
 
 //Asegurando main
+//realizando el merge con el main
