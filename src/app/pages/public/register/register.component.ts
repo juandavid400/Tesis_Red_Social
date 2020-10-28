@@ -163,8 +163,11 @@ export class RegisterComponent implements OnInit {
       console.log("Ya existe este número");
     } else {
 
-      this.toastr.success('Account registered', 'Login to your account', {
-        positionClass: 'toast-top-center'
+      firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
       });
       this.registerService.insertRegister(this.ngForm.value);
       if (ConfirmPassword == Password) {
