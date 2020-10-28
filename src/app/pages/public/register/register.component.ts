@@ -3,15 +3,17 @@ import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angul
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
-import { AngularFireDatabase} from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-// import { AngularFireAuth } from '@angular/fire/auth';
+//import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase}from '@angular/fire/database';
+// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import * as io from 'socket.io-client';
 import * as firebase from 'firebase';
+
 
 
 @Component({
@@ -132,37 +134,47 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     
-    const email = this.ngForm.controls.email.value;
-    const password = this.ngForm.controls.password.value;
+    const Email = this.ngForm.controls.email.value;
     const telefono = this.ngForm.controls.telefono.value;
-    const confirmPassword = this.ngForm.controls.confirmPassword.value;
+    const Password = this.ngForm.controls.password.value;
+    const ConfirmPassword = this.ngForm.controls.confirmPassword.value;
+    let EmailExist = this.registerList.find(user => user.email == Email);
+    let PhoneExist = this.registerList.find(user => user.telefono.e164Number == telefono.e164Number);
     
-    let emailRegexp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-    let emailExist = this.registerList.find( user => user.email == email);
-    let numberExist = this.registerList.find( user => user.telefono.e164Number == telefono);
-    
-    let socket = io();
-      let id : any; 
-      //on connect Event 
-      socket.on('connect', () => {
-          //get the id from socket
-          let id = socket.id;
-          console.log(id);
-         return id;
+    // let socket = io();
+    //   let id : any; 
+    //   //on connect Event 
+    //   socket.on('connect', () => {
+    //       //get the id from socket
+    //       let id = socket.id;
+    //       console.log(id);
+    //      return id;
+    //   });
+  
+    if (EmailExist) {
+      console.log("Ya existe este email");
+      this.toastr.error('The email is already taken', 'Try another email', {
+        positionClass: 'toast-top-center'
       });
-
-    if (password != confirmPassword){
-
+    } else if (PhoneExist) {
+      this.toastr.error('The phonenumber is already taken', 'Try another number', {
+        positionClass: 'toast-top-center'
+      });
+      console.log("Ya existe este número");
     } else {
-      this.registerService.insertRegister(this.ngForm.value);
-      // this.registerService.insertRegister(id);
 
-      this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
+      this.toastr.success('Account registered', 'Login to your account', {
+        positionClass: 'toast-top-center'
       });
+      this.registerService.insertRegister(this.ngForm.value);
+      if (ConfirmPassword == Password) {
+        firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+
+    
       // this.resetForm();
       this.ngForm.reset({
         email : '',
@@ -174,55 +186,11 @@ export class RegisterComponent implements OnInit {
       });
 
       this.router.navigate(["/login"]);
+
+        }  
+    
+      }
     }
-
-    // if (email.match(emailExist)) {
-
-    //   console.log(telefono.e164Number);
-    //     this.toastr.error('The email is already taken', 'Try another email', {
-    //       positionClass: 'toast-top-center'
-    //     });
-           
-      
-    // } else if (telefono.e164Number.match(numberExist)){
-
-    //   this.toastr.error('The phonenumber is already taken', 'Try another number', {
-    //     positionClass: 'toast-top-center'
-    //   });
-
-    // } else {
-    //   this.toastr.success('Sucessful Operation', 'Account Registered', {
-    //     positionClass: 'toast-top-center'
-    //   });
-
-      
-
-    //   this.registerService.insertRegister(this.ngForm.value);
-    //   // this.registerService.insertRegister(id);
-
-    //   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     // ...
-    //   });
-    //   // this.resetForm();
-    //   this.ngForm.reset({
-    //     email : '',
-    //     telefono: '',
-    //     name: '',
-    //     lname: '',
-    //     password: '',
-    //     confirmPassword: '',
-    //   });
-
-    //   this.router.navigate(["/login"]);
-      
-    // }   
-    
-    
-    
-  }
 
 
   goToLogin() {

@@ -31,6 +31,78 @@ $titleFont: sfProTextMedium;
         flex-basis: 30%;
         width: 100%;
         height: 100%;
+
+        .addcontact{
+            position: absolute;
+            display: flex;
+            flex-basis: 30%;
+            flex-flow: column;
+            z-index: 10;
+            height: 100%;
+            width: 31%;
+            background-color:  #E5DDD5;
+            left: -100vh;
+            transition: all .3s ease;
+            border-right:  #c5beb7 solid 1px;
+
+            .goBackBtn{
+                width: 100%;
+                height: 100px;
+                font-size: 20px;
+                color: white;
+                font-family: sfProTextMedium;
+                padding-top: 15%;
+                padding-left: 20px;
+                margin-bottom: 1px;
+                background-color:  #00BFA5;
+                cursor: pointer;
+                
+                .backimg{
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 20px;
+                }
+            }
+            .añadirimg{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100px;
+                height: 100px;
+                margin-left: 38%;
+                margin-bottom: 20px;
+                margin-top: 20px;
+                background-color:  #00BFA5;
+                border-radius: 200px;
+                
+            }
+            .containerAdd{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-flow: column;
+                width: 100% !important;
+                .field{
+                    width: 85%;
+                    .input{
+                        border-radius: 30px;
+                    }
+                    
+                }
+                .addContactBtn {
+                    width: 46px;
+                    height: 46px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    align-self: center;
+                    background: #00BFA5;
+                    border-radius: 50%;
+                    box-shadow: 0 1px 3px rgba(black,.4);
+                    cursor: pointer;
+                }
+            }
+        }
         .topBarLeft {
             width: 100%;
             height: 59px;
@@ -39,6 +111,78 @@ $titleFont: sfProTextMedium;
             display: flex;
             justify-content: center;
             align-items: center;
+            .PerfilPhoto{
+                position: absolute;
+                display: flex;
+                flex-basis: 30%;
+                flex-flow: column;
+                z-index: 10;
+                top: 0px;
+                height: 100%;
+                width: 31%;
+                background-color:  #E5DDD5;
+                left: -100vh;
+                transition: all .3s ease;
+                border-right:  #c5beb7 solid 1px;
+                .goBackBtn2{
+                    width: 100%;
+                    height: 100px;
+                    font-size: 20px;
+                    color: white;
+                    font-family: sfProTextMedium;
+                    padding-top: 15%;
+                    padding-left: 20px;
+                    margin-bottom: 1px;
+                    background-color:  #00BFA5;
+                    cursor: pointer;
+                    
+                    .backimg2{
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 20px;
+                    }
+                }
+                .Photoimg{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 200px;
+                    top: 0px;
+                    margin-top: 5%;
+                    margin-left: 25%;
+                }
+                .ContainerDescription{
+                    width: 100%;
+                    height: 100px;                    
+                    margin-top: 5%;
+                    margin-bottom: 1px;
+                    background-color:  white;
+                    cursor: pointer;
+                    .textN{
+                        font-size: 15px;
+                        color:  #00BFA5;
+                        font-family: sfProTextRegular;
+                        margin-left: 9%;
+                        margin-top: 10px;
+                    }
+                    .name{
+                        display: flex;
+                        flex-flow: row wrap;
+                        font-size: 17px;
+                        color:  rgb(87, 85, 85);
+                        font-family: sfProTextRegular;
+                        margin-left: 9%;
+                        margin-top: 10px;
+
+                        .EditName{
+                            align-items: right;
+                            justify-content: right;
+                        }
+                    }
+                }
+            }
             .tbLeftContainer {
                 width: 100%;
                 height: 59px;
@@ -98,40 +242,7 @@ $titleFont: sfProTextMedium;
                 }
             }
         }
-        .searchBarContainer {
-            width: 100%;
-            height: 49px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            background: #F6F6F6;
-            .searchIcon {
-                width: 24px;
-                height: 24px;
-                left: 24px;
-                position: absolute;
-                cursor: pointer;
-            }
-            .searchBarText {
-                font-size: 13.5px;
-                position: absolute;
-                left: 77px;
-                color: #919191;
-                cursor: text;
-            }
-            .searchBar {
-                width: 95%;
-                height: 35px;
-                padding: 0 32px 0 65px;
-                background: white;
-                border-radius: 100px;
-                border-style: none;
-                outline: none;
-                font-size: 13.5px;
-                font-family: $titleFont;
-            }
-        }
+
         .inboxChat {
             width: 100%;
             height: calc(100% - 108px);

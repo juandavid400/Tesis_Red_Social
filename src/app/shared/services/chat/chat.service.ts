@@ -13,8 +13,9 @@ export class ChatService {
   constructor() { }
 
   connect() {
+
     return new Observable(observer => {
-      this.socket = io('');
+      this.socket = io('http://localhost:3000');
       this.socket.on('connect', () => {
         observer.next();
       })
@@ -35,6 +36,7 @@ export class ChatService {
 
   disconnect() {
     this.socket.disconnect();
+    console.log("Se ha desconectado el usuario"+this.socket.id)
   }
 
 

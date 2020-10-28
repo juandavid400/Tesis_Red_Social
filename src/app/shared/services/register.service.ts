@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+//import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { UserI } from "../interfaces/UserI";
 
 @Injectable({
@@ -24,7 +25,7 @@ export class RegisterService {
       password: register.password,
       name: register.name,
       lname: register.lname,
-      socketID: register.socketID,      
+      // socketID: register.socketID,      
     });
   }
 }
