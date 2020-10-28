@@ -15,7 +15,7 @@ export class ChatService {
   connect() {
 
     return new Observable(observer => {
-      this.socket = io('https://87396bac2e73.ngrok.io');
+      this.socket = io('http://localhost:3000');
       this.socket.on('connect', () => {
         observer.next();
       })
@@ -36,6 +36,7 @@ export class ChatService {
 
   disconnect() {
     this.socket.disconnect();
+    console.log("Se ha desconectado el usuario"+this.socket.id)
   }
 
 

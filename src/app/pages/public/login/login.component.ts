@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from 'src/app/custom-validators'; 
 import { RegisterService } from "src/app/shared/services/register.service";
 import * as firebase from 'firebase';
+//import * as io from 'socket.io-client';
 
 
 
@@ -72,6 +73,8 @@ export class LoginComponent implements OnInit {
       userExist = this.registerList.find( user => user.telefono.e164Number == email && user);
       email = userExist && userExist.email || undefined;
       console.log(email);
+      //io.on('connection', (socket) => {
+      //console.log("Se conecto"+email+"con el ID"+socket.id);})
     }
 
     if(userExist){
