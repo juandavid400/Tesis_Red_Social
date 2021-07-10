@@ -7,14 +7,14 @@ import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from
 export const environment = {
   production: false,
   firebase: {
-      apiKey: "AIzaSyDKuc2-jHDONlQQRfamo8HSFcW07GtUNFY",
-      authDomain: "angular-crud-firebase-b918f.firebaseapp.com",
-      databaseURL: "https://angular-crud-firebase-b918f.firebaseio.com",
-      projectId: "angular-crud-firebase-b918f",
-      storageBucket: "angular-crud-firebase-b918f.appspot.com",
-      messagingSenderId: "383867997942",
-      appId: "1:383867997942:web:653b31300e995a1193a6d7",
-      measurementId: "G-1RR0H8FTLC"
+      apiKey: "AIzaSyCIR3JiUZvA-GQ6lPjWS3BRRgWc9u8RJZM",
+      authDomain: "tesisredsocial-be58f.firebaseapp.com",
+      databaseURL: "https://tesisredsocial-be58f-default-rtdb.firebaseio.com",
+      projectId: "tesisredsocial-be58f",
+      storageBucket: "tesisredsocial-be58f.appspot.com",
+      messagingSenderId: "348716640893",
+      appId: "1:348716640893:web:9f290665f9500eb053df14",
+      measurementId: "G-S0D67JZESZ"
   }
   ,AngularFireAuthGuard
 };
