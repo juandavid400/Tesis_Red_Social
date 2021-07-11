@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     itemRef: any;
 
     ngOnInit(): void {
-      this.initChat();
+      // this.initChat();
       this.UserAcount();
       this.registerService.getRegister()
       .snapshotChanges().subscribe(item => {
@@ -137,23 +137,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroySubscriptionList();
-    this.chatService.disconnect();
+    // this.chatService.disconnect();
   }
 
-  initChat() {
-    if (this.chats.length > 0) {
-      this.currentChat.title = this.chats[0].title;
-      this.currentChat.icon = this.chats[0].icon;
-      this.currentChat.msgs = this.chats[0].msgs;
-    }
-    this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
-      console.log("Nos conectamos");
-      this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
-        msg.isMe = this.currentChat.title === msg.owner ? true : false;
-        this.currentChat.msgs.push(msg);
-      });
-    });
-  }
+  // initChat() {
+  //   if (this.chats.length > 0) {
+  //     this.currentChat.title = this.chats[0].title;
+  //     this.currentChat.icon = this.chats[0].icon;
+  //     this.currentChat.msgs = this.chats[0].msgs;
+  //   }
+  //   this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
+  //     console.log("Nos conectamos");
+  //     this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
+  //       msg.isMe = this.currentChat.title === msg.owner ? true : false;
+  //       this.currentChat.msgs.push(msg);
+  //     });
+  //   });
+  // }
 
   onSelectInbox(index: number) {
     this.currentChat.title = this.chats[index].title;

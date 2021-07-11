@@ -11,7 +11,7 @@ import { CustomValidators } from 'src/app/custom-validators';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
 import { UserI } from 'src/app/shared/interfaces/UserI';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
 import * as firebase from 'firebase';
 
 
@@ -128,7 +128,7 @@ export class RegisterComponent implements OnInit {
       lname: "",
       password: "",
       confirmPassword: "",
-      socketId: "",
+      // socketId: "",
     });
   }
 

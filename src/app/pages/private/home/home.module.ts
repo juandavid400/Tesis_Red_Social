@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
-import { InboxChatComponent } from './components/inbox-chat/inbox-chat.component';
-import { ChatAreaComponent } from './components/chat-area/chat-area.component';
-import { ChatMessageComponent } from './components/chat-message/chat-message.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchComponent } from './components/search/search.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { FooterComponent } from './components/footer/footer.component';
+
+
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    InboxChatComponent,
-    ChatAreaComponent,
-    ChatMessageComponent,
-    SearchComponent,
-  ],
+    HomeComponent,    
+    NavigationBarComponent,
+    FooterComponent
+   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule
   ],

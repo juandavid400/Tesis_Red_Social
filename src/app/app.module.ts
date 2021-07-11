@@ -30,13 +30,18 @@ import { from } from 'rxjs';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { ProfileComponent } from './pages/private/home/components/profile/profile.component';
+
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,    
+    RegisterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
