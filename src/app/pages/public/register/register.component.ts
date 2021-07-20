@@ -194,9 +194,100 @@ export class RegisterComponent implements OnInit {
     
       }
     }
-
+  
+  async doLogout() {
+    await this.authService.logout();
+    this.router.navigate(["/"]);
+  }
 
   goToLogin() {
     this.router.navigate(["/login"]);
   }
+
+  addcontact(count: number) {
+    const query: string = "#app .addcontact";
+    const addcontact: any = document.querySelector(query);
+
+    if (count == 0) {
+      count = 1;
+      addcontact.style.left = 0;
+    } else {
+      count = 0;
+      addcontact.style.left = "-100vh";
+    }
+  }
+
+  areaEstados() {
+    const query: string = "#app .areaEstados";
+    const areaEstados: any = document.querySelector(query);
+
+    if (this.countEstad == 0) {
+      this.countEstad = 1;
+      areaEstados.style.left = 0;
+    } else {
+      this.countEstad = 0;
+      areaEstados.style.left = "-100vh";
+    }
+  }
+
+  countEstad: number = 0;
+
+  openaddContact(){
+    if (this.count == 0){
+      this.count = 1;
+      this.addcontact(this.count);
+    } else {      
+      this.count = 0;
+      this.addcontact(this.count);
+    }
+  }
+
+  count: number = 1;
+
+  SettingsToggle() {
+    const query: string = "#app .DesplegableLeftMore";
+    const DesplegableLeftMore: any = document.querySelector(query);
+
+    if (this.countSett == 0) {
+      this.countSett = 1;
+      DesplegableLeftMore.style.opacity = 1;
+      DesplegableLeftMore.style.transform = "scale(1)";
+    } else {
+      this.countSett = 0;
+      DesplegableLeftMore.style.opacity = 0;
+      DesplegableLeftMore.style.transform = "scale(0)";
+    }
+  }
+
+  countSett: number = 0;
+
+  createGroup() {
+    const query: string = "#app .newGroupContainer";
+    const newGroupContainer: any = document.querySelector(query);
+
+    if (this.countGroup == 0) {
+      this.countGroup = 1;
+      newGroupContainer.style.left = 0;
+    } else {
+      this.countGroup = 0;
+      newGroupContainer.style.left = "-100vh";
+    }
+  }
+
+  countGroup: number = 0;
+
+  createImageGroup() {
+    const query: string = "#app .updateImageGroup";
+    const updateImageGroup: any = document.querySelector(query);
+
+    if (this.countImageGroup == 0) {
+      this.countImageGroup = 1;
+      updateImageGroup.style.left = 0;
+    } else {
+      this.countImageGroup = 0;
+      updateImageGroup.style.left = "-100vh";
+    }
+  }
+
+  countImageGroup: number = 0;
 }

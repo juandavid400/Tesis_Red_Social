@@ -6,6 +6,7 @@
 
 .container{
     width: 100%;
+    position: fixed;
     background-color: yellowgreen;
     //border-radius: 0% 0% 20px 20px;
     // border-bottom: 80px solid lightblue;
@@ -17,11 +18,6 @@
             margin: 2%;
         }
 
-        .profile{
-            width: 10%;
-            height: 10%;
-            margin: 2%;
-        }
 
         .bell{
             width: 10%;

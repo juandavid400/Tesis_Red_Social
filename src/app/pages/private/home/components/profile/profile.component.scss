@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.container{
+.containerHeader{
     width: 100%;
     background-color: yellowgreen;
     //border-radius: 0% 0% 20px 20px;
@@ -34,4 +34,16 @@
             margin-left: 2%;
         }
     }
+}
+
+.containerFooter{
+    width: 100vw;
+    height: 8vh;
+    bottom: 0px;
+    background-color: red;
+    position: fixed;
+    .profile{
+        margin: 2%;
+    }
+
 }

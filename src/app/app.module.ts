@@ -1,3 +1,4 @@
+import { FileUploadComponent } from './file-upload/file-upload.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
@@ -42,6 +43,7 @@ import { ProfileComponent } from './pages/private/home/components/profile/profil
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

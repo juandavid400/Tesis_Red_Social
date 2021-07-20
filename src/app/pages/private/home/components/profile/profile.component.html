@@ -1,13 +1,54 @@
+<!----------------------------------------------------------- INICIO HEADER ------------------------------------------->
 <div class="navbar navbar-default">
-    <div class="container">
+    <div class="containerHeader">
         <div class="navbar-header">
             <img class="logo" src="../../../../../../assets/img/logobook.png" alt="">
             <a href="#" class="app-name">Nombre aplicación</a>
             <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/ProfileIcon.png" alt="">
             <img class="bell" src="../../../../../../assets/img/bell.png" alt="">
-        </div>       
-
+        </div>
     </div>
 </div>
 
+<!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
 
+<div class="container">
+    <div class="PerfilPhoto" >
+        <div class="goBackBtn2" (click)="PerfilPhoto()"> 
+            <svg class="backimg2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="#ffffff" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path>
+            </svg>
+            Profile
+        </div>
+        <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
+        <img class="Photoimg" src="../../../../../../assets/img/noImage.png" alt="" id="img">
+        <div class="ContainerDescription">
+            <div class="textN">Your name</div>
+            <input  class="name" type="text"  placeholder="Juan Narvaez" > 
+                <div class="EditName">
+                    <span class="Check">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M9 17.2l-4-4-1.4 1.3L9 19.9 20.4 8.5 19 7.1 9 17.2z"></path>
+                        </svg>
+                    </span>
+                </div>
+        </div>
+        
+    </div>
+</div>
+
+<!----------------------------------------------------------- INICIO FOOTER ------------------------------------------->
+<nav class="navbar">
+    <div class= "containerFooter">      
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/book.png" alt="">
+          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/widgetsIcon.png" alt="">
+          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/groupIcon.png" alt="">
+          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/ProfileIcon.png" alt="">
+        </a>
+      </div>
+    </div>    
+  </nav>
+
+<!----------------------------------------------------------- FIN FOOTER ------------------------------------------->
