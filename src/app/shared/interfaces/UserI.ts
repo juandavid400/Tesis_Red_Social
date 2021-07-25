@@ -1,7 +1,7 @@
 export interface UserI {
     $key: string
     email: string
-    telefono?: {
+    telefono: {
         countryCode: string
         dialCode: string
         e164Number: string

@@ -24,7 +24,8 @@ import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  
+  userInfoList: UserI[];
   contactAdded: boolean = false;
   contactGroup: boolean = false;
   ListoImagen: boolean = false;
@@ -32,6 +33,10 @@ export class ProfileComponent implements OnInit {
   ImageSelected: string;
   registerList: UserI[];
   Currentimg: string;
+  CurrentDescription: string;
+  UserName: string;
+  UserLastName: string;
+  FulName: string;
   register = [];
   itemRef: any;
   Activechat: any;
@@ -43,6 +48,11 @@ export class ProfileComponent implements OnInit {
   KeyGroup: any;
   copyKey: any;
   dBlock: string[] = [];
+  Mail: string = "";
+
+  ngFormProfile = new FormGroup({
+    descripcion: new FormControl(),      
+  });
 
   constructor( 
     public authService: AuthService,
@@ -54,11 +64,56 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrService) 
     { }
 
-  ngOnInit(): void {
-  }
+    async ngOnInit(){
+      this.UserAcount();      
+  
+      this.registerService
+        .getRegister()
+        .snapshotChanges()
+        .subscribe((item) => {
+          this.registerList = [];
+          item.forEach((element) => {
+            let x = element.payload.toJSON();
+            x["$key"] = element.key;
+            this.registerList.push(x as UserI);
+
+          });        
+        });
+        
+      //  await this.PrintConsistance();
+      //  await this.UpdatePerfilPhoto();
+      //  await this.WhoIsWritingMe();
+      //  await this.SearchImg();
+    }
 
   goToHome() {
     this.router.navigate(['/home']);
+  }
+
+  UserAcount() {
+    // var user = this.firebaseAuth.auth.currentUser;
+    let $this = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+
+        if (user != null) {
+          user.providerData.forEach(function (profile) {
+            console.log("Sign-in provider: " + profile.providerId);
+            // console.log("  Provider-specific UID: " + profile.uid);
+            // console.log("  Name: " + profile.displayName);
+            console.log("  Email: " + profile.email);
+            // console.log("  Phone Number: " + profile.photoURL);
+            $this.UpdatePerfilPhoto(profile.email);
+            $this.getNameUser(profile.email);
+            $this.getDescriptionUser(profile.email);
+          });
+        }
+        console.log(user);
+      } else {
+        // No user is signed in.
+      }
+    });
   }
 
   //---------------------------------------------------INIT DROP ZONE--------------------------------------------------------  
@@ -73,17 +128,59 @@ export class ProfileComponent implements OnInit {
 
   async getImg(event){
     this.ImgUrl = event;
+    const Email = firebase.auth().currentUser.email;
     console.log("URL recibida en padre: " + this.ImgUrl);
    await this.SendImage();
-   await this.UpdatePerfilPhoto();
+   await this.UpdatePerfilPhoto(Email);
+  }
+
+  
+
+  // async getGroupImg(event){
+  //   this.ImgGUrl = event;
+  //   console.log("URL recibida en padre: " + this.ImgGUrl);
+  //  await this.groupImage();
+  // }
+
+  async SendImage (){
+    console.log("ENTRE MANASO");
+
+    if(this.ImgUrl){
+      let Key;      
+      const Email = firebase.auth().currentUser.email;
+      console.log("Email de sendimage");
+      console.log(Email);
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            console.log("entramos", childKey);
+            console.log("recorrido", childKey);
+          }
+                   
+        });
+      });
+
+      this.firebase.database.ref("registers").child(Key).child("Images").push({
+        ImgUrl: this.ImgUrl
+      });
+      
+      this.toastr.success('Submit successful', 'Image updated');
+    }
   }
 
   //-----------------------------------------------------Update perfil photo----------------------------------------------
 
-  async UpdatePerfilPhoto(){
+  async UpdatePerfilPhoto(Mail){
 
     let Key;
-    const Email = firebase.auth().currentUser.email;
+    // firebase.auth().currentUser.email
+    const Email = Mail;
+    // await Email = firebase.auth().currentUser.email;
+    console.log("Email UpdatePerfilPhoto");
+    console.log(Email);
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
@@ -108,40 +205,118 @@ export class ProfileComponent implements OnInit {
     });
 
     if(!this.Currentimg) {
-      this.Currentimg = "../../../../../../assets/img/noImage.png";
-      const query: string = "#app .Photoimg";
+      this.Currentimg = "../../../../../../assets/img/NoImage.png";
+      const query: string = ".container .Photoimg";
       const Photoimg: any = document.querySelector(query);
-      const query2: string = "#app .profile";
-      const profile: any = document.querySelector(query2);
+      // const query2: string = "#app .profile";
+      // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
-      profile.src = this.Currentimg;
-      console.log(profile.src);
-      console.log(profile.src);
-      console.log(profile.src);
+      // profile.src = this.Currentimg;
+      console.log(Photoimg.src);
+      // console.log(profile.src);
+      // console.log(profile.src);
     } else {
-      const query: string = "#app .Photoimg";
+      const query: string = ".container .Photoimg";
       const Photoimg: any = document.querySelector(query);
-      const query2: string = "#app .profile";
-      const profile: any = document.querySelector(query2);
+      // const query2: string = "#app .profile";
+      // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
-      profile.src = this.Currentimg;
+      // profile.src = this.Currentimg;
       console.log(this.Currentimg);      
     }
     
   }
-  //-----------------------------------------------------End Update perfil photo----------------------------------------------
+  //-----------------------------------------------------End Update perfil photo--------------------------------------
 
-  // async getGroupImg(event){
-  //   this.ImgGUrl = event;
-  //   console.log("URL recibida en padre: " + this.ImgGUrl);
-  //  await this.groupImage();
-  // }
+ //-----------------------------------------------------Search IMg----------------------------------------------  
+//   async SearchImg(){
 
-  async SendImage (){
-    console.log("ENTRE MANASO");
+//     let Key;
+//     let ContactNumber = this.FormAdd.controls.Numbercontact.value;
 
-    if(this.ImgUrl){
-      let Key;
+
+//     await this.firebase.database.ref("registers").once("value", (users) => {
+//       users.forEach((user) => {
+//         const childKey = user.key;
+//         const childData = user.val();
+//  // PRIMERA PASADA PARA RECORRER PRIMERA CAPA       
+//         if (childData.email == ContactNumber || childData.telefono.e164Number == ContactNumber) {
+//           Key = childKey;
+//           // SEGUNDA PASADA PARA RECORRER DENTRO DEL USUARIO
+//           user.forEach((info) => {
+//             const infoChildKey = info.key;
+//             const infoChildData = info.val();
+//             // SEGUNDA PASADA PARA RECORRER DENTRO DE CONTACTS
+//             info.forEach((Images) => {
+//               const imagesChildKey = Images.key;
+//               const imagesChilData = Images.val();
+//               // SEGUNDA PASADA PARA RECORRER LOS NUMERO Y NOMBRE
+//               Images.forEach((ImgUrl) => {
+//                 const ImagesChildKey = ImgUrl.key;
+//                 const ImagesChildData = ImgUrl.val();
+//                 const filter = /https:/gm;
+
+//                 if (ImagesChildKey == "ImgUrl"){
+//                   this.ImageSelected = ImagesChildData;
+//                 }
+                
+//               });
+//             });
+//           });
+//         }
+//       });
+//     });
+//     return this.ImageSelected;
+//   }
+//-----------------------------------------------------ENd Search IMg----------------------------------------------
+//-----------------------------------------------------Start get name----------------------------------------------
+
+  async getNameUser(Mail){
+
+    let Key;
+    // firebase.auth().currentUser.email
+    const Email = Mail;
+    console.log("name getNameUser");
+    console.log(Email);
+    await this.firebase.database.ref("registers").once("value", (users) => {
+      users.forEach((user) => {
+        const childKey = user.key;
+        const childData = user.val();     
+        if (childData.email == Email) {
+          Key = childKey;
+          console.log("childData");
+          console.log(childData);
+          if (childData.lname != '' && childData.name != ''){
+            this.UserName = childData.name;
+            this.UserLastName = childData.lname;            
+            this.FulName = this.UserName.concat(" "+this.UserLastName);
+          }          
+        }
+      });
+    });
+
+    if(this.UserName != '') {
+      
+      const query: string = ".container .name";
+      document.querySelector(query).innerHTML = this.FulName;
+
+    } else {
+      const query: string = ".container .name";
+      document.querySelector(query).innerHTML = "Nombre no registrado";
+      this.toastr.error('Error al buscar el nombre', 'Error');   
+    }
+    
+  }
+  //-----------------------------------------------------End get name----------------------------------------------
+  //-----------------------------------------------------Start Send descrition------------------------------------------
+  async SendDescription (){
+    const query: string = ".container .inputDescripcion";
+    const Descript: any = document.querySelector(query);
+    const Description = Descript.value;
+    console.log("Description");
+    console.log(Description);
+    if(Description != ''){
+      let Key;      
       const Email = firebase.auth().currentUser.email;
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
@@ -155,28 +330,57 @@ export class ProfileComponent implements OnInit {
                    
         });
       });
-
-      this.firebase.database.ref("registers").child(Key).child("Images").push({
-        ImgUrl: this.ImgUrl
+  
+      this.firebase.database.ref("registers").child(Key).child("Descripcion").push({
+        Descripcion: Description
       });
       
-      this.toastr.success('Submit successful', 'Image updated');
+      this.toastr.success('Descripcion actualizada', 'Exitosamente');
     }
   }
+  //-----------------------------------------------------END Send descrition------------------------------------------
+  //-----------------------------------------------------Start Get descrition------------------------------------------
+  async getDescriptionUser(Mail){
 
-  PerfilPhoto() {
-    const query: string = "#app .PerfilPhoto";
-    const PerfilPhoto: any = document.querySelector(query);
+    let Key;
+    // firebase.auth().currentUser.email
+    const Email = Mail;
+    console.log("name getDescriptionUser");
+    console.log(Email);
+    await this.firebase.database.ref("registers").once("value", (users) => {
+      users.forEach((user) => {
+        const childKey = user.key;
+        const childData = user.val();     
+        if (childData.email == Email) {
+          Key = childKey;
+          user.forEach((info) => {
+            info.forEach((Description) => {
+              Description.forEach((DescriptionText) => {
+                const DescriptionChildKey = DescriptionText.key;
+                const DescriptionChildData = DescriptionText.val();
 
-    if (this.countPhoto == 0) {
-      this.countPhoto = 1;
-      PerfilPhoto.style.left = 0;
+                if (DescriptionChildKey == "Descripcion"){
+                  this.CurrentDescription = DescriptionChildData;
+                } 
+              });
+            });
+          });         
+        }
+      });
+    });
+
+    if(this.CurrentDescription != '') {
+      
+      const query: string = ".inputDescripcion";
+      const element: any  = document.querySelector(query);
+      element.value = this.CurrentDescription;
+
     } else {
-      this.countPhoto = 0;
-      PerfilPhoto.style.left = "-100vh";
+      const query: string = ".inputDescripcion";
+      const element: any  = document.querySelector(query);
+      element.value = "No se tiene descripción";   
     }
+    
   }
 
-  countPhoto: number = 0;
 }
-
