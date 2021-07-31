@@ -34,6 +34,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       msgs: undefined
   };
 
+  bookList: UserI[];
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+
   chats: Array<ChatI> = [
     {
       title: "El costeño",
@@ -107,6 +113,16 @@ export class HomeComponent implements OnInit, OnDestroy {
           let x = element.payload.toJSON();
           x["$key"] = element.key;
           this.registerList.push(x as UserI);
+        });
+      });
+
+      this.registerService.getBooks()
+      .snapshotChanges().subscribe(item => {
+        this.bookList = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["$key"] = element.key;
+          this.bookList.push(x as UserI);
         });
       });
     }
