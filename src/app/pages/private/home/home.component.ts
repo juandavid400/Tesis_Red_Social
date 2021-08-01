@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 //import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -33,8 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       connection: undefined,
       msgs: undefined
   };
-
-  bookList: UserI[];
+  
+  
 
   goToHome() {
     this.router.navigate(['/home']);
@@ -96,15 +97,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     msgs: []
   };
 
-  constructor(public authService: AuthService, public chatService: ChatService, private firebaseAuth:AngularFireAuth, 
-    private registerService: RegisterService, private router: Router, private firebase: AngularFireDatabase) {}
+  constructor(public authService: AuthService,
+    public chatService: ChatService,
+    private firebaseAuth:AngularFireAuth, 
+    private registerService: RegisterService,
+    private router: Router,
+    private firebase: AngularFireDatabase,
+    private toastr: ToastrService) {}
 
     registerList: UserI[];
+    bookList: UserI[];
+    bookComents: any[] = [];
     register= [];
     itemRef: any;
+    
 
     ngOnInit(): void {
       // this.initChat();
+      let $this = this;
       this.UserAcount();
       this.registerService.getRegister()
       .snapshotChanges().subscribe(item => {
@@ -115,21 +125,64 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.registerList.push(x as UserI);
         });
       });
-
+      
       this.registerService.getBooks()
       .snapshotChanges().subscribe(item => {
         this.bookList = [];
-        item.forEach(element => {
+        item.forEach((element) => {
           let x = element.payload.toJSON();
           x["$key"] = element.key;
           this.bookList.push(x as UserI);
         });
+        $this.coments(this.bookList);
       });
+      
+    }
+
+
+   async coments(books){
+
+    let arr = [];
+    let flag = 0;
+    let $this = this;
+    // console.log(books);    
+    // console.log("-----------------------------");
+    var rango = Object.keys(books[0]).map((key) => [(key), books[0][key]]);
+
+      for (let i = 0; i < books.length; i++) {                          
+        for (let j = 0; j < rango.length; j++) {
+          if (flag == 0){
+            var result = Object.keys(books[i]).map((key) => [(key), books[i][key]]);
+          } else if (j == result[i].length){
+            var result = Object.keys(books[i]).map((key) => [(key), books[i][key]]);
+          }
+          // console.log("result[i][j]");
+          // console.log("Posicion: "+ j +" "+ result[i][j]);
+          if (result[i][0]=="Comentarios"){
+            // console.log("Entre");
+            // console.log(result[i][1]);
+            var result2 = Object.keys(result[i][1]).map((key) => [(key), result[i][1][key]]);
+            for (let k = 0; k < result2.length; k++) {
+              // console.log(result2[k][1]);
+              let temp = result2[k][1];
+              // console.log(temp);
+              // $this.bookComents.push({code:i-1},temp);
+              $this.bookComents.push(temp);
+            }
+            break
+          }
+          flag ++;         
+        }        
+        // console.log(result);        
+      }
+      // console.log("this.bookComents");
+      // console.log(this.bookComents);
     }
 
     UserAcount (){
       // var user = this.firebaseAuth.auth.currentUser;
-  
+      
+      let $this = this;
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
   
@@ -141,7 +194,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               // console.log("  Provider-specific UID: " + profile.uid);
               // console.log("  Name: " + profile.displayName);
               console.log("  Email: " + profile.email);
-              // console.log("  Phone Number: " + profile.photoURL);
+              // $this.addBookToUser(profile.email,"");
             });
           }
           console.log(user);
@@ -190,19 +243,74 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  addcontact(){
-    const query: string = '#app .addcontact';
-    const addcontact: any = document.querySelector(query);
-    
-    if (this.count == 0) {
-      this.count = 1;
-      addcontact.style.left = 0;
-    } else {
-      this.count = 0;
-      addcontact.style.left = "-100vh";
-    }
-  }
+  imagen: any;
+  titulo: any;
+  autor: any;
 
+  ngFormLibro = new FormGroup({
+    imagen: new FormControl(),
+    titulo: new FormControl(),
+    autor: new FormControl(),      
+  });
+
+  async addBookToUser(i){
+    let Key;
+    let index = i.split("-");
+    console.log("Esto es index");
+    console.log(index);
+    // const Email = email;
+    // for (let i = 0; i < this.bookList.length; i++) {
+    //   let numero = i.toString();
+    //   let imgText = "imagen";
+    //   this.imagen = document.querySelector('#'+imgText+i);
+    //   // console.log(this.imagen);     
+    //   this.imagen = this.imagen.src;  
+    //   let titText = "titulo";
+    //   this.titulo = document.querySelector('#'+titText+i);
+    //   // console.log(this.titulo);
+    //   this.titulo = this.titulo.textContent;
+    //   let autorText = "autor";
+    //   this.autor = document.querySelector('#'+autorText+i);
+    //   // console.log(this.imagen);
+    //   this.autor = this.autor.textContent;           
+    // }
+    const Email = firebase.auth().currentUser.email;
+      let imgText = "imagen";
+    this.imagen = document.querySelector('#'+imgText+index[1]);         
+      this.imagen = this.imagen.src;  
+
+      let titText = "titulo";
+      this.titulo = document.querySelector('#'+titText+index[1]);      
+      this.titulo = this.titulo.textContent;
+
+      let autorText = "autor";
+      this.autor = document.querySelector('#'+autorText+index[1]);      
+      this.autor = this.autor.textContent;
+
+      console.log(this.imagen);  
+      console.log(this.titulo);
+      console.log(this.autor);
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            console.log("entramos", childKey);
+            console.log("recorrido", childKey);
+          }
+                   
+        });
+      });
+
+      this.firebase.database.ref("registers").child(Key).child("MisLibros").push({
+        Imagen: this.imagen,
+        Titulo: this.titulo,
+        Autor: this.autor,
+      });
+
+      this.toastr.success('Libro añadido at lista', 'Exitosamente');
+  }
   
 
   count : number = 0;

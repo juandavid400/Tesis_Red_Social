@@ -11,12 +11,12 @@
 </div>
 
 <!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
-<div class="container">
-    <div *ngFor="let book of bookList">
-        <img [src]="book.Portada" alt="imagenes" class="bookImg">
-        <div class="cuerpoText">
-            <h1 align="center" >{{book.Title}}</h1>
-            <h2 align="center" >{{book.Autor}}</h2>
+<div [formGroup]="ngFormLibro" class="container">
+    <div *ngFor="let book of bookList; let i = index" >
+        <img id="{{'imagen'+i}}"  [src]="book.Portada" alt="imagenes" class="bookImg">
+        <div  class="cuerpoText">            
+            <h1 id="{{'titulo'+i}}"  align="center" >{{book.Title}}</h1>
+            <h2 id="{{'autor'+i}}"  align="center" >{{book.Autor}}</h2>
             <img class="stars" src="../../../../assets/img/stars.png" alt="">
             <div class="descripcion">
                 <a href="">{{book.Descripcion}}</a>
@@ -28,7 +28,14 @@
         <div class="librosRecomendados">
 
         </div>
-        <button>Agregar a mi lista</button><br>
+        <label >Comentarios</label><br>
+        <div *ngFor="let bookComent of bookComents" class="comentarios">
+            <div *ngIf="bookComent.code == i">   
+                <label >{{bookComent.User}}</label><br>
+                <label >{{bookComent.Comment}}</label>
+            </div>  
+        </div>
+        <button id="{{'button-'+i}}" (click)="addBookToUser('button-'+i)">Agregar a mi lista</button><br>
         <button>Leer</button>
     </div> 
 </div>
@@ -39,7 +46,7 @@
         <a class="navbar-item">
           <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/book.png" alt="">
           <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/widgetsIcon.png" alt="">
-          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/groupIcon.png" alt="">
+          <img (click)="doLogout()" class="profile" src="../../../../../../assets/img/groupIcon.png" alt="">
           <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/ProfileIcon.png" alt="">
         </a>
       </div>
