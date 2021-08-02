@@ -1,27 +1,24 @@
 <!-- <app-navigation-bar></app-navigation-bar> -->
 
 
-<div class="container">
+<div [formGroup]="ngFormProfile" class="container" >
     <div class="PerfilPhoto" >
-        <div class="goBackBtn2" (click)="PerfilPhoto()"> 
-            <svg class="backimg2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path fill="#ffffff" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path>
-            </svg>
-            Profile
-        </div>
         <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
-        <img class="Photoimg" src="../../../../../../assets/img/noImage.png" alt="" id="img">
+        <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
         <div class="ContainerDescription">
-            <div class="textN">Your name</div>
-            <input  class="name" type="text"  placeholder="Juan Narvaez" > 
-                <div class="EditName">
-                    <span class="Check">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M9 17.2l-4-4-1.4 1.3L9 19.9 20.4 8.5 19 7.1 9 17.2z"></path>
-                        </svg>
-                    </span>
-                </div>
+            <div class="textN">Nombre:</div>
+            <h1  class="name"></h1>
+            <label for="descripcion">Descripción
+                <input formControlName="descripcion" type="text" class="inputDescripcion" >
+            </label>
+            <button (click)="SendDescription()" class="decripcionButton">Actualizar</button>    
         </div>
+        <label for="">Mis Libros</label>
+        <div class="mislibros" *ngFor="let misLibros of misLibrosList; let i = index" >          
+          <img id="{{'imagen'+i}}"  [src]="misLibros.Imagen" alt="imagenes" class="bookImg">
+          <h1 id="{{'titulo'+i}}"  align="center" >{{misLibros.Titulo}}</h1>
+          <h2 id="{{'autor'+i}}"  align="center" >{{misLibros.Autor}}</h2>
+        </div>  
         
     </div>
 </div>

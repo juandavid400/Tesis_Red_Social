@@ -113,3 +113,14 @@ $text: #212121;
     
 }
 
+.containerFooter{
+    width: 100vw;
+    height: 8vh;
+    top: 550px;
+    background-color: red;
+    position: fixed;
+    .profile{
+        margin: 2%;
+    }
+
+}

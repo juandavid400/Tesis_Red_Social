@@ -9,6 +9,7 @@ import { UserI } from "../interfaces/UserI";
 export class RegisterService {
 
   registerList: AngularFireList<any>;
+  bookList:  AngularFireList<any>;
   // selectedProduct: UserI = new UserI();
 
   constructor(private firebase: AngularFireDatabase) { }
@@ -16,6 +17,13 @@ export class RegisterService {
   getRegister(){
     return this.registerList = this.firebase.list('registers');
   }
+
+  getBooks()
+  {
+    this.bookList = this.firebase.list('books');
+    return this.bookList;
+  }
+
 
   insertRegister(register: UserI){
 

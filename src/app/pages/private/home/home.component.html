@@ -1,6 +1,6 @@
 <app-navigation-bar></app-navigation-bar>
 <div class="container">
-    <img class="bookImg" src="../../../../assets/img/harryPotter.jpg" alt="">
+    <!-- <img class="bookImg" src="../../../../assets/img/harryPotter.jpg" alt="">
     <div class="cuerpoText">
         <h1>Harry Potter y la <br> Piedra Filosofal</h1>
         <h2>JK Rowling</h2>
@@ -41,9 +41,37 @@
 
     </div>
 
-    <div class="librosRecomendados">
+    <div class="librosRecomendados"> -->
 
-    </div>
+<!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
+<input type="text" name="searchBox" placeholder="Buscar ..." [(ngModel)]="searchBox">
+<div class="container">
+    <div *ngFor="let book of bookList | filter:searchBox; let i = index" >
+        <img id="{{'imagen'+i}}"  [src]="book.Portada" alt="imagenes" class="bookImg">
+        <div  class="cuerpoText">            
+            <h1 id="{{'titulo'+i}}"  align="center" >{{book.Title}}</h1>
+            <h2 id="{{'autor'+i}}"  align="center" >{{book.Autor}}</h2>
+            <img class="stars" src="../../../../assets/img/stars.png" alt="">
+            <div class="descripcion">
+                <a href="">{{book.Descripcion}}</a>
+            </div>        
+            <label for="text">Comentarios
+                <input type="text" class="inputComentarios">
+            </label>        
+        </div>
+        <div class="librosRecomendados">
+
+        </div>
+        <label >Comentarios</label><br>
+        <div *ngFor="let bookComent of bookComents | filter:searchBox" class="comentarios">
+            <div *ngIf="bookComent.code == i">   
+                <label >{{bookComent.User}}</label><br>
+                <label >{{bookComent.Comment}}</label>
+            </div>  
+        </div>
+        <button id="{{'button-'+i}}" (click)="addBookToUser('button-'+i)">Agregar a mi lista</button><br>
+        <button>Leer</button>
+    </div> 
 </div>
 <app-footer></app-footer>
 
