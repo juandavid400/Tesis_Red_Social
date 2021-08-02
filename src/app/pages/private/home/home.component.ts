@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 //import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -35,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       msgs: undefined
   };
   
-  
+  searchBox= '';
 
   goToProfile() {
     this.router.navigate(['/profile']);

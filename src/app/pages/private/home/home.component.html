@@ -11,8 +11,9 @@
 </div>
 
 <!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
+<input type="text" name="searchBox" placeholder="Buscar ..." [(ngModel)]="searchBox">
 <div class="container">
-    <div *ngFor="let book of bookList; let i = index" >
+    <div *ngFor="let book of bookList | filter:searchBox; let i = index" >
         <img id="{{'imagen'+i}}"  [src]="book.Portada" alt="imagenes" class="bookImg">
         <div  class="cuerpoText">            
             <h1 id="{{'titulo'+i}}"  align="center" >{{book.Title}}</h1>

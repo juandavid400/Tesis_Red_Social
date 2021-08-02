@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 
 
@@ -12,7 +13,8 @@ import { FooterComponent } from './components/footer/footer.component';
   declarations: [
     HomeComponent,    
     NavigationBarComponent,
-    FooterComponent
+    FooterComponent,
+    FilterPipe
    ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule
