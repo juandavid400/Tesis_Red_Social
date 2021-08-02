@@ -11,7 +11,7 @@
 </div>
 
 <!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
-<div [formGroup]="ngFormLibro" class="container">
+<div class="container">
     <div *ngFor="let book of bookList; let i = index" >
         <img id="{{'imagen'+i}}"  [src]="book.Portada" alt="imagenes" class="bookImg">
         <div  class="cuerpoText">            
@@ -44,10 +44,10 @@
     <div class= "containerFooter">      
       <div class="navbar-brand">
         <a class="navbar-item">
-          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/book.png" alt="">
-          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/widgetsIcon.png" alt="">
+          <img (click)="goToProfile()" class="profile" src="../../../../../../assets/img/book.png" alt="">
+          <img (click)="goToProfile()" class="profile" src="../../../../../../assets/img/widgetsIcon.png" alt="">
           <img (click)="doLogout()" class="profile" src="../../../../../../assets/img/groupIcon.png" alt="">
-          <img (click)="goToHome()" class="profile" src="../../../../../../assets/img/ProfileIcon.png" alt="">
+          <img (click)="goToProfile()" class="profile" src="../../../../../../assets/img/ProfileIcon.png" alt="">
         </a>
       </div>
     </div>    

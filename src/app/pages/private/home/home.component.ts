@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   
 
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
   goToHome() {
     this.router.navigate(['/home']);
   }
@@ -144,11 +148,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     let arr = [];
     let flag = 0;
+    let flag2 = 0;
     let $this = this;
     // console.log(books);    
     // console.log("-----------------------------");
     var rango = Object.keys(books[0]).map((key) => [(key), books[0][key]]);
-
       for (let i = 0; i < books.length; i++) {                          
         for (let j = 0; j < rango.length; j++) {
           if (flag == 0){
@@ -164,11 +168,14 @@ export class HomeComponent implements OnInit, OnDestroy {
             var result2 = Object.keys(result[i][1]).map((key) => [(key), result[i][1][key]]);
             for (let k = 0; k < result2.length; k++) {
               // console.log(result2[k][1]);
+              // flag2
+              console.log(result2.length);
               let temp = result2[k][1];
               // console.log(temp);
               // $this.bookComents.push({code:i-1},temp);
               $this.bookComents.push(temp);
             }
+            // console.log($this.bookComents);
             break
           }
           flag ++;         

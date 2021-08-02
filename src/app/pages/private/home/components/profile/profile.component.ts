@@ -26,6 +26,7 @@ import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 export class ProfileComponent implements OnInit {
   
   userInfoList: UserI[];
+  misLibrosList: any[] = [];
   contactAdded: boolean = false;
   contactGroup: boolean = false;
   ListoImagen: boolean = false;
@@ -107,6 +108,7 @@ export class ProfileComponent implements OnInit {
             $this.UpdatePerfilPhoto(profile.email);
             $this.getNameUser(profile.email);
             $this.getDescriptionUser(profile.email);
+            $this.getMisLibros();
           });
         }
         console.log(user);
@@ -382,5 +384,54 @@ export class ProfileComponent implements OnInit {
     }
     
   }
+  //-----------------------------------------------------Start get Mislibros------------------------------------------
+  async getMisLibros(){
+    let Key;
+    let flag: number = 0;
+    let Autor = {};
+    let Titulo = {};
+    let Imagen = {};
+    // console.log("Esto es index");
+    // console.log(index);
+    const Email = firebase.auth().currentUser.email;
+
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          // console.log("entre nivel1");
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            user.forEach((info) => {
+              info.forEach((MisLibros) => {
+                MisLibros.forEach((Libros) => {
+                  const LibrosChildKey = Libros.key;
+                  const LibrosChildData = Libros.val();
+                if (LibrosChildKey == "Autor"){
+                  Autor = LibrosChildData;
+                  // console.log(aut);
+                  // this.misLibrosList.push({Autor:LibrosChildData});
+                } else if (LibrosChildKey == "Imagen"){
+                  Imagen = LibrosChildData;
+                  // console.log(img);
+                  // this.misLibrosList.push({Imagen:LibrosChildData});
+                } else if (LibrosChildKey == "Titulo"){
+                  Titulo = LibrosChildData;
+                  // console.log(tit);
+                  if (Autor != '' && Imagen != '' && Titulo != ''){
+                    console.log("entre");
+                    this.misLibrosList.push({Autor,Imagen,Titulo});
+                  }
+                }                
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+      console.log(this.misLibrosList);
+  }
+  //-----------------------------------------------------END get Mislibros------------------------------------------
 
 }
