@@ -30,7 +30,7 @@
 
         </div>
         <label >Comentarios</label><br>
-        <div *ngFor="let bookComent of bookComents" class="comentarios">
+        <div *ngFor="let bookComent of bookComents | filter:searchBox" class="comentarios">
             <div *ngIf="bookComent.code == i">   
                 <label >{{bookComent.User}}</label><br>
                 <label >{{bookComent.Comment}}</label>
