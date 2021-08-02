@@ -4,15 +4,48 @@
     box-sizing: border-box;
 }
 
+// Colors
+$azulOscuro: #112e51;
+$AzulMedio: #205493;
+$AzulClaro: #0071bc;
+$text: #212121;
+
 .container{
     width: 100vw;
-    height: 8vh;
+    // height: 8vh; 
     bottom: 0px;
-    background-color: red;
+    background-color: $AzulMedio;
     position: fixed;
-    .profile{
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    // display: flex;
+    // margin: 0%;
+    // padding: 0%;
+    // // flex-flow: row nowrap;
+    // // flex-wrap: nowrap;
+    // flex-flow: row wrap;
+    // justify-content: space-around;
+    // align-items: center;
+
+
+    .imagen{
+        // position: relative;
+        // margin: auto;
+        width: 10%;
+        height:10%;
+        // background-color: green;
+        // flex-flow: row wrap;
         margin: 2%;
     }
+
+    .footer-item{
+        // background-color: honeydew;
+        justify-self: center;
+        
+    }
+
 
 }
         
