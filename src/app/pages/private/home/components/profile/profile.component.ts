@@ -143,7 +143,7 @@ export class ProfileComponent implements OnInit {
   // }
 
   async SendImage (){
-    console.log("ENTRE MANASO");
+    // console.log("ENTRE MANASO");
 
     if(this.ImgUrl){
       let Key;      

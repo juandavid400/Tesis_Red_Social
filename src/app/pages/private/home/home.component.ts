@@ -246,6 +246,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagen: any;
   titulo: any;
   autor: any;
+  confirm: any = false;
+  contador: number= 0;
+  arr: any[] = [];
 
   ngFormLibro = new FormGroup({
     imagen: new FormControl(),
@@ -256,24 +259,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   async addBookToUser(i){
     let Key;
     let index = i.split("-");
-    console.log("Esto es index");
-    console.log(index);
-    // const Email = email;
-    // for (let i = 0; i < this.bookList.length; i++) {
-    //   let numero = i.toString();
-    //   let imgText = "imagen";
-    //   this.imagen = document.querySelector('#'+imgText+i);
-    //   // console.log(this.imagen);     
-    //   this.imagen = this.imagen.src;  
-    //   let titText = "titulo";
-    //   this.titulo = document.querySelector('#'+titText+i);
-    //   // console.log(this.titulo);
-    //   this.titulo = this.titulo.textContent;
-    //   let autorText = "autor";
-    //   this.autor = document.querySelector('#'+autorText+i);
-    //   // console.log(this.imagen);
-    //   this.autor = this.autor.textContent;           
-    // }
+    // console.log("Esto es index");
+    // console.log(index);
     const Email = firebase.auth().currentUser.email;
       let imgText = "imagen";
     this.imagen = document.querySelector('#'+imgText+index[1]);         
@@ -287,29 +274,56 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.autor = document.querySelector('#'+autorText+index[1]);      
       this.autor = this.autor.textContent;
 
-      console.log(this.imagen);  
-      console.log(this.titulo);
-      console.log(this.autor);
+      // console.log(this.imagen);  
+      // console.log(this.titulo);
+      // console.log(this.autor);
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
+          // console.log("entre nivel1");
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
-            console.log("entramos", childKey);
-            console.log("recorrido", childKey);
-          }
-                   
+            user.forEach((info) => {
+              info.forEach((MisLibros) => {
+                MisLibros.forEach((Libros) => {
+                  const LibrosChildKey = Libros.key;
+                  const LibrosChildData = Libros.val();
+                if (LibrosChildKey == "Titulo"){
+                  if (LibrosChildData == this.titulo){
+                    this.arr.push(LibrosChildData);
+                  }
+                }
+                });
+                
+              });
+            });
+          }        
         });
       });
+      console.log(this.arr);
+      for (let i = 0; i < this.arr.length; i++) {
+        if (this.arr[i]==this.titulo){
+          this.contador ++;
+        }        
+      }
+      if (this.contador==0){
+        this.confirm = true;
+      } else {
+        this.toastr.error('El libro ya se encuentra en tu lista', 'Fallido');
+      }
+      if (this.confirm == true){
+        this.firebase.database.ref("registers").child(Key).child("MisLibros").push({
+          Imagen: this.imagen,
+          Titulo: this.titulo,
+          Autor: this.autor,
+        });
+        this.toastr.success('Libro añadido a tu lista', 'Exitosamente');
+      }
 
-      this.firebase.database.ref("registers").child(Key).child("MisLibros").push({
-        Imagen: this.imagen,
-        Titulo: this.titulo,
-        Autor: this.autor,
-      });
-
-      this.toastr.success('Libro añadido at lista', 'Exitosamente');
+    this.contador = 0;
+    this.confirm = false;
+    this.arr = [];  
   }
   
 
