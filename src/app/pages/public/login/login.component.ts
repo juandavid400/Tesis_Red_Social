@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
       
       firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         this.router.navigate(['/home']);
-        this.toastr.success('Login successful', 'Login acount', {
+        this.toastr.success('Ingreso exitoso', '', {
           positionClass: 'toast-top-center'
         });
       }).catch(function (error) {
@@ -92,7 +92,9 @@ export class LoginComponent implements OnInit {
         console.log(`Error [${errorCode}]: ${errorMessage}`);
       });
       } else {
-      alert("El usuario no existe");
+      this.toastr.success('El usuario no esta registrado', 'Fallido', {
+        positionClass: 'toast-top-center'
+      });
         }  
     }
 }

@@ -33,6 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './pages/private/home/components/profile/profile.component';
+import { TagsComponent } from './pages/public/tags/tags.component';
 
 
 
@@ -45,6 +46,7 @@ import { ProfileComponent } from './pages/private/home/components/profile/profil
     RegisterComponent,
     ProfileComponent,
     FileUploadComponent,
+    TagsComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +69,7 @@ import { ProfileComponent } from './pages/private/home/components/profile/profil
   ],
   providers: [
     RegisterService,
+    RegisterComponent,
     AuthService,
     AngularFirestore,
     AngularFireAuthGuard

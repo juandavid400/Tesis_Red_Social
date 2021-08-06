@@ -1,0 +1,8 @@
+<div class="container" >
+    <div *ngFor="let tags of tagsList ; let i = index">
+        <div class="tagscont form-row">
+            <img (click)="sendTags('categoria-'+i)" id="{{'tags'+i}}"  src="../../../../assets/img/addImg.svg" alt="tag" class="tagImg">
+            <h1 id="{{'categoria'+i}}"  align="center" >{{tags}}</h1>
+        </div>
+    </div>
+</div>

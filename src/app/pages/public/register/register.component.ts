@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import {  FormControl, FormGroup, NgForm, Validators, FormBuilder,} from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { RegisterService } from "src/app/shared/services/register.service";
-//import { AngularFireDatabase} from 'angularfire2/database';
-import { AngularFireDatabase}from '@angular/fire/database';
+//import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase,AngularFireList}from '@angular/fire/database';
 // import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CustomValidators } from 'src/app/custom-validators';
@@ -107,6 +107,7 @@ export class RegisterComponent implements OnInit {
     registerList: UserI[];
     register= [];
     itemRef: any;
+    email: any = "ejemplo";
 
   ngOnInit(): void {
     this.registerService.getRegister()
@@ -153,16 +154,16 @@ export class RegisterComponent implements OnInit {
   
     if (EmailExist) {
       console.log("Ya existe este email");
-      this.toastr.error('The email is already taken', 'Try another email', {
+      this.toastr.error('Ese correo ya esta registrado', 'Intenta otro correo', {
         positionClass: 'toast-top-center'
       });
     } else if (PhoneExist) {
-      this.toastr.error('The phonenumber is already taken', 'Try another number', {
+      this.toastr.error('El número ya esta registrado', 'Intenta otro número', {
         positionClass: 'toast-top-center'
       });
       console.log("Ya existe este número");
     } else {
-
+      
       firebase.auth().createUserWithEmailAndPassword(Email, Password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -179,21 +180,30 @@ export class RegisterComponent implements OnInit {
 
     
       // this.resetForm();
-      this.ngForm.reset({
-        email : '',
-        telefono: '',
-        name: '',
-        lname: '',
-        password: '',
-        confirmPassword: '',
-      });
-
-      this.router.navigate(["/login"]);
-
+      // this.ngForm.reset({
+      //   email : '',
+      //   telefono: '',
+      //   name: '',
+      //   lname: '',
+      //   password: '',
+      //   confirmPassword: '',
+      // });
+      this.email = Email;
+      firebase.auth().signInWithEmailAndPassword(Email, Password).then(() => {
+        this.router.navigate(['/tags']);
+        this.toastr.success('Cuenta creada', 'Exitosamente', {
+          positionClass: 'toast-top-center'
+        });
+      }) 
+      console.log("this.email");  
+      console.log(this.email);
+        
+      // this.router.navigate(["/tags"]); 
         }  
     
       }
     }
+
   
   async doLogout() {
     await this.authService.logout();
@@ -202,6 +212,10 @@ export class RegisterComponent implements OnInit {
 
   goToLogin() {
     this.router.navigate(["/login"]);
+  }
+
+  goToTags() {
+    this.router.navigate(["/tags"]);
   }
 
   addcontact(count: number) {

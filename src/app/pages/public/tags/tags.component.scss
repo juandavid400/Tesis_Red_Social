@@ -1,0 +1,35 @@
+$bodyFont: sfProTextRegular;
+$titleFont: sfProTextMedium;
+
+@font-face {
+    font-family: sfProTextRegular;
+    src: url(/assets/fonts/SFProTextRegular.ttf);
+}
+
+@font-face {
+    font-family: sfProTextMedium;
+    src: url(/assets/fonts/SFProTextMedium.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #212121;
+}
+.container{    
+    margin-top: 5%;
+    .tagscont{
+      margin-bottom: 5%;
+        .tagImg{
+            display: flex;
+            justify-content: center;
+            width: 10%;
+            height: 10%;
+            margin-left: 5%;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    }
+}
+

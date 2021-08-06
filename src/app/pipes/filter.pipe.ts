@@ -11,7 +11,7 @@ export class FilterPipe implements PipeTransform {
     }
     const resultSearchBox = [];
     for (const post of value) {
-      if (post.Title.toLowerCase().indexOf(args.toLowerCase()) > -1){
+      if (post.Title.toLowerCase().indexOf(args.toLowerCase()) > -1 || post.Autor.toLowerCase().indexOf(args.toLowerCase()) > -1){
         resultSearchBox.push(post);
       }      
     }

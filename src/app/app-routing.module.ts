@@ -8,6 +8,7 @@ import { RegisterComponent } from './pages/public/register/register.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './pages/private/home/components/profile/profile.component';
+import { TagsComponent } from './pages/public/tags/tags.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectAuthorizedToHome = () => redirectLoggedInTo(['home']);
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectAuthorizedToHome } },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'tags', component: TagsComponent },
   { path: '**', redirectTo: '/login' },
 ];
 
