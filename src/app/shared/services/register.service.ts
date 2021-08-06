@@ -10,6 +10,7 @@ export class RegisterService {
 
   registerList: AngularFireList<any>;
   bookList:  AngularFireList<any>;
+  tagsList:  AngularFireList<any>;
   // selectedProduct: UserI = new UserI();
 
   constructor(private firebase: AngularFireDatabase) { }
@@ -22,6 +23,12 @@ export class RegisterService {
   {
     this.bookList = this.firebase.list('books');
     return this.bookList;
+  }
+
+  getTags()
+  {
+    this.tagsList = this.firebase.list('tags');
+    return this.tagsList;
   }
 
 

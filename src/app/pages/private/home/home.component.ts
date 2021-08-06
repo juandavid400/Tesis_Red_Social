@@ -22,7 +22,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
   FormAdd = new FormGroup({
     Numbercontact: new FormControl(),
@@ -47,61 +47,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home']);
   }
 
-  chats: Array<ChatI> = [
-    {
-      title: "El costeño",
-      icon: "/assets/img/ca.jpeg",
-      isRead: true,
-      msgPreview: "como gallinazo",
-      lastMsg: "11:13",
-      msgs: [
-        {content: "a lo que se mueva", isRead:true, isMe:true, time:"7:24"},
-        {content: "entonces ando de gallinazo", isRead:true, isMe:false, time:"7:25"},
-      ]
-    },
-    {
-      title: "El traumado",
-      icon: "/assets/img/tr.jpg",
-      isRead: true,
-      msgPreview: "Suerte es que le deseo, haga eso pi**",
-      lastMsg: "18:30",
-      msgs: [
-        {content: "Suerte es que le deseo, haga eso pi**", isRead:true, isMe:true, time:"9:24"},
-        {content: "obligueme perro", isRead:true, isMe:false, time:"9:25"},
-      ]
-
-    },
-    {
-      title: "Solos Pobres y FEOS",
-      icon: "/assets/img/td.jpeg",
-      isRead: true,
-      msgPreview: "Nice front 😎",
-      lastMsg: "23:30",
-      msgs: []
-    },
-    {
-      title: "El de la moto",
-      icon: "/assets/img/go.jpg",
-      isRead: true,
-      msgPreview: " 😎",
-      lastMsg: "3:30",
-      msgs: []
-    },
-    {
-      title: "El charlon",
-      icon: "/assets/img/al.PNG",
-      isRead: true,
-      msgPreview: " 😎",
-      lastMsg: "8:30",
-      msgs: []
-    },
-  ];
-
-  currentChat = {
-    title: "",
-    icon: "",
-    msgs: []
-  };
 
   constructor(public authService: AuthService,
     public chatService: ChatService,
@@ -162,33 +107,22 @@ export class HomeComponent implements OnInit, OnDestroy {
           } else if (j == result[i].length){
             var result = Object.keys(books[i]).map((key) => [(key), books[i][key]]);
           }
-          // console.log("result[i][j]");
-          // console.log("Posicion: "+ j +" "+ result[i][j]);
+
           if (result[i][0]=="Comentarios"){
-            // console.log("Entre");
-            // console.log(result[i][1]);
             var result2 = Object.keys(result[i][1]).map((key) => [(key), result[i][1][key]]);
             for (let k = 0; k < result2.length; k++) {
-              // console.log(result2[k][1]);
-              // flag2
               console.log(result2.length);
               let temp = result2[k][1];
-              // console.log(temp);
-              // $this.bookComents.push({code:i-1},temp);
               $this.bookComents.push(temp);
             }
-            // console.log($this.bookComents);
             break
           }
           flag ++;         
-        }        
-        // console.log(result);        
+        }  
       }
-      // console.log("this.bookComents");
-      // console.log(this.bookComents);
     }
 
-    UserAcount (){
+      UserAcount (){
       // var user = this.firebaseAuth.auth.currentUser;
       
       let $this = this;
@@ -213,43 +147,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
 
-  ngOnDestroy(): void {
-    this.destroySubscriptionList();
-    // this.chatService.disconnect();
-  }
-
-  // initChat() {
-  //   if (this.chats.length > 0) {
-  //     this.currentChat.title = this.chats[0].title;
-  //     this.currentChat.icon = this.chats[0].icon;
-  //     this.currentChat.msgs = this.chats[0].msgs;
-  //   }
-  //   this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
-  //     console.log("Nos conectamos");
-  //     this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
-  //       msg.isMe = this.currentChat.title === msg.owner ? true : false;
-  //       this.currentChat.msgs.push(msg);
-  //     });
-  //   });
-  // }
-
-  onSelectInbox(index: number) {
-    this.currentChat.title = this.chats[index].title;
-      this.currentChat.icon = this.chats[index].icon;
-      this.currentChat.msgs = this.chats[index].msgs;
-  }
 
   async  doLogout() {
     await this.authService.logout();
     this.router.navigate(['/']);
-  }
-
-  destroySubscriptionList(exceptList: string[] = []): void {
-    for (const key of Object.keys(this.subscriptionList)) {
-      if (this.subscriptionList[key] && exceptList.indexOf(key) === -1) {
-        this.subscriptionList[key].unsubscribe();
-      }
-    }
   }
 
   imagen: any;
@@ -336,22 +237,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   
 
-  count : number = 0;
-
-  PerfilPhoto(){
-    const query: string = '#app .PerfilPhoto';
-    const PerfilPhoto: any = document.querySelector(query);
+  // PerfilPhoto(){
+  //   const query: string = '#app .PerfilPhoto';
+  //   const PerfilPhoto: any = document.querySelector(query);
     
-    if (this.countPhoto == 0) {
-      this.countPhoto = 1;
-      PerfilPhoto.style.left = 0;
-    } else {
-      this.countPhoto = 0;
-      PerfilPhoto.style.left = "-100vh";
-    }
-  }
+  //   if (this.countPhoto == 0) {
+  //     this.countPhoto = 1;
+  //     PerfilPhoto.style.left = 0;
+  //   } else {
+  //     this.countPhoto = 0;
+  //     PerfilPhoto.style.left = "-100vh";
+  //   }
+  // }
 
-  countPhoto : number = 0;
+  // countPhoto : number = 0;
   
   async SendContact() {
     
@@ -409,9 +308,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  SearchAnim(){
-    
-  }
-  
+
 
 }
