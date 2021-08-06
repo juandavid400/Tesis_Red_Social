@@ -34,6 +34,7 @@ import { AuthService } from './shared/services/auth.service';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './pages/private/home/components/profile/profile.component';
 import { TagsComponent } from './pages/public/tags/tags.component';
+import { FilterTagsPipe } from './pipes/filter-tags.pipe';
 
 
 
@@ -47,6 +48,7 @@ import { TagsComponent } from './pages/public/tags/tags.component';
     ProfileComponent,
     FileUploadComponent,
     TagsComponent,
+    FilterTagsPipe,
   ],
   imports: [
     BrowserModule,
