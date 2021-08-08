@@ -1,131 +1,144 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
 <div class="appContainer">
 
-  <div class="text">
-    Register
+  <div class="logoContainer">
+    <div class="text">
+      Register
+    </div>
+
+    <div class="logo">
+      <img src="../../../../assets/img/Logo - Azul.svg" alt="">
+    </div>
+
+    <div class="text">
+      LecturApp
+    </div>
   </div>
 
-  <div class="logo">
-    <img src="../../../../assets/img/Logo - Azul.svg" alt="">
-  </div>
+  <div class="imputContainer">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
 
-  <div class="text">
-    LecturApp
-  </div>
-  
-  <div class="box">
-    <article class="media">
-      <div class="media-content">
-        <div class="content">
 
-           
-          <form [formGroup]="ngForm" >
+            <form [formGroup]="ngForm">
 
-            <label for="name" [ngClass]="ngForm.controls['name'].invalid ? 'text-danger' : 'text-success'">Name</label>
-            <div class="field">
-              <p class="control has-icons-left">
-                <input class="input" formControlName="name" type="text" placeholder="Name" [ngClass]="ngForm.controls['name'].invalid ? 'is-invalid' : 'success'" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-              </p>
-            </div>
-
-            <label for="lname" [ngClass]="ngForm.controls['lname'].invalid ? 'text-danger' : 'text-success'">Last Name</label>
-            <div  class="field">
-              <p class="control has-icons-left">
-                <input  class="input" type="text" formControlName="lname"  placeholder="Last Name" [ngClass]="ngForm.controls['lname'].invalid ? 'is-invalid' : 'success'" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-              </p>
-            </div>
-
-            
-            <label for="telefono" [ngClass]="ngForm.controls['telefono'].invalid ? 'text-danger' : 'text-success'">Phone Number</label>
-            <div class="field">
-              <p class="control has-icons-left">
-                
-                
-                <!-- <input class="input" formControlName="telefono" type="text"  placeholder="Phone Number" [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'" required> -->
-                <ngx-intl-tel-input [cssClass]="'custom'"
-                  [enableAutoCountrySelect]="true"
-                  [enablePlaceholder]="true"
-                  [searchCountryFlag]="true"
-                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                  [selectFirstCountry]="false"
-                  [selectedCountryISO]="CountryISO.Colombia"
-                  [maxLength]="15"
-                  [tooltipField]="TooltipLabel.Name"
-                  [phoneValidation]="true"
-                  [separateDialCode]="true"
-                  formControlName="telefono"
-                  [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'">
-                </ngx-intl-tel-input>
-                
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-              </p>
-            </div>
-
-            <label for="email" [ngClass]="ngForm.controls['email'].invalid ? 'text-danger' : 'text-success'">Email Address</label>
-            <div class="field">
-              <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" formControlName="email" placeholder="Email Address" [ngClass]="ngForm.controls['email'].invalid ? 'is-invalid' : 'success'" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                  <i class="fas fa-check"></i>
-                </span>
-              </p>
-            </div>
-           
-            <label for="password" [ngClass]="ngForm.controls['password'].invalid ? 'text-danger' : 'text-success'">Password</label>
-            <div class="field">
-              <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="password"  placeholder="Password" [ngClass]="ngForm.controls['password'].invalid ? 'is-invalid' : 'success'" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-              </p>
-            </div>
-            <label class="col" [ngClass]="ngForm.controls['password'].hasError('required') || ngForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
-              <i class="material-icons">{{ ngForm.controls['password'].hasError('required') ||
-                ngForm.controls['password'].hasError('minlength') ? 'cancel' :
-                'check_circle' }}</i>
-              Must be at least 6 characters!
-            </label>
-
-            <label for="confirmPassword" style="padding-top: 5px;" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirm Password</label>
-            <div class="field">
-              <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="confirmPassword"  placeholder="Confirm Password" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'is-invalid' : 'success'" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-                <label class="text-danger" *ngIf="ngForm.controls['confirmPassword'].hasError('NoPassswordMatch')">
-                  Password do not match
-                </label>
-              </p>
-            </div>
-
-            <div class="field">
-              <div class="buttons">
-                 <button [disabled]="ngForm.invalid" type="submit"class="button is-info" (click)="onSubmit()">Register</button> 
-                <!-- <button class="button is-success" (click)="goToLogin()">Back to Login</button> -->
+              <label for="name"
+                [ngClass]="ngForm.controls['name'].invalid ? 'text-danger' : 'text-success'">Name</label>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" formControlName="name" type="text" placeholder="Name"
+                    [ngClass]="ngForm.controls['name'].invalid ? 'is-invalid' : 'success'" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
               </div>
-            </div>
-            <a (click)="goToLogin()" class="RegisterBtn">Click here to go back to login</a>
 
-            
-          </form>
+              <label for="lname" [ngClass]="ngForm.controls['lname'].invalid ? 'text-danger' : 'text-success'">Last
+                Name</label>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="text" formControlName="lname" placeholder="Last Name"
+                    [ngClass]="ngForm.controls['lname'].invalid ? 'is-invalid' : 'success'" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
 
 
+              <label for="telefono"
+                [ngClass]="ngForm.controls['telefono'].invalid ? 'text-danger' : 'text-success'">Phone Number</label>
+              <div class="field">
+                <p class="control has-icons-left">
+
+
+                  <!-- <input class="input" formControlName="telefono" type="text"  placeholder="Phone Number" [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'" required> -->
+                  <ngx-intl-tel-input [cssClass]="'custom'" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                    [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Colombia" [maxLength]="15"
+                    [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="true"
+                    formControlName="telefono"
+                    [ngClass]="ngForm.controls['telefono'].invalid ? 'is-invalid' : 'success'">
+                  </ngx-intl-tel-input>
+
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <label for="email" [ngClass]="ngForm.controls['email'].invalid ? 'text-danger' : 'text-success'">Email
+                Address</label>
+              <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input" type="email" formControlName="email" placeholder="Email Address"
+                    [ngClass]="ngForm.controls['email'].invalid ? 'is-invalid' : 'success'" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+
+              <label for="password"
+                [ngClass]="ngForm.controls['password'].invalid ? 'text-danger' : 'text-success'">Password</label>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="password" formControlName="password" placeholder="Password"
+                    [ngClass]="ngForm.controls['password'].invalid ? 'is-invalid' : 'success'" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+              <label class="col"
+                [ngClass]="ngForm.controls['password'].hasError('required') || ngForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ ngForm.controls['password'].hasError('required') ||
+                  ngForm.controls['password'].hasError('minlength') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must be at least 6 characters!
+              </label>
+
+              <label for="confirmPassword" style="padding-top: 5px;"
+                [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirm
+                Password</label>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="password" formControlName="confirmPassword" placeholder="Confirm Password"
+                    [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'is-invalid' : 'success'" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <label class="text-danger" *ngIf="ngForm.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                    Password do not match
+                  </label>
+                </p>
+              </div>
+
+              <div class="field">
+                <div class="buttons">
+                  <button [disabled]="ngForm.invalid" type="submit" class="button is-info"
+                    (click)="onSubmit()">Register</button>
+                  <!-- <button class="button is-success" (click)="goToLogin()">Back to Login</button> -->
+                </div>
+              </div>
+              <a (click)="goToLogin()" class="RegisterBtn">Click here to go back to login</a>
+
+
+            </form>
+
+
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </div>
   </div>
+
+
 </div>
