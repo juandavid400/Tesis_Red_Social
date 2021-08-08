@@ -1,7 +1,6 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
 
 @Component({
   selector: 'app-navigation-bar',
@@ -23,4 +22,5 @@ export class NavigationBarComponent implements OnInit {
   // goToProfile() {
   //   this.router.navigate(['/profile']);
   // }
+
 }

@@ -1,7 +1,8 @@
+// import { MessageI } from './../../../pages/private/home/interfaces/MessageI';
 //import * as io from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MessageI } from 'src/app/pages/private/home/interfaces/MessageI';
+
 
 @Injectable({
   providedIn: 'root'

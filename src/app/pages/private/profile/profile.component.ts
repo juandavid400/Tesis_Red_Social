@@ -1,3 +1,4 @@
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { Component, EventEmitter, OnDestroy, OnInit, Output, Directive,HostListener} from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/shared/services/auth.service";
@@ -64,7 +65,8 @@ export class ProfileComponent implements OnInit {
     private registerService: RegisterService,
     private router: Router,
     private firebase: AngularFireDatabase,
-    private toastr: ToastrService) 
+    private toastr: ToastrService,
+    private filterpipe:FilterPipe) 
     { }
 
     async ngOnInit(){
