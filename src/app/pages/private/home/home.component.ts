@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
       msgs: undefined
   };
   
-  searchBox= '';
+  searchBoxHome= '';
 
   goToProfile() {
     this.router.navigate(['/profile']);

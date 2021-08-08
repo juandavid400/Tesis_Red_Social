@@ -2,9 +2,9 @@
 
 
 <!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
-<input type="text" name="searchBox" placeholder="Buscar ..." [(ngModel)]="searchBox">
+<input type="text" name="searchBoxHome" placeholder="Buscar ..." [(ngModel)]="searchBoxHome">
 <div class="container">
-    <div *ngFor="let book of bookList | filter:searchBox; let i = index" >
+    <div *ngFor="let book of bookList | filter:searchBoxHome; let i = index" >
         <img id="{{'imagen'+i}}"  [src]="book.Portada" alt="imagenes" class="bookImg">
         <div  class="cuerpoText">            
             <h1 id="{{'titulo'+i}}"  align="center" >{{book.Title}}</h1>
@@ -21,7 +21,7 @@
 
         </div>
         <label >Comentarios</label><br>
-        <div *ngFor="let bookComent of bookComents | filter:searchBox" class="comentarios">
+        <div *ngFor="let bookComent of bookComents | filter:searchBoxHome" class="comentarios">
             <div *ngIf="bookComent.code == i">   
                 <label >{{bookComent.User}}</label><br>
                 <label >{{bookComent.Comment}}</label>

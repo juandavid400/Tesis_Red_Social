@@ -3,9 +3,9 @@
     <div *ngFor="let tags of tagsListNew | filterTags:searchBoxTag ; let i = index">
         <div class="tagscont form-row">
             <img (click)="sendTags('categoria-'+i)" id="{{'tags'+i}}"  src="../../../../assets/img/addImg.svg" alt="tag" class="tagImg">
-            <h1 id="{{'categoria'+i}}"  align="center" >{{tags.Categoria}}</h1>
+            <h1 (click)="sendTags('categoria-'+i)" id="{{'categoria'+i}}"  align="center" >{{tags.Categoria}}</h1>
             <!-- <img (click)="eliminateTags(tags.$key,tags.$key=tags.Categoria)" id="{{'eliminate'+i}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg"> -->
         </div>
     </div>
-    <button (click)="goToHome()">Terminar</button>
+    <button (click)="goToHome()">Continuar</button>
 </div>

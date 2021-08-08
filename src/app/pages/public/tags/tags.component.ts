@@ -83,9 +83,11 @@ export class TagsComponent implements OnInit {
   //-----------------------------------------------------Start Send tags------------------------------------------
   async sendTags (i){
     let index = i.split("-");
-    const query: string = "#categoria"+index[1];
-    const tag: any = document.querySelector(query);
-    const Tags = tag.textContent;
+    let query: string = "#categoria"+index[1];
+    let query2: string = ".tagscont";
+    let tag: any = document.querySelector(query);
+    let container: any = document.querySelector(query2);
+    let Tags = tag.textContent;
     this.name = Tags;
     
     if(Tags != ''){
@@ -104,13 +106,6 @@ export class TagsComponent implements OnInit {
                   const TagsChildKey = Tags.key;
                   const TagsChildData = Tags.val();
                 if (TagsChildKey == "Tag"){
-                  // console.log("Entre en tag if")
-                  console.log("TagsChildKey");
-                  console.log(TagsChildKey);
-                  console.log("TagsChildData");
-                  console.log(TagsChildData);
-                  console.log("this.name");
-                  console.log(this.name);
                   if (TagsChildData == this.name){
                     this.tags.push(TagsChildData);
                   }
@@ -122,7 +117,7 @@ export class TagsComponent implements OnInit {
           }        
         });
       });
-      console.log(this.tags);
+
       for (let i = 0; i < this.tags.length; i++) {
         if (this.tags[i]==Tags){
           this.contador ++;
@@ -138,11 +133,15 @@ export class TagsComponent implements OnInit {
           Tag: Tags
         });
         this.toastr.success('Tag '+Tags+' agregado', 'Exitosamente');
-        let query2: string = "#tags"+index[1];
-        let image: any = document.querySelector(query2);
-        image.src = "../../../../assets/img/checkIcon.svg";
+        // let query2: string = "#tags"+index[1];
+        // let image: any = document.querySelector(query2);
+        // image.src = "../../../../assets/img/checkIcon.svg";      
+        container.style.display = 'none';
       }      
     }
+    this.confirm = false;
+    this.contador = 0;
+    this.tags= [];
   }
   //-----------------------------------------------------END Send tags------------------------------------------
   eliminateTags(key,value){
