@@ -32,8 +32,14 @@ import { from } from 'rxjs';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { ProfileComponent } from './pages/private/home/components/profile/profile.component';
 import { TagsComponent } from './pages/public/tags/tags.component';
+import { FilterTagsPipe } from './pipes/filter-tags.pipe';
+import { HomeComponent } from './pages/private/home/home.component';
+import { ProfileComponent } from './pages/private/profile/profile.component';
+import { NavigationBarComponent } from './pages/private/navigation-bar/navigation-bar.component';
+import { FooterComponent } from './pages/private/footer/footer.component';
+import { filter } from 'rxjs/operators';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 
@@ -44,9 +50,14 @@ import { TagsComponent } from './pages/public/tags/tags.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     FileUploadComponent,
     TagsComponent,
+    FilterTagsPipe,
+    HomeComponent,
+    ProfileComponent,
+    NavigationBarComponent,
+    FooterComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +83,9 @@ import { TagsComponent } from './pages/public/tags/tags.component';
     RegisterComponent,
     AuthService,
     AngularFirestore,
-    AngularFireAuthGuard
+    AngularFireAuthGuard,
+    FilterTagsPipe,
+    FilterPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat/chat.service';
-import { ChatI } from './interfaces/ChatI';
-import { MessageI } from './interfaces/MessageI';
 import { RegisterService } from "src/app/shared/services/register.service";
 import { UserI } from 'src/app/shared/interfaces/UserI';
 // import { AngularFireAuth } from 'angularfire2/auth';
@@ -14,8 +12,7 @@ import { Router } from '@angular/router';
 //import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/operators';
-
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +34,7 @@ export class HomeComponent implements OnInit {
       msgs: undefined
   };
   
-  searchBox= '';
+  searchBoxHome= '';
 
   goToProfile() {
     this.router.navigate(['/profile']);
@@ -54,7 +51,8 @@ export class HomeComponent implements OnInit {
     private registerService: RegisterService,
     private router: Router,
     private firebase: AngularFireDatabase,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private filter: FilterPipe) {}
 
     registerList: UserI[];
     bookList: UserI[];

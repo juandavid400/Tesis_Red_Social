@@ -1,4 +1,4 @@
-<!-- <app-navigation-bar></app-navigation-bar> -->
+<app-navigation-bar></app-navigation-bar>
 
 
 <div [formGroup]="ngFormProfile" class="container" >
@@ -9,9 +9,14 @@
             <div class="textN">Nombre:</div>
             <h1  class="name"></h1>
             <label for="descripcion">Descripción
-                <input formControlName="descripcion" type="text" class="inputDescripcion" >
+                <input id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion" >
             </label>
             <button (click)="SendDescription()" class="decripcionButton">Actualizar</button>    
+        </div>
+        <h1>Mis tags:</h1>
+        <div class="ContainerTags" *ngFor="let misTags of misTagsList; let i2 = index">            
+            <h2>{{misTags.Tags}}</h2>
+            <img id="{{'eliminate'+i2}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
         </div>
         <label for="">Mis Libros</label>
         <div class="mislibros" *ngFor="let misLibros of misLibrosList; let i = index" >          
@@ -23,4 +28,4 @@
     </div>
 </div>
 
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>

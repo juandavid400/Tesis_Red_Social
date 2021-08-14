@@ -1,3 +1,4 @@
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { Component, EventEmitter, OnDestroy, OnInit, Output, Directive,HostListener} from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/shared/services/auth.service";
@@ -18,6 +19,7 @@ import { Key } from 'protractor';
 import { error, info } from 'console';
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -26,6 +28,7 @@ import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 export class ProfileComponent implements OnInit {
   
   userInfoList: UserI[];
+  misTagsList: any[] = [];
   misLibrosList: any[] = [];
   contactAdded: boolean = false;
   contactGroup: boolean = false;
@@ -62,7 +65,8 @@ export class ProfileComponent implements OnInit {
     private registerService: RegisterService,
     private router: Router,
     private firebase: AngularFireDatabase,
-    private toastr: ToastrService) 
+    private toastr: ToastrService,
+    private filterpipe:FilterPipe) 
     { }
 
     async ngOnInit(){
@@ -80,7 +84,7 @@ export class ProfileComponent implements OnInit {
 
           });        
         });
-        
+      
       //  await this.PrintConsistance();
       //  await this.UpdatePerfilPhoto();
       //  await this.WhoIsWritingMe();
@@ -89,6 +93,14 @@ export class ProfileComponent implements OnInit {
 
   goToHome() {
     this.router.navigate(['/home']);
+  }
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  async  doLogout() {
+    await this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   UserAcount() {
@@ -109,6 +121,7 @@ export class ProfileComponent implements OnInit {
             $this.getNameUser(profile.email);
             $this.getDescriptionUser(profile.email);
             $this.getMisLibros();
+            $this.getMisTags();
           });
         }
         console.log(user);
@@ -169,7 +182,7 @@ export class ProfileComponent implements OnInit {
         ImgUrl: this.ImgUrl
       });
       
-      this.toastr.success('Submit successful', 'Image updated');
+      this.toastr.success('Photo subida', 'Exitosamente');
     }
   }
 
@@ -347,8 +360,6 @@ export class ProfileComponent implements OnInit {
     let Key;
     // firebase.auth().currentUser.email
     const Email = Mail;
-    console.log("name getDescriptionUser");
-    console.log(Email);
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
@@ -377,17 +388,20 @@ export class ProfileComponent implements OnInit {
       const element: any  = document.querySelector(query);
       element.value = this.CurrentDescription;
 
-    } else {
-      const query: string = ".inputDescripcion";
-      const element: any  = document.querySelector(query);
-      element.value = "No se tiene descripción";   
     }
+    const query: string = "#descripcionID";
+    const Descripcion: any = document.querySelector(query);
+    let DescripcionValue = Descripcion.value
+
+    if (DescripcionValue == 'undefined'){
+      DescripcionValue = "Ingresa tu descripción"
+    }  
+    
     
   }
   //-----------------------------------------------------Start get Mislibros------------------------------------------
   async getMisLibros(){
     let Key;
-    let flag: number = 0;
     let Autor = {};
     let Titulo = {};
     let Imagen = {};
@@ -433,5 +447,45 @@ export class ProfileComponent implements OnInit {
       console.log(this.misLibrosList);
   }
   //-----------------------------------------------------END get Mislibros------------------------------------------
+  //-----------------------------------------------------Start get MisTags------------------------------------------
+  async getMisTags(){
+    let Key;
+    let Tags = {};
+    let Titulo = {};
+    let Imagen = {};
+    // console.log("Esto es index");
+    // console.log(index);
+    const Email = firebase.auth().currentUser.email;
 
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          // console.log("entre nivel1");
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            user.forEach((info) => {
+              info.forEach((MisTags) => {
+                MisTags.forEach((Tag) => {
+                  const TagChildKey = Tag.key;
+                  const TagChildData = Tag.val();
+                if (TagChildKey == "Tag"){
+                  Tags = TagChildData;
+                  // console.log(aut);
+                  // this.misTagsList.push({Tags:TagChildData});
+                  if (Tags != ''){
+                    console.log("entre");
+                    this.misTagsList.push({Tags});
+                  }
+                }              
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+      console.log(this.misTagsList);
+  }
+  //-----------------------------------------------------END get MisTags------------------------------------------
 }
