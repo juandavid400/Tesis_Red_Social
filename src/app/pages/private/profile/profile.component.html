@@ -3,16 +3,20 @@
 
 <div [formGroup]="ngFormProfile" class="container" >
     <div class="PerfilPhoto" >
-        <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
-        <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
-        <div class="ContainerDescription">
-            <div class="textN">Nombre:</div>
-            <h1  class="name"></h1>
-            <label for="descripcion">Descripción
-                <input id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion" >
-            </label>
-            <button (click)="SendDescription()" class="decripcionButton">Actualizar</button>    
+        <div class="perfilContainer">
+            <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
+            <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
+            <div class="ContainerDescription">
+                <!-- <div class="textN">Nombre:</div> -->
+                <h1  class="name"></h1>
+                <label for="descripcion">
+                    <!-- <input id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion" > -->
+                    <textarea id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion"></textarea>
+                </label>
+                <button (click)="SendDescription()" class="decripcionButton">Actualizar</button>    
+            </div>
         </div>
+        
         <h1>Mis tags:</h1>
         <div class="ContainerTags" *ngFor="let misTags of misTagsList; let i2 = index">            
             <h2>{{misTags.Tags}}</h2>

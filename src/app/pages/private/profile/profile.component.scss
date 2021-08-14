@@ -4,44 +4,53 @@
     box-sizing: border-box;
 }
 
-.containerHeader{
-    width: 100%;
-    background-color: yellowgreen;
-    //border-radius: 0% 0% 20px 20px;
-    // border-bottom: 80px solid lightblue;
-    .navbar-header{
-        
-        .logo{
-            width: 10%;
-            height: 10%;
-            margin: 2%;
-        }
+$azulOscuro: #112e51;
+$AzulMedio: #205493;
+$AzulClaro: #0071bc;
+$text: #212121;
 
-        .profile{
-            width: 10%;
-            height: 10%;
-            margin: 2%;
-        }
+.PerfilPhoto{
+    background-color: aqua;
+}
 
-        .bell{
-            width: 10%;
-            height: 10%;
-            // margin: 2% 2% 2% 35%;
-        }
+.perfilContainer{
+    background-color: blue;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    margin-top: 40px;
 
-        .app-name{
-            margin-top: 3%;
-            margin-left: 2%;
-        }
+    .name{
+        font-size: x-large;
+        text-align: center;
+        margin-top: 5px;
+        color: $AzulMedio;
     }
+}
+
+.Photoimg{
+    height: 140px;
+    width: 140px;
+    border-radius: 75px;
+    object-fit: cover;
+    border: 3px solid $azulOscuro;
+
 }
 
 .container{
     .inputDescripcion{
         margin-left: 2%;
-        width: 100%;
+        width: 200px;
         height: 100px;
         border-radius: 20px;
+        // resize: vertical;
+        // overflow-y: auto;
+        // white-space: nowrap;
+        // overflow: hidden;
+        text-overflow: ellipsis;
+        // white-space: pre;
+        word-break: break-word; 
     }
     .tagImg{
         width: 40px;
