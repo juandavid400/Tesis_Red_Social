@@ -7,6 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as firebase from "firebase";
+import { element } from 'protractor';
 
 
 
@@ -19,12 +20,15 @@ export class TagsComponent implements OnInit {
 
   tagsList: any[] = [];
   tagsListNew: any[] = [];
+  tagsValidate: any[] = [];
+  validate: any[] = [];
   tags: any[] = [];
   searchBoxTag= '';
   Key = '';
   confirm: any = false;
   contador: number= 0;
   name = '';
+  
 
   constructor(
     private firebaseAuth: AngularFireAuth,
@@ -39,6 +43,7 @@ export class TagsComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    let $this = this;
     this.UserAcount();
     this.registerService.getTags()
       .snapshotChanges().subscribe(item => {
@@ -52,6 +57,11 @@ export class TagsComponent implements OnInit {
         for (let i = 0; i < this.tagsList.length; i++) {
           this.tagsListNew.push({Categoria: this.tagsList[i][0]});     
         }
+        for (let i = 0; i < this.tagsList.length; i++) {
+          this.validate.push(this.tagsList[i][0]);     
+        }        
+        
+        setTimeout(function(){ $this.validateTags(); }, 500);
       });
       
   }
@@ -79,11 +89,9 @@ export class TagsComponent implements OnInit {
     });
   }
 
-  palabra : any = "";
 
   //-----------------------------------------------------Start Send tags------------------------------------------
   async sendTags (i){
-    let $this = this;
     let index = i.split("-");
     let query: string = "#categoria"+index[1];
     let query2: string = ".tagscont";
@@ -92,7 +100,6 @@ export class TagsComponent implements OnInit {
     let container: any = document.querySelector(query2);
     let keytag: any = document.querySelector(query3);
     let Tags = tag.textContent;
-    this.palabra = 'Tag'+index[1];
     this.name = Tags;   
     
     if(Tags != ''){
@@ -157,5 +164,46 @@ export class TagsComponent implements OnInit {
     this.tags= [];
   }
   //-----------------------------------------------------END Send tags------------------------------------------
+
+  async validateTags (){   
+      const Email = firebase.auth().currentUser.email;
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          // console.log("entre nivel1");
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            this.Key = childKey;
+            user.forEach((info) => {
+              info.forEach((MisTags) => {
+                MisTags.forEach((Tags) => {
+                  const TagsChildKey = Tags.key;
+                  const TagsChildData = Tags.val();
+                if (TagsChildKey == "Tag"){
+                  this.tagsValidate.push(TagsChildData);                  
+                }
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+
+      let arr: any[] = [];
+      for (let i = 0; i < this.validate.length; i++) {
+        for (let j = 0; j < this.tagsValidate.length; j++) {
+          if (this.validate[i]==this.tagsValidate[j]){
+            let query2: string = "#tags"+i;
+            let image: any = document.querySelector(query2);
+            console.log("image");
+            console.log(image);
+            image.src = "../../../../assets/img/checkIcon.svg"; 
+          }
+                 
+        }
+        
+      }
+  }
 
 }

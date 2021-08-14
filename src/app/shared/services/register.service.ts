@@ -40,12 +40,16 @@ export class RegisterService {
     console.log("delete $key");
     console.log(tagkey);
     this.firebase.database.ref("registers").child($key).child("Tags").child(tagkey).remove();
-    // 
-    // ref.child("Users").child("User2").removeValue();
-    // this.registerList.remove($key);
-    // console.log(this.registerList);
   }
 
+  updateUsername(register: UserI)
+  {
+    console.log("register.$key");
+    console.log(register.$key);
+    // this.registerList.update(register.$key, {
+    //   name: register.name,
+    // });
+  }
 
   insertRegister(register: UserI){
 

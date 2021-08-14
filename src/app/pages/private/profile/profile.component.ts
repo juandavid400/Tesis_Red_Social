@@ -30,10 +30,6 @@ export class ProfileComponent implements OnInit {
   userInfoList: UserI[];
   misTagsList: any[] = [];
   misLibrosList: any[] = [];
-  contactAdded: boolean = false;
-  contactGroup: boolean = false;
-  ListoImagen: boolean = false;
-  AddToGroup: string;
   ImageSelected: string;
   registerList: UserI[];
   Currentimg: string;
@@ -41,18 +37,6 @@ export class ProfileComponent implements OnInit {
   UserName: string;
   UserLastName: string;
   FulName: string;
-  register = [];
-  itemRef: any;
-  Activechat: any;
-  Addinfo: string;
-  AreAllMembers: boolean = false;
-  integrants: string[] = [];
-  NameGroup: string;
-  CurrentGroupimg: string;
-  KeyGroup: any;
-  copyKey: any;
-  dBlock: string[] = [];
-  Mail: string = "";
 
   ngFormProfile = new FormGroup({
     descripcion: new FormControl(),      
@@ -96,6 +80,9 @@ export class ProfileComponent implements OnInit {
   }
   goToProfile() {
     this.router.navigate(['/profile']);
+  }
+  goToTags(){
+    this.router.navigate(['/tags']);
   }
 
   async  doLogout() {
@@ -289,18 +276,13 @@ export class ProfileComponent implements OnInit {
   async getNameUser(Mail){
 
     let Key;
-    // firebase.auth().currentUser.email
     const Email = Mail;
-    console.log("name getNameUser");
-    console.log(Email);
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
         const childData = user.val();     
         if (childData.email == Email) {
           Key = childKey;
-          console.log("childData");
-          console.log(childData);
           if (childData.lname != '' && childData.name != ''){
             this.UserName = childData.name;
             this.UserLastName = childData.lname;            
@@ -502,7 +484,11 @@ export class ProfileComponent implements OnInit {
     let cont: any = document.querySelector(query2);
     cont.style.display = 'none';
     this.registerService.deleteTag(this.keyOrdenList[index[1]],this.KeyUSER);
-    this.toastr.warning('Tag eliminado', 'Exitosamente');
-    
+    this.toastr.warning('Tag eliminado', 'Exitosamente');    
+  }
+
+  async editUserName(register: UserI){
+    let variable;
+    this.registerService.updateUsername(variable);
   }
 }

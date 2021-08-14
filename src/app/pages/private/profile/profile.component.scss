@@ -4,39 +4,9 @@
     box-sizing: border-box;
 }
 
-.containerHeader{
-    width: 100%;
-    background-color: yellowgreen;
-    //border-radius: 0% 0% 20px 20px;
-    // border-bottom: 80px solid lightblue;
-    .navbar-header{
-        
-        .logo{
-            width: 10%;
-            height: 10%;
-            margin: 2%;
-        }
-
-        .profile{
-            width: 10%;
-            height: 10%;
-            margin: 2%;
-        }
-
-        .bell{
-            width: 10%;
-            height: 10%;
-            // margin: 2% 2% 2% 35%;
-        }
-
-        .app-name{
-            margin-top: 3%;
-            margin-left: 2%;
-        }
-    }
-}
 
 .container{
+    height: 120vh;
     .inputDescripcion{
         margin-left: 2%;
         width: 100%;
@@ -47,16 +17,4 @@
         width: 40px;
         height: 40px;
     }
-}
-
-.containerFooter{
-    width: 100vw;
-    height: 8vh;
-    top: 550px;
-    background-color: red;
-    position: fixed;
-    .profile{
-        margin: 2%;
-    }
-
 }

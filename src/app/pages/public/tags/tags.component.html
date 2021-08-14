@@ -3,12 +3,11 @@
 
         <div *ngFor="let tags of tagsListNew | filterTags:searchBoxTag ; let i = index">
 
-            <input type="hidden" id="{{'key'+i}}" ngDefaultControl [(ngModel)]="registerService.selectedTag.$key">    
+            <input type="hidden" id="{{'key'+i}}">    
 
             <div class="tagscont form-row">
                 <img (click)="sendTags('categoria-'+i)" id="{{'tags'+i}}"  src="../../../../assets/img/addImg.svg" alt="tag" class="tagImg">
-                <h1 (click)="sendTags('categoria-'+i)" id="{{'categoria'+i}}" ngDefaultControl
-                [(ngModel)]="registerService.selectedTag.tag" align="center" >{{tags.Categoria}}</h1>
+                <h1 (click)="sendTags('categoria-'+i)" id="{{'categoria'+i}}" align="center" >{{tags.Categoria}}</h1>
             </div>
         </div>
 
