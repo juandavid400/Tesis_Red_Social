@@ -13,10 +13,24 @@
             </label>
             <button (click)="SendDescription()" class="decripcionButton">Actualizar</button>    
         </div>
+        
+      <div class="ContainerTags" >
         <h1>Mis tags:</h1>
-        <div class="ContainerTags" *ngFor="let misTags of misTagsList; let i2 = index">            
-            <h2>{{misTags.Tags}}</h2>
-            <img id="{{'eliminate'+i2}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Tag</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let misTags of misTagsList; let i = index" id="{{'contTag'+i}}">
+                    <th><label id="{{'mitag'+i}}">{{misTags.Tags}}</label></th>
+                    <th><img (click)="deleteSth('eliminate-'+i)" id="{{'eliminate'+i}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg"></th>
+            
+                </tr>
+                </tbody>
+            </table>   
         </div>
         <label for="">Mis Libros</label>
         <div class="mislibros" *ngFor="let misLibros of misLibrosList; let i = index" >          

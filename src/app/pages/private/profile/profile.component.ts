@@ -448,11 +448,12 @@ export class ProfileComponent implements OnInit {
   }
   //-----------------------------------------------------END get Mislibros------------------------------------------
   //-----------------------------------------------------Start get MisTags------------------------------------------
+  keyOrdenList: any[] = [];
+  KeyUSER: string = ""; 
   async getMisTags(){
     let Key;
     let Tags = {};
-    let Titulo = {};
-    let Imagen = {};
+    let keyTAGS;
     // console.log("Esto es index");
     // console.log(index);
     const Email = firebase.auth().currentUser.email;
@@ -463,9 +464,12 @@ export class ProfileComponent implements OnInit {
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
-            Key = childKey;
-            user.forEach((info) => {
+            this.KeyUSER = childKey;
+            user.forEach((info) => {              
               info.forEach((MisTags) => {
+                const pruebakey = MisTags.key;
+                keyTAGS = pruebakey;
+                
                 MisTags.forEach((Tag) => {
                   const TagChildKey = Tag.key;
                   const TagChildData = Tag.val();
@@ -474,7 +478,9 @@ export class ProfileComponent implements OnInit {
                   // console.log(aut);
                   // this.misTagsList.push({Tags:TagChildData});
                   if (Tags != ''){
-                    console.log("entre");
+                    // console.log("info key");
+                    // console.log(keyTAGS);
+                    this.keyOrdenList.push(keyTAGS)
                     this.misTagsList.push({Tags});
                   }
                 }              
@@ -485,7 +491,18 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
-      console.log(this.misTagsList);
+      console.log("this.keyOrdenList");
+      console.log(this.keyOrdenList);
   }
   //-----------------------------------------------------END get MisTags------------------------------------------
+
+  async deleteSth(i){
+    let index = i.split("-");
+    let query2: string = "#contTag"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    this.registerService.deleteTag(this.keyOrdenList[index[1]],this.KeyUSER);
+    this.toastr.warning('Tag eliminado', 'Exitosamente');
+    
+  }
 }

@@ -1,11 +1,16 @@
 <input type="text" name="searchBoxTag" placeholder="Buscar ..." [(ngModel)]="searchBoxTag">
-<div class="container" >    
-    <div *ngFor="let tags of tagsListNew | filterTags:searchBoxTag ; let i = index">
-        <div class="tagscont form-row">
-            <img (click)="sendTags('categoria-'+i)" id="{{'tags'+i}}"  src="../../../../assets/img/addImg.svg" alt="tag" class="tagImg">
-            <h1 (click)="sendTags('categoria-'+i)" id="{{'categoria'+i}}"  align="center" >{{tags.Categoria}}</h1>
-            <!-- <img (click)="eliminateTags(tags.$key,tags.$key=tags.Categoria)" id="{{'eliminate'+i}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg"> -->
+<div class="container" >
+
+        <div *ngFor="let tags of tagsListNew | filterTags:searchBoxTag ; let i = index">
+
+            <input type="hidden" id="{{'key'+i}}" ngDefaultControl [(ngModel)]="registerService.selectedTag.$key">    
+
+            <div class="tagscont form-row">
+                <img (click)="sendTags('categoria-'+i)" id="{{'tags'+i}}"  src="../../../../assets/img/addImg.svg" alt="tag" class="tagImg">
+                <h1 (click)="sendTags('categoria-'+i)" id="{{'categoria'+i}}" ngDefaultControl
+                [(ngModel)]="registerService.selectedTag.tag" align="center" >{{tags.Categoria}}</h1>
+            </div>
         </div>
-    </div>
+
     <button (click)="goToHome()">Continuar</button>
 </div>

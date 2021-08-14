@@ -79,17 +79,21 @@ export class TagsComponent implements OnInit {
     });
   }
 
-  
+  palabra : any = "";
 
   //-----------------------------------------------------Start Send tags------------------------------------------
   async sendTags (i){
+    let $this = this;
     let index = i.split("-");
     let query: string = "#categoria"+index[1];
     let query2: string = ".tagscont";
+    let query3: string = "#key"+index[1];
     let tag: any = document.querySelector(query);
     let container: any = document.querySelector(query2);
+    let keytag: any = document.querySelector(query3);
     let Tags = tag.textContent;
-    this.name = Tags;
+    this.palabra = 'Tag'+index[1];
+    this.name = Tags;   
     
     if(Tags != ''){
             
@@ -130,14 +134,22 @@ export class TagsComponent implements OnInit {
         this.toastr.error('El tag ya se encuentra en tu lista', 'Fallido');
       }
       if (this.confirm == true){
-        this.firebase.database.ref("registers").child(this.Key).child("Tags").push({
-          Tag: Tags
-        });
-        this.toastr.success('Tag '+Tags+' agregado', 'Exitosamente');
-        // let query2: string = "#tags"+index[1];
-        // let image: any = document.querySelector(query2);
-        // image.src = "../../../../assets/img/checkIcon.svg";      
-        container.style.display = 'none';
+
+        if(keytag.value == null || keytag.value == ""){
+          
+          this.firebase.database.ref("registers").child(this.Key).child("Tags").push({
+            Tag: Tags
+          });
+          this.toastr.success('Tag '+Tags+' agregado', 'Exitosamente');
+          let query2: string = "#tags"+index[1];
+          let image: any = document.querySelector(query2);
+          image.src = "../../../../assets/img/checkIcon.svg";   
+        } 
+        // else{
+        //   this.productService.updateProduct(productForm.value);
+        // }
+           
+        // container.style.display = 'none';
       }      
     }
     this.confirm = false;
@@ -145,17 +157,5 @@ export class TagsComponent implements OnInit {
     this.tags= [];
   }
   //-----------------------------------------------------END Send tags------------------------------------------
-  eliminateTags(key,value){
-    // let index = i.split("-");
-    console.log("Entre");
-    console.log("key");
-    console.log(key);
-    console.log("value");
-    console.log(value);
-    // const query: string = "#eliminate"+index[1];
-    // const eliminate: any = document.querySelector(query);
-    // console.log(firebase.database().ref().child('/registers/'+'/Tags/'+key+value+'/').remove())
-    firebase.database().ref("registers").child('/'+this.Key+'/Tags/'+value+'/').remove();
-  }
 
 }

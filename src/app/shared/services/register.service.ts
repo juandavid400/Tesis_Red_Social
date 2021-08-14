@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 //import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { UserI } from "../interfaces/UserI";
+import { tags } from "../interfaces/tags";
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,15 @@ export class RegisterService {
   registerList: AngularFireList<any>;
   bookList:  AngularFireList<any>;
   tagsList:  AngularFireList<any>;
-  // selectedProduct: UserI = new UserI();
+  selectedTag: tags = new tags();
 
   constructor(private firebase: AngularFireDatabase) { }
 
   getRegister(){
-    return this.registerList = this.firebase.list('registers');
+     this.registerList = this.firebase.list('registers');
+     console.log("Este es el clarisimo");
+     console.log(this.registerList);
+    return this.registerList;
   }
 
   getBooks()
@@ -29,6 +33,17 @@ export class RegisterService {
   {
     this.tagsList = this.firebase.list('tags');
     return this.tagsList;
+  }
+
+  deleteTag(tagkey: string,$key: string)
+  {
+    console.log("delete $key");
+    console.log(tagkey);
+    this.firebase.database.ref("registers").child($key).child("Tags").child(tagkey).remove();
+    // 
+    // ref.child("Users").child("User2").removeValue();
+    // this.registerList.remove($key);
+    // console.log(this.registerList);
   }
 
 
