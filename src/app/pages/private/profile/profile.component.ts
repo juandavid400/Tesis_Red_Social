@@ -99,10 +99,10 @@ export class ProfileComponent implements OnInit {
 
         if (user != null) {
           user.providerData.forEach(function (profile) {
-            console.log("Sign-in provider: " + profile.providerId);
+            // console.log("Sign-in provider: " + profile.providerId);
             // console.log("  Provider-specific UID: " + profile.uid);
             // console.log("  Name: " + profile.displayName);
-            console.log("  Email: " + profile.email);
+            // console.log("  Email: " + profile.email);
             // console.log("  Phone Number: " + profile.photoURL);
             $this.UpdatePerfilPhoto(profile.email);
             $this.getNameUser(profile.email);
@@ -111,7 +111,6 @@ export class ProfileComponent implements OnInit {
             $this.getMisTags();
           });
         }
-        console.log(user);
       } else {
         // No user is signed in.
       }
@@ -125,13 +124,11 @@ export class ProfileComponent implements OnInit {
 
   getUrl(event){
     this.fileUrl = event;
-    console.log("URL recibida en padre: " + this.fileUrl);
   }
 
   async getImg(event){
     this.ImgUrl = event;
     const Email = firebase.auth().currentUser.email;
-    console.log("URL recibida en padre: " + this.ImgUrl);
    await this.SendImage();
    await this.UpdatePerfilPhoto(Email);
   }
@@ -145,21 +142,17 @@ export class ProfileComponent implements OnInit {
   // }
 
   async SendImage (){
-    // console.log("ENTRE MANASO");
 
     if(this.ImgUrl){
       let Key;      
       const Email = firebase.auth().currentUser.email;
-      console.log("Email de sendimage");
-      console.log(Email);
+
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
-            console.log("entramos", childKey);
-            console.log("recorrido", childKey);
           }
                    
         });
@@ -178,11 +171,9 @@ export class ProfileComponent implements OnInit {
   async UpdatePerfilPhoto(Mail){
 
     let Key;
-    // firebase.auth().currentUser.email
+
     const Email = Mail;
-    // await Email = firebase.auth().currentUser.email;
-    console.log("Email UpdatePerfilPhoto");
-    console.log(Email);
+
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
@@ -214,17 +205,13 @@ export class ProfileComponent implements OnInit {
       // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
       // profile.src = this.Currentimg;
-      console.log(Photoimg.src);
-      // console.log(profile.src);
-      // console.log(profile.src);
     } else {
       const query: string = ".container .Photoimg";
       const Photoimg: any = document.querySelector(query);
       // const query2: string = "#app .profile";
       // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
-      // profile.src = this.Currentimg;
-      console.log(this.Currentimg);      
+      // profile.src = this.Currentimg;     
     }
     
   }
@@ -310,8 +297,7 @@ export class ProfileComponent implements OnInit {
     const query: string = ".container .inputDescripcion";
     const Descript: any = document.querySelector(query);
     const Description = Descript.value;
-    console.log("Description");
-    console.log(Description);
+
     if(Description != ''){
       let Key;      
       const Email = firebase.auth().currentUser.email;
@@ -321,8 +307,6 @@ export class ProfileComponent implements OnInit {
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
-            console.log("entramos", childKey);
-            console.log("recorrido", childKey);
           }
                    
         });
@@ -387,13 +371,12 @@ export class ProfileComponent implements OnInit {
     let Autor = {};
     let Titulo = {};
     let Imagen = {};
-    // console.log("Esto es index");
-    // console.log(index);
+
     const Email = firebase.auth().currentUser.email;
 
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
-          // console.log("entre nivel1");
+
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
@@ -404,18 +387,16 @@ export class ProfileComponent implements OnInit {
                   const LibrosChildKey = Libros.key;
                   const LibrosChildData = Libros.val();
                 if (LibrosChildKey == "Autor"){
+
                   Autor = LibrosChildData;
-                  // console.log(aut);
-                  // this.misLibrosList.push({Autor:LibrosChildData});
+
                 } else if (LibrosChildKey == "Imagen"){
+
                   Imagen = LibrosChildData;
-                  // console.log(img);
-                  // this.misLibrosList.push({Imagen:LibrosChildData});
+
                 } else if (LibrosChildKey == "Titulo"){
                   Titulo = LibrosChildData;
-                  // console.log(tit);
                   if (Autor != '' && Imagen != '' && Titulo != ''){
-                    console.log("entre");
                     this.misLibrosList.push({Autor,Imagen,Titulo});
                   }
                 }                
@@ -426,7 +407,6 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
-      console.log(this.misLibrosList);
   }
   //-----------------------------------------------------END get Mislibros------------------------------------------
   //-----------------------------------------------------Start get MisTags------------------------------------------
@@ -436,8 +416,7 @@ export class ProfileComponent implements OnInit {
     let Key;
     let Tags = {};
     let keyTAGS;
-    // console.log("Esto es index");
-    // console.log(index);
+
     const Email = firebase.auth().currentUser.email;
 
       await this.firebase.database.ref("registers").once("value", (users) => {
@@ -473,8 +452,6 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
-      console.log("this.keyOrdenList");
-      console.log(this.keyOrdenList);
   }
   //-----------------------------------------------------END get MisTags------------------------------------------
 

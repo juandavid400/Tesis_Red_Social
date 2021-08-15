@@ -17,4 +17,8 @@ export class FooterComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
 
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+
 }

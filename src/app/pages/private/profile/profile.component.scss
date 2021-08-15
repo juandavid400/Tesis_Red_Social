@@ -6,7 +6,7 @@
 
 
 .container{
-    height: 120vh;
+    // height: 120vh;
     .inputDescripcion{
         margin-left: 2%;
         width: 100%;
@@ -14,6 +14,10 @@
         border-radius: 20px;
     }
     .tagImg{
+        width: 40px;
+        height: 40px;
+    }
+    .Editimg{
         width: 40px;
         height: 40px;
     }
