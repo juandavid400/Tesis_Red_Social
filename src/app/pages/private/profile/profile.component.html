@@ -34,10 +34,20 @@
             <button (click)="goToTags()">Añadir nuevos tags</button>   
         </div>
         <label for="">Mis Libros</label>
-        <div class="mislibros" *ngFor="let misLibros of misLibrosList; let i = index" >          
-          <img id="{{'imagen'+i}}"  [src]="misLibros.Imagen" alt="imagenes" class="bookImg">
-          <h1 id="{{'titulo'+i}}"  align="center" >{{misLibros.Titulo}}</h1>
-          <h2 id="{{'autor'+i}}"  align="center" >{{misLibros.Autor}}</h2>
+        <div *ngFor="let misLibros of misLibrosList; let i = index" class="{{'mislibros'+i}}">
+
+            <img id="{{'imagen'+i}}"  [src]="misLibros.Imagen" alt="imagenes" class="bookImg">
+            <h1 id="{{'titulo'+i}}"  align="center" >{{misLibros.Titulo}}</h1>
+            <h2 id="{{'autor'+i}}"  align="center" >{{misLibros.Autor}}</h2>
+            <img (click)="deleteBook('eliminate-'+i)" id="{{'eliminate'+i}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
+
+        </div>
+        <div *ngFor="let misAmigos of misAmigosList; let i = index" class="{{'containerAmigos'+i}}">
+
+            <img id="{{'foto'+i}}"  [src]="misAmigos.ImagenAmigo" alt="foto" class="fotoImg">
+            <h1>{{misAmigos.NombreAmigo}}</h1>
+            <img (click)="deleteFriend('eliminate-'+i)" id="{{'eliminate'+i}}"  src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
+            
         </div>  
         
     </div>

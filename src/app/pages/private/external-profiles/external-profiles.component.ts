@@ -30,6 +30,16 @@ export class ExternalProfilesComponent implements OnInit {
     imgUser: any[] = [];
     registerListNew: any[] = [];
     arr: any[] = [];
+    viewProfile = false;
+    susTagsList: any[] = [];
+    susLibrosList: any[] = [];
+    correoExternoUser = '';
+    UserName = '';
+    UserLastName = '';            
+    FulName = '';
+    correoExt = '';
+    Currentimg = '';
+
 
   ngOnInit(): void {
     let $this = this;
@@ -88,7 +98,7 @@ export class ExternalProfilesComponent implements OnInit {
     let email;
     const filter = '@';
     
-    setTimeout(function(){ 
+    setTimeout(function(){
 
       for (let i = 0; i < arrList.length; i++) {
 
@@ -123,8 +133,6 @@ export class ExternalProfilesComponent implements OnInit {
           }
                   
         }
-        console.log("$this.imgUser");
-        console.log($this.imgUser);
         
         if ($this.imgUser != undefined){
           if ($this.imgUser.length >= 1){
@@ -164,6 +172,13 @@ export class ExternalProfilesComponent implements OnInit {
     let nombreAmigo = document.querySelector("#nombre"+index);         
     let nombreAmigoText = nombreAmigo.textContent;
 
+    let imagenAmigo: any = document.querySelector("#imagen"+index);         
+    let imagenAmigoSrc = imagenAmigo.src;
+
+    if (correoAmigoText != ''){
+      this.correoExternoUser = correoAmigoText;
+    }
+
       // console.log(this.autor);
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
@@ -191,7 +206,8 @@ export class ExternalProfilesComponent implements OnInit {
       if (this.arr==undefined){
         this.firebase.database.ref("registers").child(Key).child("Amigos").push({
           Contacto: correoAmigoText,
-          Nombre: nombreAmigoText
+          NombreAmigo: nombreAmigoText,
+          ImagenAmigo: imagenAmigoSrc
         });
         this.toastr.success('Amigo añadido a tu lista', 'Exitosamente');
       } else{
@@ -208,11 +224,206 @@ export class ExternalProfilesComponent implements OnInit {
         if (confirm == true){
           this.firebase.database.ref("registers").child(Key).child("Amigos").push({
             Contacto: correoAmigoText,
-            Nombre: nombreAmigoText
+            NombreAmigo: nombreAmigoText,
+            ImagenAmigo: imagenAmigoSrc
           });
           this.toastr.success('Amigo añadido a tu lista', 'Exitosamente');
         }
       }
          
   }
+
+  async addFriendInsidePerfil(){
+    let Key;
+    let contador = 0;
+    let confirm = false;
+    const Email = firebase.auth().currentUser.email;
+
+      // Verificar si ya esta agregado
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+          // console.log("entre nivel1");
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            user.forEach((info) => {
+              info.forEach((Amigos) => {
+                Amigos.forEach((misAmigos) => {
+                  const misAmigosChildKey = misAmigos.key;
+                  const misAmigosChildData = misAmigos.val();
+                if (misAmigosChildKey == "Contacto"){
+                    this.arr.push(misAmigosChildData);                  
+                }
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+      
+      if (this.arr==undefined){
+        this.firebase.database.ref("registers").child(Key).child("Amigos").push({
+          Contacto: this.correoExt,
+          NombreAmigo: this.FulName,
+          ImagenAmigo: this.Currentimg
+        });
+        this.toastr.success('Amigo añadido a tu lista', 'Exitosamente');
+      } else{
+        for (let i = 0; i < this.arr.length; i++) {
+          if (this.arr[i]==this.correoExt){
+            contador ++;
+          }        
+        }
+        if (contador==0){
+          confirm = true;
+        } else {
+          this.toastr.error('Esta persona ya se encuentra en tu lista', 'Fallido');
+        }
+        if (confirm == true){
+          this.firebase.database.ref("registers").child(Key).child("Amigos").push({
+            Contacto: this.correoExt,
+            NombreAmigo: this.FulName,
+            ImagenAmigo: this.Currentimg
+          });
+          this.toastr.success('Amigo añadido a tu lista', 'Exitosamente');
+        }
+      }
+         
+  }
+
+  gotoExternalProfile(){
+    this.viewProfile = false;
+    this.getImgUsers(this.registerListNew);
+  }
+
+  async viewExternalProfile(correoExternoUser){
+    // let correoName = correoExternoUser.split("-");
+    this.viewProfile = true;
+    let $this = this;
+    this.correoExt = correoExternoUser;
+    let CurrentDescription;
+    let Autor;
+    let Imagen;
+    let Titulo;
+    let keyTAGS;
+    let Tags = {};
+
+    let Key;
+    await this.firebase.database.ref("registers").once("value", (users) => {
+      users.forEach((user) => {
+        const childKey = user.key;
+        const childData = user.val();     
+        if (childData.email == correoExternoUser) {
+          Key = childKey;
+          if (childData.lname != '' && childData.name != ''){
+            this.UserName = childData.name;
+            this.UserLastName = childData.lname;            
+            this.FulName = this.UserName.concat(" "+this.UserLastName);
+          }
+          user.forEach((info) => {
+            info.forEach((Description) => {
+              const pruebakey = Description.key;
+              keyTAGS = pruebakey;
+              Description.forEach((DescriptionText) => {
+                const DescriptionChildKey = DescriptionText.key;
+                const DescriptionChildData = DescriptionText.val();
+
+                if (DescriptionChildKey == "Descripcion"){
+                  CurrentDescription = DescriptionChildData;
+                }
+                
+                if (DescriptionChildKey == "Autor"){
+
+                  Autor = DescriptionChildData;
+
+                } else if (DescriptionChildKey == "Imagen"){
+
+                  Imagen = DescriptionChildData;
+
+                } else if (DescriptionChildKey == "Titulo"){
+                  Titulo = DescriptionChildData;
+                  if (Autor != '' && Imagen != '' && Titulo != ''){
+                    this.susLibrosList.push({Autor,Imagen,Titulo});
+                  }
+                }
+                
+                if (DescriptionChildKey == "ImgUrl"){
+                  $this.Currentimg = DescriptionChildData;
+                }
+                
+                if (DescriptionChildKey == "Tag"){
+                  Tags = DescriptionChildData;
+                  // console.log(aut);
+                  // this.misTagsList.push({Tags:TagChildData});
+                  if (Tags != ''){
+                    // console.log("info key");
+                    // console.log(keyTAGS);
+                    this.susTagsList.push({Tags});
+                  }
+                }
+
+              });
+            });
+          });          
+        }
+      });
+    });
+    
+    
+    setTimeout(function(){
+      
+      if($this.UserName != '') {
+      
+        const query: string = ".containerView .name";        
+        // let nameInput = document.querySelector(query).innerHTML = $this.FulName;
+        let nameInput = document.querySelector(query);
+        nameInput.textContent = $this.FulName;
+  
+      } else {
+        const query: string = ".containerView .name";
+        document.querySelector(query).innerHTML = "Nombre no registrado";
+        $this.toastr.error('Error al buscar el nombre', 'Error');   
+      }
+
+      if($this.Currentimg == '') {
+        $this.Currentimg = "../../../../../../assets/img/NoImage.png";
+        const query: string = ".containerView .Photoimg";
+        const Photoimg: any = document.querySelector(query);
+        // const query2: string = "#app .profile";
+        // const profile: any = document.querySelector(query2);
+        Photoimg.src = $this.Currentimg;
+        // profile.src = $this.Currentimg;
+      } else {
+        const query: string = ".containerView .Photoimg";
+        const Photoimg: any = document.querySelector(query);
+        // const query2: string = "#app .profile";
+        // const profile: any = document.querySelector(query2);
+        Photoimg.src = $this.Currentimg;
+        
+        // profile.src = $this.Currentimg;     
+      }
+
+      if(CurrentDescription != '') {
+      
+        const query: string = ".inputDescripcion";
+        const element: any  = document.querySelector(query);
+        element.value = CurrentDescription;
+  
+      }
+      const query: string = "#descripcionID";
+      const Descripcion: any = document.querySelector(query);
+      let DescripcionValue = Descripcion.value
+  
+      if (DescripcionValue == 'undefined'){
+        DescripcionValue = "Ingresa tu descripción"
+      } 
+
+    }, 500);
+    
+
+     
+  }
+
 }

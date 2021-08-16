@@ -37,6 +37,12 @@ export class ProfileComponent implements OnInit {
   UserName: string;
   UserLastName: string;
   FulName: string;
+  misAmigosList: any[] = [];
+  keyOrdenList: any[] = [];
+  KeyUSER: string = "";
+  keyOrdenAmigosList: any[] = [];
+  keyOrdenBooksList: any[] = [];
+  
 
   ngFormProfile = new FormGroup({
     descripcion: new FormControl(),      
@@ -109,6 +115,7 @@ export class ProfileComponent implements OnInit {
             $this.getDescriptionUser(profile.email);
             $this.getMisLibros();
             $this.getMisTags();
+            $this.getMisAmigos();
           });
         }
       } else {
@@ -371,7 +378,7 @@ export class ProfileComponent implements OnInit {
     let Autor = {};
     let Titulo = {};
     let Imagen = {};
-
+    let keyLibros;
     const Email = firebase.auth().currentUser.email;
 
       await this.firebase.database.ref("registers").once("value", (users) => {
@@ -383,13 +390,15 @@ export class ProfileComponent implements OnInit {
             Key = childKey;
             user.forEach((info) => {
               info.forEach((MisLibros) => {
+                keyLibros = MisLibros.key;
+
                 MisLibros.forEach((Libros) => {
                   const LibrosChildKey = Libros.key;
                   const LibrosChildData = Libros.val();
                 if (LibrosChildKey == "Autor"){
-
+                  this.keyOrdenBooksList.push(keyLibros);
                   Autor = LibrosChildData;
-
+                  
                 } else if (LibrosChildKey == "Imagen"){
 
                   Imagen = LibrosChildData;
@@ -397,6 +406,7 @@ export class ProfileComponent implements OnInit {
                 } else if (LibrosChildKey == "Titulo"){
                   Titulo = LibrosChildData;
                   if (Autor != '' && Imagen != '' && Titulo != ''){
+                    
                     this.misLibrosList.push({Autor,Imagen,Titulo});
                   }
                 }                
@@ -407,11 +417,55 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
+      
   }
   //-----------------------------------------------------END get Mislibros------------------------------------------
+  async getMisAmigos(){
+    let Key;
+    let NombreAmigo = {};
+    let ImagenAmigo = {};
+    let keyAmigos;
+    const Email = firebase.auth().currentUser.email;
+
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            user.forEach((info) => {
+              info.forEach((misAmigos) => {
+                keyAmigos = misAmigos.key;
+                misAmigos.forEach((Amigos) => {
+                  const AmigosChildKey = Amigos.key;
+                  const AmigosChildData = Amigos.val();
+                if (AmigosChildKey == "ImagenAmigo"){
+                  this.keyOrdenAmigosList.push(keyAmigos);
+                  ImagenAmigo = AmigosChildData;                    
+                } 
+                if (AmigosChildKey == "NombreAmigo"){
+
+                  NombreAmigo = AmigosChildData;
+
+                  if (Object.entries(NombreAmigo).length != 0 && Object.entries(ImagenAmigo).length != 0){
+                    
+                    
+                    this.misAmigosList.push({ImagenAmigo,NombreAmigo});
+                     
+                  }
+                }  
+
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+  }
   //-----------------------------------------------------Start get MisTags------------------------------------------
-  keyOrdenList: any[] = [];
-  KeyUSER: string = ""; 
+   
   async getMisTags(){
     let Key;
     let Tags = {};
@@ -441,7 +495,7 @@ export class ProfileComponent implements OnInit {
                   if (Tags != ''){
                     // console.log("info key");
                     // console.log(keyTAGS);
-                    this.keyOrdenList.push(keyTAGS)
+                    this.keyOrdenList.push(keyTAGS);
                     this.misTagsList.push({Tags});
                   }
                 }              
@@ -462,6 +516,25 @@ export class ProfileComponent implements OnInit {
     cont.style.display = 'none';
     this.registerService.deleteTag(this.keyOrdenList[index[1]],this.KeyUSER);
     this.toastr.warning('Tag eliminado', 'Exitosamente');    
+  }
+
+  async deleteBook(i){
+    let index = i.split("-");
+    let query2: string = ".mislibros"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    
+    this.registerService.deleteLibros(this.keyOrdenBooksList[index[1]],this.KeyUSER);
+    this.toastr.warning('Libro eliminado', 'Exitosamente');    
+  }
+
+  async deleteFriend(i){
+    let index = i.split("-");
+    let query2: string = ".containerAmigos"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    this.registerService.deleteAmigos(this.keyOrdenAmigosList[index[1]],this.KeyUSER);
+    this.toastr.warning('Amigo eliminado', 'Exitosamente');    
   }
 
   async editUserName(register: UserI){
