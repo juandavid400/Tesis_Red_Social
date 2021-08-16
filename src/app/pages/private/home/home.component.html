@@ -1,7 +1,5 @@
 <app-navigation-bar></app-navigation-bar>
 
-
-<!----------------------------------------------------------- FIN HEADER ---------------------------------------------->
 <input type="text" name="searchBoxHome" placeholder="Buscar ..." [(ngModel)]="searchBoxHome">
 <div class="container">
     <div *ngFor="let book of bookList | filter:searchBoxHome; let i = index" >
@@ -31,6 +29,5 @@
         <button>Leer</button>
     </div> 
 </div>
-<app-footer></app-footer>
 
-<img src="" />
+<app-footer></app-footer>

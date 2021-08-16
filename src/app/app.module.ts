@@ -40,6 +40,7 @@ import { NavigationBarComponent } from './pages/private/navigation-bar/navigatio
 import { FooterComponent } from './pages/private/footer/footer.component';
 import { filter } from 'rxjs/operators';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ExternalProfilesComponent } from './pages/private/external-profiles/external-profiles.component';
 
 
 
@@ -58,6 +59,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     NavigationBarComponent,
     FooterComponent,
     FilterPipe,
+    ExternalProfilesComponent,
   ],
   imports: [
     BrowserModule,

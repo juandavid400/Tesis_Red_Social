@@ -95,8 +95,7 @@ export class HomeComponent implements OnInit {
     let flag = 0;
     let flag2 = 0;
     let $this = this;
-    // console.log(books);    
-    // console.log("-----------------------------");
+
     var rango = Object.keys(books[0]).map((key) => [(key), books[0][key]]);
       for (let i = 0; i < books.length; i++) {                          
         for (let j = 0; j < rango.length; j++) {
@@ -109,7 +108,6 @@ export class HomeComponent implements OnInit {
           if (result[i][0]=="Comentarios"){
             var result2 = Object.keys(result[i][1]).map((key) => [(key), result[i][1][key]]);
             for (let k = 0; k < result2.length; k++) {
-              console.log(result2.length);
               let temp = result2[k][1];
               $this.bookComents.push(temp);
             }
@@ -131,14 +129,14 @@ export class HomeComponent implements OnInit {
           
           if (user != null) {
             user.providerData.forEach(function (profile) {
-              console.log("Sign-in provider: " + profile.providerId);
+              // console.log("Sign-in provider: " + profile.providerId);
               // console.log("  Provider-specific UID: " + profile.uid);
               // console.log("  Name: " + profile.displayName);
-              console.log("  Email: " + profile.email);
+              // console.log("  Email: " + profile.email);
               // $this.addBookToUser(profile.email,"");
             });
           }
-          console.log(user);
+          // console.log(user);
         } else {
           // No user is signed in.
         }
@@ -167,8 +165,7 @@ export class HomeComponent implements OnInit {
   async addBookToUser(i){
     let Key;
     let index = i.split("-");
-    // console.log("Esto es index");
-    // console.log(index);
+
     const Email = firebase.auth().currentUser.email;
       let imgText = "imagen";
     this.imagen = document.querySelector('#'+imgText+index[1]);         
@@ -182,9 +179,6 @@ export class HomeComponent implements OnInit {
       this.autor = document.querySelector('#'+autorText+index[1]);      
       this.autor = this.autor.textContent;
 
-      // console.log(this.imagen);  
-      // console.log(this.titulo);
-      // console.log(this.autor);
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
           // console.log("entre nivel1");
@@ -209,7 +203,6 @@ export class HomeComponent implements OnInit {
           }        
         });
       });
-      console.log(this.arr);
       for (let i = 0; i < this.arr.length; i++) {
         if (this.arr[i]==this.titulo){
           this.contador ++;

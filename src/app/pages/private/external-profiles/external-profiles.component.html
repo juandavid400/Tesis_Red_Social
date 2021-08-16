@@ -1,0 +1,15 @@
+<app-navigation-bar></app-navigation-bar>
+
+<!-- <input type="text" name="searchBoxHome" placeholder="Buscar ..." [(ngModel)]="searchBoxHome"> -->
+<div class="container">
+    <div *ngFor="let user of registerList; let i = index" >
+        <img id="{{'imagen'+i}}"  src="../../../../../../assets/img/NoImage.png" alt="imagenes" class="userImg">
+          
+        <h1 id="{{'nombre'+i}}"  align="center" >{{user.name}}{{user.lname}}</h1>
+        <h1 style="display: none;" id="{{'correo'+i}}"  align="center" >{{user.email}}</h1>
+
+        <button id="{{'button-'+i}}" (click)="addFriend(i)">Agregar amigo</button><br>
+    </div> 
+</div>
+
+<app-footer></app-footer>

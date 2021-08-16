@@ -9,6 +9,7 @@ import { RegisterComponent } from './pages/public/register/register.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { TagsComponent } from './pages/public/tags/tags.component';
+import { ExternalProfilesComponent } from './pages/private/external-profiles/external-profiles.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectAuthorizedToHome = () => redirectLoggedInTo(['home']);
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'tags', component: TagsComponent },
+  { path: 'externalProfiles', component: ExternalProfilesComponent },
   { path: '**', redirectTo: '/login' },
 ];
 

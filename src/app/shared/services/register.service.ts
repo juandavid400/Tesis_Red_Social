@@ -18,8 +18,6 @@ export class RegisterService {
 
   getRegister(){
      this.registerList = this.firebase.list('registers');
-     console.log("Este es el clarisimo");
-     console.log(this.registerList);
     return this.registerList;
   }
 
