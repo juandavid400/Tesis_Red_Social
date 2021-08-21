@@ -39,6 +39,7 @@ export class ExternalProfilesComponent implements OnInit {
     FulName = '';
     correoExt = '';
     Currentimg = '';
+    searchBoxExternal= '';
 
 
   ngOnInit(): void {
@@ -55,12 +56,21 @@ export class ExternalProfilesComponent implements OnInit {
         console.warn("this.registerList");
         console.log(this.registerList);
         this.registerListNew = Object.values(this.registerList);
-        // for (let i = 0; i < arr.length; i++) {
-        //   for (let j = 0; j < arr[i].length; j++) {
-        //     this.registerListNew.push(arr[i][j]);     
-        //   }
-        // }
-        $this.getImgUsers(this.registerListNew);
+        const Email = firebase.auth().currentUser.email;
+
+        for (let i = 0; i < this.registerList.length; i++) {
+          this.registerListNew  = Object.values(this.registerList[i]);
+
+          for (let j = 0; j < this.registerListNew.length; j++) {            
+            
+            if (this.registerListNew[j]==Email) {
+              this.registerList.splice(i, 1);
+            }
+            
+          }
+        }
+        
+        $this.getImgUsers(this.registerList);
         
       });
   }
@@ -90,14 +100,16 @@ export class ExternalProfilesComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  getImgUsers(arrList){
+  async getImgUsers(arrList){
     let $this = this;
     const Email = firebase.auth().currentUser.email;
     let Key;
     let entries;
     let email;
-    const filter = '@';
-    
+    const filter = '@';    
+    console.warn("arrList");
+    console.log(arrList);
+
     setTimeout(function(){
 
       for (let i = 0; i < arrList.length; i++) {

@@ -41,6 +41,8 @@ import { FooterComponent } from './pages/private/footer/footer.component';
 import { filter } from 'rxjs/operators';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ExternalProfilesComponent } from './pages/private/external-profiles/external-profiles.component';
+import { GroupComponent } from './pages/private/group/group.component';
+import { FilterExternalProfilesPipe } from './pipes/filter-external-profiles.pipe';
 
 
 
@@ -60,6 +62,8 @@ import { ExternalProfilesComponent } from './pages/private/external-profiles/ext
     FooterComponent,
     FilterPipe,
     ExternalProfilesComponent,
+    GroupComponent,
+    FilterExternalProfilesPipe,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +91,8 @@ import { ExternalProfilesComponent } from './pages/private/external-profiles/ext
     AngularFirestore,
     AngularFireAuthGuard,
     FilterTagsPipe,
-    FilterPipe
+    FilterPipe,
+    FilterExternalProfilesPipe
   ],
   bootstrap: [AppComponent]
 })

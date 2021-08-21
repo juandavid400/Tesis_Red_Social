@@ -1,8 +1,8 @@
 <app-navigation-bar></app-navigation-bar>
 
-<!-- <input type="text" name="searchBoxHome" placeholder="Buscar ..." [(ngModel)]="searchBoxHome"> -->
+<input type="text" name="searchBoxExternal" placeholder="Buscar ..." [(ngModel)]="searchBoxExternal">
 <div *ngIf="viewProfile == false" class="container">
-    <div *ngFor="let user of registerList; let i = index" >
+    <div *ngFor="let user of registerList | filterExternalProfiles:searchBoxExternal; let i = index" >
         <img (click)="viewExternalProfile(user.email)" id="{{'imagen'+i}}"  src="../../../../../../assets/img/NoImage.png" alt="imagenes" class="userImg">
           
         <h1 (click)="viewExternalProfile(user.email)" id="{{'nombre'+i}}"  align="center" >{{user.name}}{{user.lname}}</h1>
