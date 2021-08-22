@@ -145,6 +145,7 @@ export class ExternalProfilesComponent implements OnInit {
           }
                   
         }
+
         
         if ($this.imgUser != undefined){
           if ($this.imgUser.length >= 1){
@@ -307,7 +308,7 @@ export class ExternalProfilesComponent implements OnInit {
 
   gotoExternalProfile(){
     this.viewProfile = false;
-    this.getImgUsers(this.registerListNew);
+    this.getImgUsers(this.registerList);
   }
 
   async viewExternalProfile(correoExternoUser){
@@ -383,7 +384,6 @@ export class ExternalProfilesComponent implements OnInit {
       });
     });
     
-    
     setTimeout(function(){
       
       if($this.UserName != '') {
@@ -399,7 +399,7 @@ export class ExternalProfilesComponent implements OnInit {
         $this.toastr.error('Error al buscar el nombre', 'Error');   
       }
 
-      if($this.Currentimg == '') {
+      if(!$this.Currentimg) {
         $this.Currentimg = "../../../../../../assets/img/NoImage.png";
         const query: string = ".containerView .Photoimg";
         const Photoimg: any = document.querySelector(query);

@@ -3,7 +3,7 @@
 <input type="text" name="searchBoxExternal" placeholder="Buscar ..." [(ngModel)]="searchBoxExternal">
 <div *ngIf="viewProfile == false" class="container">
     <div *ngFor="let user of registerList | filterExternalProfiles:searchBoxExternal; let i = index" >
-        <img (click)="viewExternalProfile(user.email)" id="{{'imagen'+i}}"  src="../../../../../../assets/img/NoImage.png" alt="imagenes" class="userImg">
+        <img ng-change="viewExternalProfile(user.email)" (click)="viewExternalProfile(user.email)" id="{{'imagen'+i}}"  src="../../../../../../assets/img/NoImage.png" alt="imagenes" class="userImg">
           
         <h1 (click)="viewExternalProfile(user.email)" id="{{'nombre'+i}}"  align="center" >{{user.name}}{{user.lname}}</h1>
         <h1 style="display: none;" id="{{'correo'+i}}"  align="center" >{{user.email}}</h1>
@@ -16,7 +16,7 @@
 <div *ngIf="viewProfile == true" class="containerView" >
     <button (click)="gotoExternalProfile()">Volver</button>
     <div class="PerfilPhoto" >
-        <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
+        <img  class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
         <button id="boton" (click)="addFriendInsidePerfil()">Agregar amigo</button><br>
         <div class="ContainerDescription">
             <div class="textN">Nombre:</div>

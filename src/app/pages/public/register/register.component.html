@@ -22,7 +22,7 @@
            
           <form [formGroup]="ngForm" >
 
-            <label for="name" [ngClass]="ngForm.controls['name'].invalid ? 'text-danger' : 'text-success'">Name</label>
+            <label for="name" [ngClass]="ngForm.controls['name'].invalid ? 'text-danger' : 'text-success'">Nombre</label>
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" formControlName="name" type="text" placeholder="Name" [ngClass]="ngForm.controls['name'].invalid ? 'is-invalid' : 'success'" required>
@@ -32,7 +32,7 @@
               </p>
             </div>
 
-            <label for="lname" [ngClass]="ngForm.controls['lname'].invalid ? 'text-danger' : 'text-success'">Last Name</label>
+            <label for="lname" [ngClass]="ngForm.controls['lname'].invalid ? 'text-danger' : 'text-success'">Apellido</label>
             <div  class="field">
               <p class="control has-icons-left">
                 <input  class="input" type="text" formControlName="lname"  placeholder="Last Name" [ngClass]="ngForm.controls['lname'].invalid ? 'is-invalid' : 'success'" required>
@@ -43,7 +43,7 @@
             </div>
 
             
-            <label for="telefono" [ngClass]="ngForm.controls['telefono'].invalid ? 'text-danger' : 'text-success'">Phone Number</label>
+            <label for="telefono" [ngClass]="ngForm.controls['telefono'].invalid ? 'text-danger' : 'text-success'">Telefono</label>
             <div class="field">
               <p class="control has-icons-left">
                 
@@ -70,7 +70,7 @@
               </p>
             </div>
 
-            <label for="email" [ngClass]="ngForm.controls['email'].invalid ? 'text-danger' : 'text-success'">Email Address</label>
+            <label for="email" [ngClass]="ngForm.controls['email'].invalid ? 'text-danger' : 'text-success'">Correo</label>
             <div class="field">
               <p class="control has-icons-left has-icons-right">
                 <input class="input" type="email" formControlName="email" placeholder="Email Address" [ngClass]="ngForm.controls['email'].invalid ? 'is-invalid' : 'success'" required>
@@ -83,7 +83,7 @@
               </p>
             </div>
            
-            <label for="password" [ngClass]="ngForm.controls['password'].invalid ? 'text-danger' : 'text-success'">Password</label>
+            <label for="password" [ngClass]="ngForm.controls['password'].invalid ? 'text-danger' : 'text-success'">Contraseña</label>
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" type="password" formControlName="password"  placeholder="Password" [ngClass]="ngForm.controls['password'].invalid ? 'is-invalid' : 'success'" required>
@@ -99,7 +99,7 @@
               Must be at least 6 characters!
             </label>
 
-            <label for="confirmPassword" style="padding-top: 5px;" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirm Password</label>
+            <label for="confirmPassword" style="padding-top: 5px;" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'text-danger' : 'text-success'">Confirmar contraseña</label>
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" type="password" formControlName="confirmPassword"  placeholder="Confirm Password" [ngClass]="ngForm.controls['confirmPassword'].invalid ? 'is-invalid' : 'success'" required>
@@ -114,7 +114,7 @@
 
             <div class="field">
               <div class="buttons">
-                 <button [disabled]="ngForm.invalid" type="submit"class="button is-info" (click)="onSubmit()">Register</button> 
+                 <button [disabled]="ngForm.invalid" type="submit"class="button is-info" (click)="onSubmit()">Registrar</button> 
                 <!-- <button class="button is-success" (click)="goToLogin()">Back to Login</button> -->
               </div>
             </div>

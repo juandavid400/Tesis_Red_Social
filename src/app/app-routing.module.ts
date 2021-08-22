@@ -10,6 +10,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { TagsComponent } from './pages/public/tags/tags.component';
 import { ExternalProfilesComponent } from './pages/private/external-profiles/external-profiles.component';
+import { GroupComponent } from './pages/private/group/group.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectAuthorizedToHome = () => redirectLoggedInTo(['home']);
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'tags', component: TagsComponent },
   { path: 'externalProfiles', component: ExternalProfilesComponent },
+  { path: 'groups', component: GroupComponent},
   { path: '**', redirectTo: '/login' },
 ];
 
