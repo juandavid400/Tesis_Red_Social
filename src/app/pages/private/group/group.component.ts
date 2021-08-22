@@ -50,6 +50,17 @@ export class GroupComponent implements OnInit {
    await this.SendImage();
    await this.UpdatePerfilPhoto(Email);
   }
+  
+  createGroup(){
+
+  }
+
+  searchGroup(){
+    
+  }
+  myGroup(){
+    
+  }
 
   async SendImage (){
 

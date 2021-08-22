@@ -1,10 +1,16 @@
 <app-navigation-bar></app-navigation-bar>
 
 
-<div [formGroup]="ngFormProfile" class="container" >
-    <div class="PerfilPhoto" >
-        <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
-        <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
+<div class="container" [formGroup]="ngFormProfile">
+
+    <div class="perfilContainer">
+
+        <div class="photoContainer">
+            <app-file-upload (imgUrlEmitter)="getImg($event)"></app-file-upload>
+            <img class="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
+        </div>
+
+
         <div class="ContainerDescription">
             <div class="textN">Nombre:</div>
             <h1  class="name"></h1><img class="Editimg" src="../../../../../../assets/img/edit.png" srcset="" alt="" id="img">
@@ -50,7 +56,45 @@
             
         </div>  
         
+            <!-- <div class="textN">Nombre:</div>
+            <h1 class="name"></h1>
+            <textarea id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion"></textarea>
+             <label for="descripcion"> 
+             <input id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion" >
+
+             </label>
+            <button (click)="SendDescription()" type="submit" class="button is-info" style="padding: 5px;">Actualizar
+                descripción</button>
+        </div>
+
+
+
+
     </div>
+
+    <h1 class="name" style="margin-top: 20px;">Mis tags:</h1>
+    <div *ngFor="let misTags of misTagsList; let i2 = index">
+        <div class="tagsContainer">
+           
+                <h2 id="titleTag">{{misTags.Tags}}
+                    <img class="tagImg" id="{{'eliminate'+i2}}" src="../../../../assets/img/xIcon.svg" alt="tag">
+                </h2> 
+
+        </div>
+
+    </div>-->
+
+
+
+
+    <h1 class="name" style="margin-top: 20px;">Mis Libros</h1>
+    <div class="mislibros" *ngFor="let misLibros of misLibrosList; let i = index">
+        <img id="{{'imagen'+i}}" [src]="misLibros.Imagen" alt="imagenes" class="bookImg">
+        <h1 id="{{'titulo'+i}}" align="center">{{misLibros.Titulo}}</h1>
+        <h2 id="{{'autor'+i}}" align="center">{{misLibros.Autor}}</h2>
+    </div>
+
+
 </div>
 
 <app-footer></app-footer>

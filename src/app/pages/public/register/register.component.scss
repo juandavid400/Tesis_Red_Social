@@ -42,11 +42,9 @@ $text: #212121;
 
 .appContainer {
     width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
+    // height: 100vh;
+
+    // background-color: aqua;
 
     
     .text{
@@ -64,6 +62,24 @@ $text: #212121;
         }
     }
 
+    .logoContainer{
+        // background-color: blue;
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .imputContainer{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
     .box {
         margin-top: 15px;
         width: 85%;
@@ -71,7 +87,6 @@ $text: #212121;
         // position: absolute;
         padding: 15px;
         
-        // background-color: aqua;
         border-radius: 10px 10px 10px 10px;
         border: 3px solid #205493;
         
