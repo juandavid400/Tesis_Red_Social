@@ -1,8 +1,10 @@
 <app-navigation-bar></app-navigation-bar>
 
-<input class="searchBar" type="text" name="searchBoxHome" placeholder="Buscar ..." [(ngModel)]="searchBoxHome">
+<input class="searchBar" id="form1" type="search" name="searchBoxHome" placeholder="Buscar" [(ngModel)]="searchBoxHome">
+
 
 <div class="container">
+
     <div *ngFor="let book of bookList | filter:searchBoxHome; let i = index">
         <img id="{{'imagen'+i}}" [src]="book.Portada" alt="imagenes" class="bookImg">
         <div class="cuerpoText">

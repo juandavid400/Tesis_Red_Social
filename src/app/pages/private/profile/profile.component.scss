@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
 
 $azulOscuro: #112e51;
@@ -9,28 +10,25 @@ $AzulMedio: #205493;
 $AzulClaro: #0071bc;
 $text: #212121;
 
-.PerfilPhoto{
-    background-color: aqua;
-}
 
-.photoContainer{
-    background-color: darkcyan;
+
+.name{
+    font-size: x-large;
+    text-align: center;
+    margin-top: 5px;
+    color: $AzulMedio;
+    align-self: center;
 }
 
 .perfilContainer{
-    background-color: blue;
+    // background-color: blue;
     display: flex;
     align-content: center;
     align-items: center;
     flex-flow: column wrap;
-    margin-top: 30px;
+    margin-top: 100px;
 
-    .name{
-        font-size: x-large;
-        text-align: center;
-        margin-top: 5px;
-        color: $AzulMedio;
-    }
+
 }
 
 .Photoimg{
@@ -44,13 +42,15 @@ $text: #212121;
 
 .container{
 
+    
+
     .ContainerDescription{
         width: 80%;
         display: flex;
         align-content: center;
         align-items: center;
         flex-flow: column wrap;
-        background-color: aquamarine;
+        // background-color: aquamarine;
     }
 
     .inputDescripcion{
@@ -69,8 +69,29 @@ $text: #212121;
         // white-space: pre;
         word-break: break-word; 
     }
-    .tagImg{
-        width: 40px;
-        height: 40px;
+
+    .tagsContainer{
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-flow: column wrap;
+        // background-color: darkgoldenrod;
+        // margin-top: 20px;
+        width: 100%;
+
+        #titleTag{
+            color: $AzulClaro;
+            font-size: large;
+        }
+        
     }
+    .tagImg{
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+    
+
+
 }
+
