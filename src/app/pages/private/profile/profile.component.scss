@@ -15,7 +15,7 @@ $text: #212121;
 .name{
     font-size: x-large;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 10px;
     color: $AzulMedio;
     align-self: center;
 }
@@ -40,12 +40,24 @@ $text: #212121;
 
 }
 
-.container{
+.app{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    margin-bottom: 80px;
 
-    
+}
+.container{
+    // background-color: bisque;
+    width: 90%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-flow: column wrap;
 
     .ContainerDescription{
-        width: 80%;
+        // width: 80%;
         display: flex;
         align-content: center;
         align-items: center;
@@ -57,7 +69,7 @@ $text: #212121;
         margin-top: 10px;
         margin-bottom: 10px;
         // margin-left: 2%;
-        width: 100%;
+        width: 80vw;
         height: 100px;
         border-radius: 20px;
         padding: 10px;
@@ -76,8 +88,8 @@ $text: #212121;
         align-items: center;
         flex-flow: column wrap;
         // background-color: darkgoldenrod;
-        // margin-top: 20px;
-        width: 100%;
+        margin-top: 20px;
+        width: 80%;
 
         #titleTag{
             color: $AzulClaro;
@@ -88,10 +100,23 @@ $text: #212121;
     .tagImg{
         width: 30px;
         height: 30px;
-        margin-left: 10px;
+        // position: absolute;
+        // z-index: 5
+        right: 0px;
+        top: 5px;
+        // left: -50px;
+        // top: 80px;
     }
     .Editimg{
         width: 40px;
         height: 40px;
     }
+
+    .portadaImg{
+        width: 300px; /* width of container */
+        height: 500px; /* height of container */
+        object-fit: cover;
+    }
+
+
 }

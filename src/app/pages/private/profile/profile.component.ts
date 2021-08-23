@@ -16,7 +16,7 @@ import { ToastrService } from "ngx-toastr";
 import { Observable } from 'rxjs';
 import { finalize, mergeScan } from 'rxjs/operators';
 import { Key } from 'protractor';
-import { error, info } from 'console';
+import { Console, error, info } from 'console';
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -532,8 +532,10 @@ export class ProfileComponent implements OnInit {
 
   async deleteBook(i){
     let index = i.split("-");
-    let query2: string = ".mislibros"+index[1];
+    let query2: string = "#mislibros"+index[1];
     let cont: any = document.querySelector(query2);
+    //por el carrusel no encuentra el query2
+    console.log(cont);
     cont.style.display = 'none';
     
     this.registerService.deleteLibros(this.keyOrdenBooksList[index[1]],this.KeyUSER);
