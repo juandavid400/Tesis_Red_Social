@@ -198,7 +198,7 @@ export class RegisterComponent implements OnInit {
       console.log("this.email");  
       console.log(this.email);
         
-      // this.router.navigate(["/tags"]); 
+      this.router.navigate(["/tags"]); 
         }  
     
       }

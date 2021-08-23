@@ -32,10 +32,6 @@ export class ProfileComponent implements OnInit {
   userInfoList: UserI[];
   misTagsList: any[] = [];
   misLibrosList: any[] = [];
-  contactAdded: boolean = false;
-  contactGroup: boolean = false;
-  ListoImagen: boolean = false;
-  AddToGroup: string;
   ImageSelected: string;
   registerList: UserI[];
   Currentimg: string;
@@ -43,18 +39,12 @@ export class ProfileComponent implements OnInit {
   UserName: string;
   UserLastName: string;
   FulName: string;
-  register = [];
-  itemRef: any;
-  Activechat: any;
-  Addinfo: string;
-  AreAllMembers: boolean = false;
-  integrants: string[] = [];
-  NameGroup: string;
-  CurrentGroupimg: string;
-  KeyGroup: any;
-  copyKey: any;
-  dBlock: string[] = [];
-  Mail: string = "";
+  misAmigosList: any[] = [];
+  keyOrdenList: any[] = [];
+  KeyUSER: string = "";
+  keyOrdenAmigosList: any[] = [];
+  keyOrdenBooksList: any[] = [];
+  
 
   ngFormProfile = new FormGroup({
     descripcion: new FormControl(),      
@@ -97,18 +87,6 @@ export class ProfileComponent implements OnInit {
 
 
 
-    peliculas:any[]=[
-      {name:'Frozen 2',
-      img:'assets/frozen.jpg',
-      desc:'Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.'},
-      {
-        name:'The Irishman',
-        img:'assets/irishman.jpg',
-        desc:'Pennsylvania, 1956. Frank Sheeran, a war veteran of Irish origin who works as a truck driver, accidentally meets mobster Russell Bufalino. Once Frank becomes his trusted man, Bufalino sends him to Chicago with the task of helping Jimmy Hoffa, a powerful union leader related to organized crime, with whom Frank will maintain a close friendship for nearly twenty years.'
-      }
-    ];
-  
-
 
 
 
@@ -120,6 +98,9 @@ export class ProfileComponent implements OnInit {
   }
   goToProfile() {
     this.router.navigate(['/profile']);
+  }
+  goToTags(){
+    this.router.navigate(['/tags']);
   }
 
   async  doLogout() {
@@ -136,19 +117,19 @@ export class ProfileComponent implements OnInit {
 
         if (user != null) {
           user.providerData.forEach(function (profile) {
-            console.log("Sign-in provider: " + profile.providerId);
+            // console.log("Sign-in provider: " + profile.providerId);
             // console.log("  Provider-specific UID: " + profile.uid);
             // console.log("  Name: " + profile.displayName);
-            console.log("  Email: " + profile.email);
+            // console.log("  Email: " + profile.email);
             // console.log("  Phone Number: " + profile.photoURL);
             $this.UpdatePerfilPhoto(profile.email);
             $this.getNameUser(profile.email);
             $this.getDescriptionUser(profile.email);
             $this.getMisLibros();
             $this.getMisTags();
+            $this.getMisAmigos();
           });
         }
-        console.log(user);
       } else {
         // No user is signed in.
       }
@@ -162,13 +143,11 @@ export class ProfileComponent implements OnInit {
 
   getUrl(event){
     this.fileUrl = event;
-    console.log("URL recibida en padre: " + this.fileUrl);
   }
 
   async getImg(event){
     this.ImgUrl = event;
     const Email = firebase.auth().currentUser.email;
-    console.log("URL recibida en padre: " + this.ImgUrl);
    await this.SendImage();
    await this.UpdatePerfilPhoto(Email);
   }
@@ -182,21 +161,17 @@ export class ProfileComponent implements OnInit {
   // }
 
   async SendImage (){
-    // console.log("ENTRE MANASO");
 
     if(this.ImgUrl){
       let Key;      
       const Email = firebase.auth().currentUser.email;
-      console.log("Email de sendimage");
-      console.log(Email);
+
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
-            console.log("entramos", childKey);
-            console.log("recorrido", childKey);
           }
                    
         });
@@ -215,11 +190,9 @@ export class ProfileComponent implements OnInit {
   async UpdatePerfilPhoto(Mail){
 
     let Key;
-    // firebase.auth().currentUser.email
+
     const Email = Mail;
-    // await Email = firebase.auth().currentUser.email;
-    console.log("Email UpdatePerfilPhoto");
-    console.log(Email);
+
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
@@ -251,17 +224,13 @@ export class ProfileComponent implements OnInit {
       // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
       // profile.src = this.Currentimg;
-      console.log(Photoimg.src);
-      // console.log(profile.src);
-      // console.log(profile.src);
     } else {
       const query: string = ".container .Photoimg";
       const Photoimg: any = document.querySelector(query);
       // const query2: string = "#app .profile";
       // const profile: any = document.querySelector(query2);
       Photoimg.src = this.Currentimg;
-      // profile.src = this.Currentimg;
-      console.log(this.Currentimg);      
+      // profile.src = this.Currentimg;     
     }
     
   }
@@ -313,18 +282,13 @@ export class ProfileComponent implements OnInit {
   async getNameUser(Mail){
 
     let Key;
-    // firebase.auth().currentUser.email
     const Email = Mail;
-    console.log("name getNameUser");
-    console.log(Email);
     await this.firebase.database.ref("registers").once("value", (users) => {
       users.forEach((user) => {
         const childKey = user.key;
         const childData = user.val();     
         if (childData.email == Email) {
           Key = childKey;
-          console.log("childData");
-          console.log(childData);
           if (childData.lname != '' && childData.name != ''){
             this.UserName = childData.name;
             this.UserLastName = childData.lname;            
@@ -352,8 +316,7 @@ export class ProfileComponent implements OnInit {
     const query: string = ".container .inputDescripcion";
     const Descript: any = document.querySelector(query);
     const Description = Descript.value;
-    console.log("Description");
-    console.log(Description);
+
     if(Description != ''){
       let Key;      
       const Email = firebase.auth().currentUser.email;
@@ -363,8 +326,6 @@ export class ProfileComponent implements OnInit {
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
-            console.log("entramos", childKey);
-            console.log("recorrido", childKey);
           }
                    
         });
@@ -429,35 +390,35 @@ export class ProfileComponent implements OnInit {
     let Autor = {};
     let Titulo = {};
     let Imagen = {};
-    // console.log("Esto es index");
-    // console.log(index);
+    let keyLibros;
     const Email = firebase.auth().currentUser.email;
 
       await this.firebase.database.ref("registers").once("value", (users) => {
         users.forEach((user) => {
-          // console.log("entre nivel1");
+
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
             Key = childKey;
             user.forEach((info) => {
               info.forEach((MisLibros) => {
+                keyLibros = MisLibros.key;
+
                 MisLibros.forEach((Libros) => {
                   const LibrosChildKey = Libros.key;
                   const LibrosChildData = Libros.val();
                 if (LibrosChildKey == "Autor"){
+                  this.keyOrdenBooksList.push(keyLibros);
                   Autor = LibrosChildData;
-                  // console.log(aut);
-                  // this.misLibrosList.push({Autor:LibrosChildData});
+                  
                 } else if (LibrosChildKey == "Imagen"){
+
                   Imagen = LibrosChildData;
-                  // console.log(img);
-                  // this.misLibrosList.push({Imagen:LibrosChildData});
+
                 } else if (LibrosChildKey == "Titulo"){
                   Titulo = LibrosChildData;
-                  // console.log(tit);
                   if (Autor != '' && Imagen != '' && Titulo != ''){
-                    console.log("entre");
+                    
                     this.misLibrosList.push({Autor,Imagen,Titulo});
                   }
                 }                
@@ -468,17 +429,60 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
-      console.log(this.misLibrosList);
+      
   }
   //-----------------------------------------------------END get Mislibros------------------------------------------
+  async getMisAmigos(){
+    let Key;
+    let NombreAmigo = {};
+    let ImagenAmigo = {};
+    let keyAmigos;
+    const Email = firebase.auth().currentUser.email;
+
+      await this.firebase.database.ref("registers").once("value", (users) => {
+        users.forEach((user) => {
+
+          const childKey = user.key;
+          const childData = user.val();
+          if (childData.email == Email) {
+            Key = childKey;
+            user.forEach((info) => {
+              info.forEach((misAmigos) => {
+                keyAmigos = misAmigos.key;
+                misAmigos.forEach((Amigos) => {
+                  const AmigosChildKey = Amigos.key;
+                  const AmigosChildData = Amigos.val();
+                if (AmigosChildKey == "ImagenAmigo"){
+                  this.keyOrdenAmigosList.push(keyAmigos);
+                  ImagenAmigo = AmigosChildData;                    
+                } 
+                if (AmigosChildKey == "NombreAmigo"){
+
+                  NombreAmigo = AmigosChildData;
+
+                  if (Object.entries(NombreAmigo).length != 0 && Object.entries(ImagenAmigo).length != 0){
+                    
+                    
+                    this.misAmigosList.push({ImagenAmigo,NombreAmigo});
+                     
+                  }
+                }  
+
+                });
+                
+              });
+            });
+          }        
+        });
+      });
+  }
   //-----------------------------------------------------Start get MisTags------------------------------------------
+   
   async getMisTags(){
     let Key;
     let Tags = {};
-    let Titulo = {};
-    let Imagen = {};
-    // console.log("Esto es index");
-    // console.log(index);
+    let keyTAGS;
+
     const Email = firebase.auth().currentUser.email;
 
       await this.firebase.database.ref("registers").once("value", (users) => {
@@ -487,9 +491,12 @@ export class ProfileComponent implements OnInit {
           const childKey = user.key;
           const childData = user.val();
           if (childData.email == Email) {
-            Key = childKey;
-            user.forEach((info) => {
+            this.KeyUSER = childKey;
+            user.forEach((info) => {              
               info.forEach((MisTags) => {
+                const pruebakey = MisTags.key;
+                keyTAGS = pruebakey;
+                
                 MisTags.forEach((Tag) => {
                   const TagChildKey = Tag.key;
                   const TagChildData = Tag.val();
@@ -498,7 +505,9 @@ export class ProfileComponent implements OnInit {
                   // console.log(aut);
                   // this.misTagsList.push({Tags:TagChildData});
                   if (Tags != ''){
-                    console.log("entre");
+                    // console.log("info key");
+                    // console.log(keyTAGS);
+                    this.keyOrdenList.push(keyTAGS);
                     this.misTagsList.push({Tags});
                   }
                 }              
@@ -509,7 +518,39 @@ export class ProfileComponent implements OnInit {
           }        
         });
       });
-      console.log(this.misTagsList);
   }
   //-----------------------------------------------------END get MisTags------------------------------------------
+
+  async deleteSth(i){
+    let index = i.split("-");
+    let query2: string = "#contTag"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    this.registerService.deleteTag(this.keyOrdenList[index[1]],this.KeyUSER);
+    this.toastr.warning('Tag eliminado', 'Exitosamente');    
+  }
+
+  async deleteBook(i){
+    let index = i.split("-");
+    let query2: string = ".mislibros"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    
+    this.registerService.deleteLibros(this.keyOrdenBooksList[index[1]],this.KeyUSER);
+    this.toastr.warning('Libro eliminado', 'Exitosamente');    
+  }
+
+  async deleteFriend(i){
+    let index = i.split("-");
+    let query2: string = ".containerAmigos"+index[1];
+    let cont: any = document.querySelector(query2);
+    cont.style.display = 'none';
+    this.registerService.deleteAmigos(this.keyOrdenAmigosList[index[1]],this.KeyUSER);
+    this.toastr.warning('Amigo eliminado', 'Exitosamente');    
+  }
+
+  async editUserName(register: UserI){
+    let variable;
+    this.registerService.updateUsername(variable);
+  }
 }

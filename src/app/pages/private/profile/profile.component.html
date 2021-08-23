@@ -12,43 +12,67 @@
 
 
         <div class="ContainerDescription">
-            <!-- <div class="textN">Nombre:</div> -->
             <h1 class="name"></h1>
             <textarea id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion"></textarea>
-            <!-- <label for="descripcion"> -->
-            <!-- <input id="descripcionID" formControlName="descripcion" type="text" class="inputDescripcion" > -->
+            <label for="descripcion">
 
-            <!-- </label> -->
+
+            </label>
             <button (click)="SendDescription()" type="submit" class="button is-info" style="padding: 5px;">Actualizar
                 descripción</button>
         </div>
 
 
 
+        <div class="ContainerTags">
 
-    </div>
+            <h1 class="name" style="margin-top: 20px;">Mis tags</h1>
 
-    <h1 class="name" style="margin-top: 20px;">Mis tags:</h1>
-    <div *ngFor="let misTags of misTagsList; let i2 = index">
-        <div class="tagsContainer">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tag</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let misTags of misTagsList; let i = index" id="{{'contTag'+i}}">
+                        <th><label id="{{'mitag'+i}}">{{misTags.Tags}}</label></th>
+                        <th><img (click)="deleteSth('eliminate-'+i)" id="{{'eliminate'+i}}"
+                                src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg"></th>
 
-            <h2 id="titleTag">{{misTags.Tags}}
-                <img class="tagImg" id="{{'eliminate'+i2}}" src="../../../../assets/img/xIcon.svg" alt="tag">
-            </h2>
-
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="goToTags()" type="submit" class="button is-info" style="padding: 5px;">Añadir nuevos
+                tags</button>
         </div>
-
     </div>
 
 
 
 
-    <h1 class="name" style="margin-top: 20px;">Mis Libros</h1>
+    <!-- <label for="">Mis Libros</label>
+        <div *ngFor="let misLibros of misLibrosList; let i = index" class="{{'mislibros'+i}}">
+
+            <img id="{{'imagen'+i}}" [src]="misLibros.Imagen" alt="imagenes" class="bookImg">
+            <h1 id="{{'titulo'+i}}" align="center">{{misLibros.Titulo}}</h1>
+            <h2 id="{{'autor'+i}}" align="center">{{misLibros.Autor}}</h2>
+            <img (click)="deleteBook('eliminate-'+i)" id="{{'eliminate'+i}}" src="../../../../assets/img/xIcon.svg"
+                alt="tag" class="tagImg">
+
+        </div> -->
+
+
+
+
+
+
 
     <ngb-carousel>
         <ng-template *ngFor="let misLibros of misLibrosList; let i = index" ngbSlide>
             <div class="picsum-img-wrapper">
-                <img id="{{'imagen'+i}}" [src]="misLibros.Imagen" alt="Random first slide" >
+                <img id="{{'imagen'+i}}" [src]="misLibros.Imagen" alt="Random first slide">
             </div>
             <div class="carousel-caption">
                 <h1>{{misLibros.Titulo}}</h1>
@@ -58,7 +82,15 @@
     </ngb-carousel>
 
 
+    <h1 class="name" style="margin-top: 20px;">Mis Amigos</h1>
+    <div *ngFor="let misAmigos of misAmigosList; let i = index" class="{{'containerAmigos'+i}}">
 
+        <img id="{{'foto'+i}}" [src]="misAmigos.ImagenAmigo" alt="foto" class="fotoImg">
+        <h1>{{misAmigos.NombreAmigo}}</h1>
+        <img (click)="deleteFriend('eliminate-'+i)" id="{{'eliminate'+i}}" src="../../../../assets/img/xIcon.svg"
+            alt="tag" class="tagImg">
+
+    </div>
 
 
 </div>

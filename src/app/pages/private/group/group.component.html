@@ -1,0 +1,57 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div class="container"> 
+    <button (click)="createGroup()">Crear grupo</button>
+    <button (click)="searchGroup()">buscar grupo</button>
+    <button (click)="myGroup()">buscar grupo</button>
+</div>
+
+<div *ngIf="viewCreateGroup == true" class="containerCreate"> 
+    <form [formGroup]="ngForm" >
+        <app-file-upload  (imgUrlEmitter)="getImg($event)"></app-file-upload> 
+        <img class="Photoimg"  formControlName="Photoimg" src="../../../../../../assets/img/NoImage.png" srcset="" alt="" id="img">
+
+        <label for="nombreGrupo" [ngClass]="ngForm.controls['nombreGrupo'].invalid ? 'text-danger' : 'text-success'">Nombre del Grupo</label>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" formControlName="nombreGrupo" type="text" placeholder="Nombre del Grupo" [ngClass]="ngForm.controls['nombreGrupo'].invalid ? 'is-invalid' : 'success'" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+
+        <label for="descripcion" [ngClass]="ngForm.controls['descripcion'].invalid ? 'text-danger' : 'text-success'">Descripción</label>
+        <div  class="field">
+          <p class="control has-icons-left">
+            <input  class="input" type="text" formControlName="descripcion"  placeholder="Descripción" [ngClass]="ngForm.controls['descripcion'].invalid ? 'is-invalid' : 'success'" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+
+        <label for="email" [ngClass]="ngForm.controls['email'].invalid ? 'text-danger' : 'text-success'">Agregar integrantes</label>
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" formControlName="email" placeholder="Agregar integrantes" [ngClass]="ngForm.controls['email'].invalid ? 'is-invalid' : 'success'" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </p>
+        </div>
+       
+        <div class="field">
+          <div class="buttons">
+             <button [disabled]="ngForm.invalid" type="submit"class="button is-info" (click)="onSubmit()">Register</button> 
+            <!-- <button class="button is-success" (click)="goToLogin()">Back to Login</button> -->
+          </div>
+        </div>
+                
+      </form>
+</div>
+
+<app-footer></app-footer>

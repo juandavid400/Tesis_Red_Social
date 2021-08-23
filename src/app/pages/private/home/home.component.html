@@ -1,42 +1,46 @@
 <app-navigation-bar></app-navigation-bar>
 
-<input class="searchBar" id="form1" type="search" name="searchBoxHome" placeholder="Buscar" [(ngModel)]="searchBoxHome">
-
+<input class="searchBar" id="form1" type="search" name="searchBoxHome" placeholder="Buscar"
+  [(ngModel)]="searchBoxHome" />
 
 <div class="container">
+  <div *ngFor="let book of bookList | filter: searchBoxHome; let i = index">
+    <img id="{{ 'imagen' + i }}" [src]="book.Portada" alt="imagenes" class="bookImg" />
+    
+    <div class="cuerpoText">
+      <h1 id="{{ 'titulo' + i }}" align="center">{{ book.Title }}</h1>
+      <h2 id="{{ 'autor' + i }}" align="center">{{ book.Autor }}</h2>
 
-    <div *ngFor="let book of bookList | filter:searchBoxHome; let i = index">
-        <img id="{{'imagen'+i}}" [src]="book.Portada" alt="imagenes" class="bookImg">
-        <div class="cuerpoText">
-            <h1 id="{{'titulo'+i}}" align="center">{{book.Title}}</h1>
-            <h2 id="{{'autor'+i}}" align="center">{{book.Autor}}</h2>
-            <div class="contenedorStars">
-                <img class="stars" style="width: 50%;" src="../../../../assets/img/stars.png" alt="">
+      <div class="contenedorStars">
+        <img class="stars" style="width: 50%" src="../../../../assets/img/stars.png" alt="" />
+      </div>
 
-            </div>
-            <div class="descripcion">
-                <a href="">{{book.Descripcion}}</a>
-            </div>
-            <label
-                style="color: #205493; font-weight: bold; font-size: medium; font-family: Helvetica;">Comentarios</label>
-            <div *ngFor="let bookComent of bookComents | filter:searchBoxHome" class="comentarios">
-                <div class="comentario" *ngIf="bookComent.code == i">
-                    <label class="user">{{bookComent.User}}</label><br>
-                    <label style="margin-left: 10px;">{{bookComent.Comment}}</label>
-                </div>
-            </div>
+      <div class="descripcion">
+        <a href="">{{ book.Descripcion }}</a>
+      </div>
 
+      <div class="btnContainer">
+        <button class="button is-info" style="margin-right: 10px; width: 25%">
+          Leer
+        </button>
+        <button class="button is-info" id="{{ 'button-' + i }}" (click)="addBookToUser('button-' + i)"
+          style="width: 50%">
+          Agregar a mi lista
+        </button>
+      </div>
 
-            <div class="btnContainer">
-                <button class="button is-info" style="margin-right:10px; width:25%">Leer</button>
-                <button class="button is-info" id="{{'button-'+i}}" (click)="addBookToUser('button-'+i)"
-                    style="width: 50%;">Agregar a mi lista</button>
-            </div>
-
-
+      <label style="color: #205493; font-weight: bold; font-size: medium; font-family: Helvetica;">Comentarios</label>
+      <div *ngFor="let bookComent of bookComents | filter: searchBoxHome" class="comentarios">
+        <div class="comentario" *ngIf="bookComent.code == i">
+          <label class="user">{{ bookComent.User }}</label><br />
+          <label style="margin-left: 10px">{{ bookComent.Comment }}</label>
         </div>
+      </div>
 
 
     </div>
+
+  </div>
 </div>
+
 <app-footer></app-footer>
