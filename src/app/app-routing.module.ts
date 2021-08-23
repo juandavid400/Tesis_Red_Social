@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectAuthorizedToHome } },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'profile/**', component: ProfileComponent },
   { path: 'tags', component: TagsComponent },
   { path: '**', redirectTo: '/login' },
 ];

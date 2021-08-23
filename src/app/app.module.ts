@@ -25,6 +25,8 @@ import { AngularFireStorageModule, AngularFireStorage }    from '@angular/fire/s
 // import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+//bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Servicios
 import { RegisterService} from '../app/shared/services/register.service';
@@ -71,6 +73,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     AngularFirestoreModule,
+    NgbModule,
     AngularFireStorageModule,
     ToastrModule.forRoot({
       timeOut: 3000,

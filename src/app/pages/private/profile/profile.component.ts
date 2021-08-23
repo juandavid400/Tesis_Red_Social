@@ -18,6 +18,8 @@ import { finalize, mergeScan } from 'rxjs/operators';
 import { Key } from 'protractor';
 import { error, info } from 'console';
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
@@ -59,6 +61,7 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor( 
+    private _config:NgbCarouselConfig,
     public authService: AuthService,
     public chatService: ChatService,
     private firebaseAuth: AngularFireAuth,
@@ -90,6 +93,27 @@ export class ProfileComponent implements OnInit {
       //  await this.WhoIsWritingMe();
       //  await this.SearchImg();
     }
+
+
+
+
+    peliculas:any[]=[
+      {name:'Frozen 2',
+      img:'assets/frozen.jpg',
+      desc:'Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.'},
+      {
+        name:'The Irishman',
+        img:'assets/irishman.jpg',
+        desc:'Pennsylvania, 1956. Frank Sheeran, a war veteran of Irish origin who works as a truck driver, accidentally meets mobster Russell Bufalino. Once Frank becomes his trusted man, Bufalino sends him to Chicago with the task of helping Jimmy Hoffa, a powerful union leader related to organized crime, with whom Frank will maintain a close friendship for nearly twenty years.'
+      }
+    ];
+  
+
+
+
+
+
+
 
   goToHome() {
     this.router.navigate(['/home']);
