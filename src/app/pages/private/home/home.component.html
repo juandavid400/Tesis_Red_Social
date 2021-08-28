@@ -32,8 +32,9 @@
       <label style="color: #205493; font-weight: bold; font-size: medium; font-family: Helvetica;">Comentarios</label>
       <div *ngFor="let bookComent of bookComents | filter: searchBoxHome" class="comentarios">
         <div class="comentario" *ngIf="bookComent.code == i">
+          <img class="commentPhoto" [src]="bookComent.img" alt="">
           <label class="user">{{ bookComent.User }}</label><br />
-          <label style="margin-left: 10px">{{ bookComent.Comment }}</label>
+          <label class="commentText">{{ bookComent.Comment }}</label>
         </div>
       </div>
 

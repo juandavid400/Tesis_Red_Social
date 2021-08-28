@@ -109,6 +109,7 @@ export class HomeComponent implements OnInit {
             var result2 = Object.keys(result[i][1]).map((key) => [(key), result[i][1][key]]);
             for (let k = 0; k < result2.length; k++) {
               let temp = result2[k][1];
+              temp.img="../../../../../../assets/img/NoImage.png";
               $this.bookComents.push(temp);
             }
             break
