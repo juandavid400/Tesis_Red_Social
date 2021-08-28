@@ -25,4 +25,27 @@ export class NavigationBarComponent implements OnInit {
   //   this.router.navigate(['/profile']);
   // }
 
+
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  goToAutors() {
+    // this.router.navigate(['/home']);  
+    console.log("aquí van los autores");
+  }
+
+
+  goToGroups() {
+    this.router.navigate(['/groups']);
+  }
+
+  goToExternalProfiles() {
+    this.router.navigate(['/externalProfiles']);
+  }
 }

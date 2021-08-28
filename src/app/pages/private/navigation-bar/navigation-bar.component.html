@@ -16,43 +16,58 @@
 </div> -->
 
 
-<nav class="navbar navbar-expand-lg navbar-light  fixed-top" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
     <a class="navbar-brand" id="logo" href="#">
         <img src="../../../../assets/img/Logo - Blanco.svg" width="30" height="30" alt="">
         LecturApp
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" id="toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon navbar-light"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-bottom: 10px;">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                <a (click)="goToHome()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/home.svg" width="30" height="30" alt="">
+                   Inicio
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a (click)="goToHome()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/open-book-white.svg" width="30" height="30" alt="">
+                   Libros
+                </a>
+            </li>
+            <li class="nav-item">
+                <a (click)="goToAutors()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/writing.svg" width="30" height="30" alt="">
+                   Autores
+                </a>
+            </li>
+            <li class="nav-item">
+                <a (click)="goToExternalProfiles()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/group.svg" width="30" height="30" alt="">
+                   Amigos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a (click)="goToProfile()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/user.svg" width="30" height="30" alt="">
+                   Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a (click)="doLogout()" id="item">
+                    <img class="logoItem" src="../../../../assets/img/logout.svg" width="30" height="30" alt="">
+                    Cerrar Sesión
+                </a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
     </div>
 </nav>

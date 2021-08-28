@@ -13,7 +13,7 @@
 
 
 #navbar {
-    background-color: #0071bc;
+    background-color: #205493;
     // height: 10vh;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -29,6 +29,24 @@
         color: white;
         font-family: Helvetica;
         font-size: large;
+    }
+
+    #toggler{
+        margin-right: 15px;
+    }
+
+    #navbarSupportedContent{
+        margin-left: 20px;
+    }
+
+    #item{
+        color: white;
+
+    }
+    .logoItem{
+        height: 30px;
+        width: 30px;
+        padding: 5px;
     }
 }
 
