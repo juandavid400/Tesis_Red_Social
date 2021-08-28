@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class NavigationBarComponent implements OnInit {
 
+  public isCollapsed=true;
+  
   constructor(private router:Router,public authService: AuthService) { }
 
   ngOnInit(): void {
