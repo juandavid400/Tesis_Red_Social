@@ -79,10 +79,12 @@
             <ngb-carousel>
                 <ng-template *ngFor="let misLibros of misLibrosList; let i = index" id="{{'mislibros'+i}}" ngbSlide>
                     <div>
-                        <img (click)="deleteBook('eliminate-'+i)" id="{{'eliminate'+i}}" src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
-                        <div class="picsum-img-wrapper" >
-                            <img class="portadaImg" id="{{'imagen'+i}}" [src]="misLibros.Imagen" alt="Random first slide">
-    
+                        <img (click)="deleteBook('eliminate-'+i)" id="{{'eliminate'+i}}"
+                            src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg">
+                        <div class="picsum-img-wrapper">
+                            <img class="portadaImg" id="{{'imagen'+i}}" [src]="misLibros.Imagen"
+                                alt="Random first slide">
+
                         </div>
                         <div class="carousel-caption" style="z-index: 0;">
                             <h3 id="{{'titulo'+i}}" align="center">{{misLibros.Titulo}}</h3>
@@ -96,13 +98,10 @@
 
 
         <h1 class="name" style="margin-top: 20px;">Mis Amigos</h1>
-        <div *ngFor="let misAmigos of misAmigosList; let i = index" class="{{'containerAmigos'+i}}">
-
-            <img id="{{'foto'+i}}" [src]="misAmigos.ImagenAmigo" alt="foto" class="fotoImg">
-            <h1>{{misAmigos.NombreAmigo}}</h1>
-            <img (click)="deleteFriend('eliminate-'+i)" id="{{'eliminate'+i}}" src="../../../../assets/img/xIcon.svg"
-                alt="tag" class="tagImg">
-
+        <div *ngFor="let misAmigos of misAmigosList; let i = index" class="{{'containerAmigos'+i}}" id="friendsContainer">
+            <img id="{{'foto'+i}}" [src]="misAmigos.ImagenAmigo" alt="foto" class="friendImg">
+            <p class="friendsName">{{misAmigos.NombreAmigo}}</p>
+            <img (click)="deleteFriend('eliminate-'+i)" id="{{'eliminate'+i}}" src="../../../../assets/img/xIcon.svg" alt="tag" class="tagImg2">
         </div>
 
 

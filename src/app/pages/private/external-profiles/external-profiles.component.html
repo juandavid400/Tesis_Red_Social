@@ -1,6 +1,11 @@
 <app-navigation-bar></app-navigation-bar>
 
+
+
 <input type="text" name="searchBoxExternal" placeholder="Buscar ..." [(ngModel)]="searchBoxExternal">
+
+
+
 <div *ngIf="viewProfile == false" class="container">
     <div *ngFor="let user of registerList | filterExternalProfiles:searchBoxExternal; let i = index" >
         <img ng-change="viewExternalProfile(user.email)" (click)="viewExternalProfile(user.email)" id="{{'imagen'+i}}"  src="../../../../../../assets/img/NoImage.png" alt="imagenes" class="userImg">
@@ -11,6 +16,7 @@
         <button id="{{'button-'+i}}" (click)="addFriend(i)">Agregar amigo</button><br>
     </div> 
 </div>
+
 
 <!-- ---------------------------------------------------VIEW PROFILE----------------------------------------------- -->
 <div *ngIf="viewProfile == true" class="containerView" >

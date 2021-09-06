@@ -55,6 +55,7 @@ $text: #212121;
     align-content: center;
     align-items: center;
     flex-flow: column wrap;
+    margin-bottom: 80px;
 
     .ContainerDescription{
         // width: 80%;
@@ -117,6 +118,49 @@ $text: #212121;
         height: 500px; /* height of container */
         object-fit: cover;
     }
+
+    #friendsContainer{
+
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-flow:  row nowrap;
+        // background-color: indianred;
+        vertical-align: center;
+        width: 80%;
+        margin-top: -15px;
+
+        .friendsName{
+            color: $AzulClaro;
+            font-size: large;
+            // line-height: 40px;
+            margin-top: 10px;
+            // background-color: hotpink;
+            margin-left: 10px;
+            
+
+        }
+        
+        .friendImg{
+            height: 40px;
+            width: 40px;
+            border-radius: 100%;
+            border: solid 1px $text;
+            // background-color: indigo;
+        }
+
+        .tagImg2{
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            // position: absolute;
+            // z-index: 5
+            // left: -50px;
+            // top: 80px;
+        }
+    }
+
 
 
 }
