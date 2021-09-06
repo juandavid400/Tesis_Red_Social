@@ -4,9 +4,51 @@
     box-sizing: border-box;
 }
 
+$azulOscuro: #112e51;
+$AzulMedio: #205493;
+$AzulClaro: #0071bc;
+$text: #212121;
+
 .inputDescripcion{
     margin-left: 2%;
     width: 100%;
     height: 100px;
     border-radius: 20px;
+}
+
+
+.container{
+    padding-bottom: 50px;
+    margin-top: 25px;
+    // background-color: darkcyan;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+
+    .card-title{
+        margin-top: 5px;
+        margin-bottom: -2px;
+        color: $AzulMedio;
+        font-size: x-large;
+        
+    }
+
+    #name{
+        color: $AzulMedio;
+    }
+
+    .card-body{
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+    }
+
+    .button{
+        background-color: $AzulMedio;
+        padding: 5px;
+        margin-bottom: 15px;
+    }
 }
